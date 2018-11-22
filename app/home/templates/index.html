@@ -1,0 +1,485 @@
+{% extends "base_site.html" %}
+
+{% block title %} Dashboard 1 {% endblock title %}
+
+{% block stylesheets %}
+  {{ super() }}
+{% endblock stylesheets %}
+
+{% block content %}
+
+  <div class="right_col" role="main">
+    <div class="">
+      <div class="page-title">
+        <div class="title_left">
+          <h3>DR_SCAN</h3>
+        </div>
+
+        <div class="title_right">
+          <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+
+      <div class="row">
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>SNP SCANNER </h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+
+              <!-- Smart Wizard -->
+              <p>This step-by-step guide will give you instructions on how to put snps and analyze it</p>
+              <div id="wizard" class="form_wizard wizard_horizontal">
+                <ul class="wizard_steps">
+                  <li>
+                    <a href="#step-1">
+                      <span class="step_no">1</span>
+                      <span class="step_descr">
+                                        Step 1<br />
+                                        <small>Insert Snps        </small>
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#step-2">
+                      <span class="step_no">2</span>
+                      <span class="step_descr">
+                                        Step 2<br />
+                                        <small>Verify Cis-regulatory Elements</small>
+                                    </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#step-3">
+                      <span class="step_no">3</span>
+                      <span class="step_descr">
+                                        Step 3<br />
+                                        <small>Generate Sequences </small>
+                                    </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#step-4">
+                      <span class="step_no">4</span>
+                      <span class="step_descr">
+                                        Step 4<br />
+                                        <small>Differential TF  </small>
+                                    </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#step-5">
+                      <span class="step_no">5</span>
+                      <span class="step_descr">
+                                        Step 5<br />
+                                        <small>EPI         </small>
+                                    </span>
+                    </a>
+                  </li>
+                </ul>
+                <div id="step-1">
+                  <form class="form-horizontal form-label-left">
+
+                    <!-- step 1 -->
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      
+                        <div class="x_title">
+                          <h2 class="StepTitle"> Step 1 <small>Insert Snps </small></h2>
+                          <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                          <p class="text-muted font-13 m-b-30">
+                            First step is to insert snps id into its respective field. Click run to get snp information by its id
+                          </p>
+                          <div style="padding-bottom: 12px;">
+                            <div style="display: inline-flex">
+                              <form action="#" method='get' class='form-inline'>
+                                <select name="Genome Version" style="margin-right: 10px" class="form-control">
+                                  <option value="GRCh37.p13">GRCh37.p13</option>
+                                  <option value="GRCh38.p7">GRCh38.p7</option>
+                                </select> 
+                                <!--<div style="display: inline-flex"> </div>-->
+                                <input type="text" class="form-control" style="margin-right: 10px" name="snp_input" id="snp_input"></input>
+                                <button class="btn btn-success btn-xs submit" type="submit" id="btn" onclick="btnclick(this)"><i class="fa fa-play"></i> Run </button>
+                              </form> 
+                            </div>
+                            
+                          </div>
+                          <table id="datatable-buttons" class="table table-striped table-bordered">
+                            <thead>
+                              <tr>
+                                <th>Snp Name</th>
+                                <th>Location</th>
+                                <th>Chromossome</th>
+                                <th>Allele Wild Type</th>
+                                <th>Allele Variation</th>
+                                <th>Row Actions</th>
+                              </tr>
+                            </thead>
+            
+            
+                            <tbody id="t-body">
+                              <tr>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>
+                                  <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                                  <a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>
+                                  
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div>
+                            <!--<button class="btn btn-success btn-xs add-row"><i class="fa fa-plus"></i> Add snp id </button>-->
+                            
+                      </div>
+                      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+                      <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+                      <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+                        <script>
+                          //function for run button is getting value from snp name field
+                          function btnclick(e) {
+                           //$('#datatable-buttons tbody').on( 'click', '.btn.btn-success.btn-xs', function () {
+                            console.log("AAAA")
+                            var currentRow = e.parentNode;
+                            console.log(currentRow);
+                            //iterate through child nodes of current row to
+                            //find input tag
+                            //for (i = 0; i < currentRow.cells[0].childNodes.length; i++) { 
+                              
+                              //if(currentRow.cells[0].childNodes[i].nodeName == 'INPUT')
+                                //ajax request 'GET'
+                                //send snp id value to request
+                                //$.ajax("http://127.0.0.1:5000/home/index", {
+                                $.ajax( {
+                                  
+                                  url:'/get_snp_info',
+                                  type: 'POST',
+                                  data: {
+                                    snp_name: $('input').val(),
+                                  },
+                                  success: function(response) {
+                                  // here you do whatever you want with the response variable
+                                  //create datatable variable
+                                  var t = $('#datatable-buttons').DataTable();
+                                  //add row
+                                  alert('done')
+                                  t.row( $(this).parents('tr') )
+                                   .remove()
+                                   .draw();
+
+                                  t.row.add( [
+                                      '<input type="text" class="form-control" name="" value="" placeholder="e.g. rs1231">',
+                                      response.location,
+                                      response.chrom,
+                                      response.allele_wt,
+                                      response.allele_wt,
+                                      '<a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
+                                      '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
+                                  ] ).draw();
+
+                                }
+                                });
+                                
+                              
+                             
+                          //});   
+                          }
+                        </script>
+                         <script>
+                          //add snp
+                          $(function() {
+                            $('#btn').click(function() {
+                              $.ajax( "http://127.0.0.1:5000/home/index",{
+                                url: '/get_snp_info',
+                                data: $('form').serialize(),
+                                type: 'POST',
+                                success: function(response) {
+                                  console.log(response.location);
+                                },
+                                error: function(error) {
+                                  console.log(error);
+                                }
+                                });
+                              });
+                            });
+                        </script>
+ <!--                            <script type="text/javascript">
+                              //this is the add row script. JQuery function using datatable API
+                              //adding row only works when deleting the default row at first
+                              $(document).ready(function() {
+                                //when clicking on the add button
+                                $('.btn.btn-success.btn-xs.add-row').on( 'click', function () {
+                                  //create datatable variable
+                                  var t = $('#datatable-buttons').DataTable();
+                                  //add row
+                                  t.row.add( [
+                                      '-',
+                                      '-',
+                                      '-',
+                                      '-',
+                                      '-',
+                                      '<a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
+                                      '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
+                                  ] ).draw();
+                              
+                                } );
+                              
+                              } );
+                              
+                            </script> -->
+                            <script type="text/javascript">
+                              //JQuery to delete rows.Working and using the datatables API
+                              $(document).ready(function() {
+ 
+                                $('#datatable-buttons tbody').on( 'click', '.btn.btn-danger.btn-xs', function () {
+                                  var table_edit = $('#datatable-buttons').DataTable();
+                                  table_edit
+                                    .row( $(this).parents('tr') )
+                                    .remove()
+                                    .draw();
+                                });
+                              });
+                              
+                            </script>
+                            <script>
+                            //JQuery for editing datatable
+                            //working
+                            //transform cells into editable text fields
+                            $(document).ready(function(){
+ 
+                              $('#datatable-buttons').on( 'click', '.btn.btn-info.btn-xs', function () {
+                                var myTable = $('#datatable-buttons').DataTable();
+                                var idx = myTable.row( $(this).parents('tr') ).index();
+                                console.log("IDX: " + idx)
+                                //every cell turns into editable text field
+                                myTable.cell(idx,0).data('<input type="text" class="form-control" name="" value="" placeholder="e.g. rs4232"></input>').draw();
+                                myTable.cell(idx,1).data('<input type="text" class="form-control" name="" value="" placeholder="e.g. 1231321"></input>').draw();
+                                myTable.cell(idx,2).data('<input type="text" class="form-control" name="" value="" placeholder="e.g. 11"></input>').draw();
+                                myTable.cell(idx,3).data('<input type="text" class="form-control" name="" value="" placeholder="e.g. A"></input>').draw();
+                                myTable.cell(idx,4).data('<input type="text" class="form-control" name="" value="" placeholder="e.g. C"></input>').draw();
+
+                              } );
+                            });
+                            </script>
+                            <script type=text/javascript>
+                              //run function
+                            </script>
+                    </div>
+                  </form>
+
+                </div>
+                
+                <div id="step-2">
+                    <!-- step 2 -->
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      
+                        <div class="x_title">
+                          <h2 class="StepTitle"> Step 2 <small>Verify Cis-Regulatory Elements </small></h2>
+                          <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                          <p class="text-muted font-13 m-b-30">
+                            Second step verify if the snps are in a cis-regulatory element
+                          </p>
+                          <div>
+                            <input type="text"></input>
+                            <a href="#" class="btn btn-success btn-xs"><i class="fa fa-play"></i> Run </a>
+                          </div>
+                          <table id="datatable-buttons" class="table table-striped table-bordered">
+                            <thead>
+                              <tr>
+                                <th>Snp Name</th>
+                                <th>State Model</th>
+                                <th>Tissue</th>
+                                <th>Regulatory Element</th>
+                                <th>Row Action</th>
+                              </tr>
+                            </thead>
+            
+            
+                            <tbody id="t-body">
+                              <tr>
+                              
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>
+                                  <a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>
+                                </td>
+                            
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      
+                    </div>
+                </div>
+                <!--<div class="col-md-12 col-sm-12 col-xs-12"></div>-->
+                <div id="step-3">
+                  <!-- step 3 -->
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                      
+                      <div class="x_title">
+                        <h2 class="StepTitle"> Step 3 <small>Generate Sequences </small></h2>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="x_content">
+                        <p class="text-muted font-13 m-b-30">
+                          Your generated sequences will show up here. click on the generate button
+                        </p>
+                        <a href="#" class="btn btn-success btn-xs"><i class="fa fa-play"></i> Generate </a>
+                        <p>
+
+                        </p>
+                        <button class="submit"></button>
+                      </div>
+                    
+                  </div>
+                
+                </div>
+                <div id="step-4">
+                  <!-- step 4 -->
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                      
+                      <div class="x_title">
+                        <h2 class="StepTitle"> Step 4 <small>Differential Transcription Factors </small></h2>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="x_content">
+                        <p class="text-muted font-13 m-b-30">
+                          Here is showing up all the differential transcription factors
+                        </p>
+                        <div>
+                            <a href="#" class="btn btn-success btn-xs"><i class="fa fa-play"></i> Run </a>
+                          </div>
+                          <table id="datatable-buttons" class="table table-striped table-bordered">
+                            <thead>
+                              <tr>
+                                <th>Motif ID</th>
+                                <th>Alt ID</th>
+                                <th>Sequene Name</th>
+                                <th>Strand</th>
+                                <th>Start</th>
+                                <th>End</th>
+                                <th>p-value</th>
+                                <th>q-value</th>
+                                <th>Matched Sequence</th>
+                              </tr>
+                            </thead>
+            
+            
+                            <tbody id="t-body">
+                              <tr>
+                              
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            
+                              </tr>
+                            </tbody>
+                          </table>
+                        
+                      </div>
+                    
+                  </div>
+                  
+                </div>
+                <div id="step-5">
+                  <!-- step 5 -->
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                      
+                      <div class="x_title">
+                        <h2 class="StepTitle"> Step 5 <small>Enhancer Promoter Interaction </small></h2>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="x_content">
+                        <p class="text-muted font-13 m-b-30">
+                          IN PROGRESS
+                        </p>
+                        
+                      </div>
+                    
+                  </div>
+                </div>
+
+              </div>
+              <!-- End SmartWizard Content -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+{% block javascripts %}
+  {{ super()}}
+  <!-- Table methods -->
+  <!-- tables.js -->
+  <script src=""></script>
+  <!-- Chart.js -->
+  <script src="{{ url_for('static', filename='vendors/Chart.js/dist/Chart.min.js') }}"></script>
+  <!-- gauge.js -->
+  <script src="{{ url_for('static', filename='vendors/gauge.js/dist/gauge.min.js') }}"></script>
+  <!-- Skycons -->
+  <script src="{{ url_for('static', filename='vendors/skycons/skycons.js') }}"></script>
+  <!-- Flot -->
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.pie.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.time.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.stack.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.resize.js') }}"></script>
+  <!-- Flot plugins -->
+  <script src="{{ url_for('static', filename='vendors/flot.orderbars/js/jquery.flot.orderBars.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/flot-spline/js/jquery.flot.spline.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/flot.curvedlines/curvedLines.js') }}"></script>
+  <!-- DateJS -->
+  <script src="{{ url_for('static', filename='vendors/DateJS/build/date.js') }}"></script>
+  <!-- JQVMap -->
+  <script src="{{ url_for('static', filename='vendors/jqvmap/dist/jquery.vmap.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/jqvmap/examples/js/jquery.vmap.sampledata.js') }}"></script>
+  <!-- jQuery Smart Wizard -->
+  <script src="{{ url_for('static', filename='vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js') }}"></script>
+   <!-- Datatables -->
+   <script src="{{ url_for('static', filename='vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/datatables.net-scroller/js/dataTables.scroller.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/jszip/dist/jszip.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/pdfmake/build/pdfmake.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/pdfmake/build/vfs_fonts.js') }}"></script>
+{% endblock javascripts %}
