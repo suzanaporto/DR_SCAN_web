@@ -16,6 +16,7 @@ import itertools
 import os
 import os.path
 from os import path
+import json
 
 #step_1---------function
 def get_snp_info(snp_id):
@@ -206,17 +207,20 @@ def verificar_snps (tecido, snps,snp_name,chrom):
         print ("nome da Snp: " + snp_name)
         if 'a' in locals():
           for m in a:
-            if ((m[0] == 'chr'+str(chrom))  and (  (int(m[1]) <= int(snps['location']) and int(m[2]) >= int(snps['location'])))):
+            if ((m[0] == 'chr'+str(chrom))  and (  (int(m[1]) <= int(snps['Location']) and int(m[2]) >= int(snps['Location'])))):
               print (" | Elemento Regulatório do STATE MODEL 25 do tecido "+ tecido + " :"  + state_25[int(m[3])])
+              row25 = {'snp_name':snp_name,'state_model':str(25),'tissue':tecido,'reg_elemnt':state_25[int(m[3])]}
         if 'b' in locals():
           for n in b:    
-            if (n[0] == 'chr'+str(chrom)  and (  (int(n[1]) <= int(snps['location']) and int(n[2]) >= int(snps['location'])))):
+            if (n[0] == 'chr'+str(chrom)  and (  (int(n[1]) <= int(snps['Location']) and int(n[2]) >= int(snps['Location'])))):
               print (" | Elemento Regulatório do STATE MODEL 15 do tecido "+ tecido + " :" + state_15[int(n[3])])
+              row15 = {'snp_name':snp_name,'state_model':str(15),'tissue':tecido,'reg_elemnt':state_15[int(n[3])]}       
         if 'c' in locals():
           for l in c:    
-            if (l[0] == 'chr'+str(chrom)  and (  (int(l[1]) <= int(snps['location']) and int(l[2]) >= int(snps['location'])))):
+            if (l[0] == 'chr'+str(chrom)  and (  (int(l[1]) <= int(snps['Location']) and int(l[2]) >= int(snps['Location'])))):
               print (" | Elemento Regulatório do STATE MODEL 18 do tecido "+ tecido + " :" + state_18[int(l[3])])
-                      
+              row18 = {'snp_name':snp_name,'state_model':str(18),'tissue':tecido,'reg_elemnt':state_25[int(l[3])]}
+
         if path.exists("testando2.bed"):
           os.remove('testando2.bed')
           os.remove('testando2.bed.gz')
@@ -226,6 +230,8 @@ def verificar_snps (tecido, snps,snp_name,chrom):
         if path.exists("testando4.bed"):
           os.remove('testando4.bed')
           os.remove('testando4.bed.gz')
+
+        return row25,row15,row18
 
 @blueprint.route('/index',methods=['GET','POST'])
 @login_required
@@ -253,21 +259,26 @@ def teste():
 @blueprint.route('/verify_snps',methods=['GET','POST'])
 @login_required
 def verify_snps():
-    print("Here!")
-    x = "A"
+    dict_snps = []
+    #get snp list information from the datatable
     snp_list_rows = request.form['snp_list']
+    #transform it in a json file(dictionary?)
+    snp_list_rows = json.loads(snp_list_rows)
     print(snp_list_rows) 
     if request.method == 'POST':
         tissue_list = request.form['tissue_field'].split("|")
+        #iterate through tissues in tissues list
         for tissue in tissue_list:
-            for df_snp_info in snp_list_rows:
-                pass
-                #sample_dict = df_snp_info[df_snp_info["gnenome_versions"] == 'GRCh37.p13']['snp_info_dict'].values[0]
-                if str(snp_list_rows['chrom']) == '23':
+            #iterate through every snp
+            for snp_info in snp_list_rows:
+                print(snp_info)
+                #change chromossome type from number to 'X' or 'Y' string
+                if str(snp_info['Chromossome']) == '23':
                     chrom = 'X'
-                elif str(snp_list_rows['chrom']) == '24':
+                elif str(snp_info['Chromossome']) == '24':
                     chrom = 'Y'
                 else:
-                    chrom = snp_list_rows[0]['chrom']
-                verificar_snps(tissue, snp_list_rows, snp_list_rows['Snp Name'], chrom)
-    return x
+                    chrom = snp_info['Chromossome']
+                #TODO: change genome version for analysis (already done in the command line version)
+                dict_snps += verificar_snps(tissue, snp_info, snp_info['Snp Name'], chrom)
+    return jsonify(dict_snps)
