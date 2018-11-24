@@ -240,8 +240,8 @@
                             Second step verify if the snps are in a cis-regulatory element
                           </p>
                           <div>
-                            <form>
-                                <input type="text" name="tissue_field"></input>
+                            <form class="form-inline">
+                                <input type="text" name="tissue_field" id="tissue_field" class="form-control"></input>
                                 <a href="#" class="btn btn-success btn-xs verify"><i class="fa fa-play"></i> Run </a>
                             </form>
                             
@@ -304,24 +304,33 @@
                     }); 
                     console.log("HEAD: "+heads)
                     console.log("Row: "+rows[0]['Location'])
+                    var tissue = $('#tissue_field').val();
                     $.ajax({
                       url: 'http://127.0.0.1:5000/home/verify_snps',
                       type: 'POST',
                       dataType: 'json',
-                      data: { snp_list: rows,},
+                      data: { snp_list: JSON.stringify(rows), 
+                              tissue_field: tissue,
+                      },
                       async: false,
                       success:function(response) {
+                        //some debbugging
                         alert("DONE")
-                        //var t = $('#datatable-buttons').DataTable();
-                        //t.row.add( [
-                          //response[1],
-                          //response[0].location,
-                          //response[0].chrom,
-                          //response[0].allele_wt,
-                          //response[0].allele_v,
-                          //'<a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
-                          //'<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
-                          //] ).draw();
+                        console.log("LOG: " + response[0]['state_model'])
+                        console.log("SIZE: " + response.length)
+                        //declare datatable
+                        var t = $('#datatable-buttons-x').DataTable();
+                        //iterate through response to add rows in the table
+                        for(i=0;i<response.length;i++){
+                          t.row.add( [
+                          response[i]['snp_name'],
+                          response[i]['state_model'],
+                          response[i]['tissue'],
+                          response[i]['reg_elemnt'],
+                          '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
+                          ] ).draw();
+                        };
+                        
                       }
                               
                     });
