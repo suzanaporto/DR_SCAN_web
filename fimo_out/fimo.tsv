@@ -1,0 +1,39 @@
+motif_id	motif_alt_id	sequence_name	start	stop	strand	score	p-value	q-value	matched_sequence
+MA0069.1	Pax6	sequence_wild_type|rs3333|5|G|51	58	71	+	16.1222	1.63e-06	0.000567	TTCAAGCTTGAATT
+MA0069.1	Pax6	sequence_variation|rs3333|5|A|51	58	71	+	16.1222	1.63e-06	0.000567	TTCAAGCTTGAATT
+MA0154.3	EBF1	sequence_wild_type|rs1111|7|G|51	77	90	+	14.7213	5.7e-06	0.00137	GCTCCCACGGGACT
+MA0154.3	EBF1	sequence_variation|rs1111|7|T|51	77	90	+	14.7213	5.7e-06	0.00137	GCTCCCACGGGACT
+MA0154.3	EBF1	sequence_variation|rs1111|7|T|51	77	90	-	13.9836	8.3e-06	0.00137	AGTCCCGTGGGAGC
+MA0154.3	EBF1	sequence_wild_type|rs1111|7|G|51	77	90	-	13.9836	8.3e-06	0.00137	AGTCCCGTGGGAGC
+MA0069.1	Pax6	sequence_variation|rs3333|5|A|51	56	69	-	13.6444	1e-05	0.00173	TTCAAGCTTGAACT
+MA0069.1	Pax6	sequence_wild_type|rs3333|5|G|51	56	69	-	13.6444	1e-05	0.00173	TTCAAGCTTGAACT
+MA0907.1	HOXC13	sequence_variation|rs3333|5|A|51	87	97	-	13.6935	1.53e-05	0.00558	GCTTGTAAAAT
+MA0907.1	HOXC13	sequence_wild_type|rs3333|5|G|51	87	97	-	13.6935	1.53e-05	0.00558	GCTTGTAAAAT
+MA0813.1	TFAP2B(var.3)	sequence_wild_type|rs1111|7|G|51	44	56	+	12.4262	2.57e-05	0.0144	AGCCCTTGCGGCT
+MA0146.2	Zfx	sequence_variation|rs1111|7|T|51	15	28	-	12.697	2.66e-05	0.00821	AGGAGCTAGGCCTC
+MA0146.2	Zfx	sequence_wild_type|rs1111|7|G|51	15	28	-	12.697	2.66e-05	0.00821	AGGAGCTAGGCCTC
+MA0815.1	TFAP2C(var.3)	sequence_wild_type|rs1111|7|G|51	44	56	+	11.4483	3.71e-05	0.0127	AGCCCTTGCGGCT
+MA0872.1	TFAP2A(var.3)	sequence_wild_type|rs1111|7|G|51	44	56	-	11.4262	4.29e-05	0.0127	AGCCGCAAGGGCT
+MA0815.1	TFAP2C(var.3)	sequence_wild_type|rs1111|7|G|51	44	56	-	10.9655	4.58e-05	0.0127	AGCCGCAAGGGCT
+MA0872.1	TFAP2A(var.3)	sequence_wild_type|rs1111|7|G|51	44	56	+	11.2295	4.64e-05	0.0127	AGCCCTTGCGGCT
+MA0527.1	ZBTB33	sequence_variation|rs1111|7|T|51	78	92	+	11.0606	4.67e-05	0.0146	CTCCCACGGGACTGG
+MA0527.1	ZBTB33	sequence_wild_type|rs1111|7|G|51	78	92	+	11.0606	4.67e-05	0.0146	CTCCCACGGGACTGG
+MA1099.1	Hes1	sequence_variation|rs1111|7|T|51	72	81	+	10.1469	5.15e-05	0.0172	GGCACGCTCC
+MA1099.1	Hes1	sequence_wild_type|rs1111|7|G|51	72	81	+	10.1469	5.15e-05	0.0172	GGCACGCTCC
+MA0813.1	TFAP2B(var.3)	sequence_wild_type|rs1111|7|G|51	44	56	-	10.2787	6.18e-05	0.0173	AGCCGCAAGGGCT
+MA0788.1	POU3F3	sequence_variation|rs3333|5|A|51	74	86	+	10.98	6.25e-05	0.0222	TATATGCAAGTTA
+MA0788.1	POU3F3	sequence_wild_type|rs3333|5|G|51	74	86	+	10.98	6.25e-05	0.0222	TATATGCAAGTTA
+MA0164.1	Nr2e3	sequence_wild_type|rs3333|5|G|51	61	67	-	12.8571	6.51e-05	0.0123	CAAGCTT
+MA0164.1	Nr2e3	sequence_variation|rs3333|5|A|51	61	67	-	12.8571	6.51e-05	0.0123	CAAGCTT
+MA0164.1	Nr2e3	sequence_variation|rs3333|5|A|51	60	66	+	12.8571	6.51e-05	0.0123	CAAGCTT
+MA0164.1	Nr2e3	sequence_wild_type|rs3333|5|G|51	60	66	+	12.8571	6.51e-05	0.0123	CAAGCTT
+MA0135.1	Lhx3	sequence_variation|rs3333|5|A|51	78	90	-	9.94059	7.6e-05	0.0267	AAATTAACTTGCA
+MA0135.1	Lhx3	sequence_wild_type|rs3333|5|G|51	78	90	-	9.94059	7.6e-05	0.0267	AAATTAACTTGCA
+MA0528.1	ZNF263	sequence_variation|rs1111|7|T|51	47	67	-	9.02041	9.16e-05	0.0578	CGAGGATGTGGAGCCGAAAGG
+MA0813.1	TFAP2B(var.3)	sequence_variation|rs1111|7|T|51	44	56	+	8.98361	9.45e-05	0.0176	AGCCCTTTCGGCT
+MA0906.1	HOXC12	sequence_variation|rs3333|5|A|51	87	97	-	9.96364	9.59e-05	0.0349	GCTTGTAAAAT
+MA0906.1	HOXC12	sequence_wild_type|rs3333|5|G|51	87	97	-	9.96364	9.59e-05	0.0349	GCTTGTAAAAT
+
+# FIMO (Find Individual Motif Occurrences): Version 5.0.2 compiled on Sep 14 2018 at 17:23:41
+# The format of this file is described at http://meme-suite.org//doc/fimo-output-format.html.
+# fimo ./meme.meme ./seq.fna
