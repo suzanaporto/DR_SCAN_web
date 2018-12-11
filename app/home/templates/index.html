@@ -106,7 +106,11 @@
                           <div style="padding-bottom: 12px;">
                             <div style="display: inline-flex">
                               <form class='form-inline'>
+<<<<<<< HEAD
                                 <select name="genome_version" style="margin-right: 10px" class="form-control" id="genome">
+=======
+                                <select name="genome_version" style="margin-right: 10px" class="form-control">
+>>>>>>> 11f9506f8fd474fb447f3b18b6eb81739dcc6a49
                                   <option value="GRCh37.p13">GRCh37.p13</option>
                                   <option value="GRCh38.p7">GRCh38.p7</option>
                                 </select> 
@@ -159,16 +163,25 @@
                         $(function() {
                           $('.btn.btn-success.btn-xs.submit').bind('click', function() {
                             event.preventDefault()
+<<<<<<< HEAD
                             var snp = $('#snp_input').val();
                             var genome = $('#genome option:selected').text() 
                             console.log("SNP: "+snp)
                             console.log("Genome: " + genome)
+=======
+                            var snp = $('#snp_input').val() 
+                            console.log("SNP: "+snp)
+>>>>>>> 11f9506f8fd474fb447f3b18b6eb81739dcc6a49
                             $.ajax({
                               url: 'http://127.0.0.1:5000/home/get_snp_info',
                               type: 'POST',
                               dataType: 'json',
+<<<<<<< HEAD
                               data: { snp_name: snp,
                                       genome_v: genome},
+=======
+                              data: { snp_name: snp},
+>>>>>>> 11f9506f8fd474fb447f3b18b6eb81739dcc6a49
                               async: false,
                               success:function(response) {
                                 var t = $('#datatable-buttons').DataTable();
@@ -270,7 +283,11 @@
                 <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
                 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
                 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<<<<<<< HEAD
                 <script type="text/javascript">
+=======
+                <script type=text/javascript>
+>>>>>>> 11f9506f8fd474fb447f3b18b6eb81739dcc6a49
                   $(function() {
                     //Getting information from snp_datatable first step
                     //When run button is clicked in the second step
@@ -437,7 +454,11 @@
                         <div>
                             <a href="#" class="btn btn-success btn-xs dif-tf"><i class="fa fa-play"></i> Run </a>
                           </div>
+<<<<<<< HEAD
                           <table id="datatable-buttons-ft" class="table table-striped table-bordered">
+=======
+                          <table id="datatable-buttons ft" class="table table-striped table-bordered">
+>>>>>>> 11f9506f8fd474fb447f3b18b6eb81739dcc6a49
                             <thead>
                               <tr>
                                 <th>Motif ID</th>

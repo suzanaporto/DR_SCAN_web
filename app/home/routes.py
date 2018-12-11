@@ -17,7 +17,10 @@ import os
 import os.path
 from os import path
 import json
+<<<<<<< HEAD
 import app.home.sequence_gen as sg
+=======
+>>>>>>> 11f9506f8fd474fb447f3b18b6eb81739dcc6a49
 
 #step_1---------function
 def get_snp_info(snp_id):
@@ -251,6 +254,7 @@ def teste():
     if request.method == 'POST':
         #get value from snp_name field from html form
         snp_input_form = str(request.form['snp_name'])
+<<<<<<< HEAD
         genome_input = str(request.form['genome_v'])
         snp = snp_input_form[2:]
         print(snp)
@@ -262,6 +266,13 @@ def teste():
         if "GRCh37" in genome_input:
             snp_info = a[1][0]
         return jsonify(snp_info,snp_input_form)
+=======
+        snp = snp_input_form[2:]
+        print(snp)
+        a = get_snp_info(snp)
+        print(a[0][0])
+        return jsonify(a[0][0],snp_input_form)
+>>>>>>> 11f9506f8fd474fb447f3b18b6eb81739dcc6a49
         
 @blueprint.route('/verify_snps',methods=['GET','POST'])
 @login_required
@@ -288,6 +299,7 @@ def verify_snps():
                     chrom = snp_info['Chromossome']
                 #TODO: change genome version for analysis (already done in the command line version)
                 dict_snps += verificar_snps(tissue, snp_info, snp_info['Snp Name'], chrom)
+<<<<<<< HEAD
     return jsonify(dict_snps)
 
 @blueprint.route('/gen_sequence',methods=['GET','POST'])
@@ -680,3 +692,6 @@ def dif_tf():
         print(dataframe_out)
 
     return jsonify(dataframe_out)
+=======
+    return jsonify(dict_snps)
+>>>>>>> 11f9506f8fd474fb447f3b18b6eb81739dcc6a49
