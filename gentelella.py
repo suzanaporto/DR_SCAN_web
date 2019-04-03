@@ -13,4 +13,8 @@ except KeyError:
     exit('Error: Invalid GENTELELLA_CONFIG_MODE environment variable entry.')
 
 app = create_app(config_mode)
+#TODO see if it needs this changes
+# UPLOAD_FOLDER = '/app/home/'
+# ALLOWED_EXTENSIONS = set(['txt', 'csv', 'xlsx'])
+# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 Migrate(app, db)

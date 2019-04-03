@@ -48,7 +48,7 @@
                       <span class="step_no">1</span>
                       <span class="step_descr">
                                         Step 1<br />
-                                        <small>Insert Snps        </small>
+                                        <small>Insert Snps</small>
                       </span>
                     </a>
                   </li>
@@ -57,7 +57,7 @@
                       <span class="step_no">2</span>
                       <span class="step_descr">
                                         Step 2<br />
-                                        <small>Verify Cis-regulatory Elements</small>
+                                        <small>Cis-regulatory Elements</small>
                                     </span>
                     </a>
                   </li>
@@ -66,7 +66,7 @@
                       <span class="step_no">3</span>
                       <span class="step_descr">
                                         Step 3<br />
-                                        <small>Generate Sequences </small>
+                                        <small>Generate Sequences</small>
                                     </span>
                     </a>
                   </li>
@@ -75,7 +75,7 @@
                       <span class="step_no">4</span>
                       <span class="step_descr">
                                         Step 4<br />
-                                        <small>Differential TF  </small>
+                                        <small>Differential TF</small>
                                     </span>
                     </a>
                   </li>
@@ -101,22 +101,28 @@
                         </div>
                         <div class="x_content">
                           <p class="text-muted font-13 m-b-30">
-                            First step is to insert snps id into its respective field. Click run to get snp information by its id
+                            First step is to insert snps id into its respective field. Click run to get snp information by its id. 
+                            Or you can insert an .xlsx file with your SNPs, create one column named SNP, and write down all SNPs IDs
                           </p>
                           <div style="padding-bottom: 12px;">
                             <div style="display: inline-flex">
                               <form class='form-inline'>
-<<<<<<< HEAD
-                                <select name="genome_version" style="margin-right: 10px" class="form-control" id="genome">
-=======
-                                <select name="genome_version" style="margin-right: 10px" class="form-control">
->>>>>>> 11f9506f8fd474fb447f3b18b6eb81739dcc6a49
+                                <!-- <select name="genome_version" style="margin-right: 10px" class="form-control" id="genome">
                                   <option value="GRCh37.p13">GRCh37.p13</option>
                                   <option value="GRCh38.p7">GRCh38.p7</option>
-                                </select> 
+                                </select>  -->
                                 <!--<div style="display: inline-flex"> </div>-->
                                 <input type="text" class="form-control" style="margin-right: 10px" name="snp_input" id="snp_input"></input>
                                 <button class="btn btn-success btn-xs submit" ><i class="fa fa-play"></i> Run </button>
+                                <p style="margin-right: 30px;margin-left: 30px"> or </p>
+                                <form class="form_inline" enctype=app/home action="/uploader">
+                                  <div class="input-group">
+                                    <div class="custom-file" style="display: inline-flex">
+                                      <input type="file" class="custom-file-input" id="inputGroupFile01" name="file" aria-describedby="inputGroupFileAddon01"></input>
+                                      <button class="btn btn-success btn-xs submit_file" ><i class="fa fa-play"></i> Run </button>
+                                    </div>
+                                  </div>
+                                </form>
                               </form>
                             </div>
                             
@@ -135,18 +141,6 @@
             
             
                             <tbody id="t-body">
-                              <!-- <tr>
-                                <td>rs1123</td>
-                                <td>123123</td>
-                                <td>11</td>
-                                <td>A</td>
-                                <td>C</td>
-                                <td>
-                                  <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                                  <a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>
-                                  
-                                </td>
-                              </tr> -->
                             </tbody>
                           </table>
                         </div>
@@ -163,34 +157,28 @@
                         $(function() {
                           $('.btn.btn-success.btn-xs.submit').bind('click', function() {
                             event.preventDefault()
-<<<<<<< HEAD
                             var snp = $('#snp_input').val();
-                            var genome = $('#genome option:selected').text() 
+                            // var genome = $('#genome option:selected').text() 
+                            var genome = "GRCh37.p13"
                             console.log("SNP: "+snp)
                             console.log("Genome: " + genome)
-=======
-                            var snp = $('#snp_input').val() 
-                            console.log("SNP: "+snp)
->>>>>>> 11f9506f8fd474fb447f3b18b6eb81739dcc6a49
                             $.ajax({
                               url: 'http://127.0.0.1:5000/home/get_snp_info',
                               type: 'POST',
                               dataType: 'json',
-<<<<<<< HEAD
                               data: { snp_name: snp,
                                       genome_v: genome},
-=======
-                              data: { snp_name: snp},
->>>>>>> 11f9506f8fd474fb447f3b18b6eb81739dcc6a49
                               async: false,
                               success:function(response) {
+                                console.log("RESPOSTA")
+                                console.log(response[0][0])
                                 var t = $('#datatable-buttons').DataTable();
                                     t.row.add( [
                                       response[1],
-                                      response[0].location,
-                                      response[0].chrom,
-                                      response[0].allele_wt,
-                                      response[0].allele_v,
+                                      response[0][0].location,
+                                      response[0][0].chrom,
+                                      response[0][0].allele_wt,
+                                      response[2],
                                       '<a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
                                       '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
                                     ] ).draw();
@@ -200,6 +188,33 @@
                             });
                           });
                         </script>
+                        <!-- <script type=text/javascript>
+                          $(function() {
+                            $('.btn.btn-success.btn-xs.submit_file').bind('click', function() {
+                              event.preventDefault()
+                              console.log("AQUI")
+                              $.ajax({
+                                url: 'http://127.0.0.1:5000/home/uploader',
+                                type: 'POST',
+                                dataType: 'json',
+                                success:function(response) {
+                                console.log("RESPOSTA")
+                                console.log(response[0][0])
+                                var t = $('#datatable-buttons').DataTable();
+                                    t.row.add( [
+                                      response[1],
+                                      response[0][0].location,
+                                      response[0][0].chrom,
+                                      response[0][0].allele_wt,
+                                      response[2],
+                                      '<a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
+                                      '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
+                                    ] ).draw();
+                              }
+                              });
+                            });
+                          });
+                        </script> -->
                
                             <script type="text/javascript">
                               //JQuery to delete rows.Working and using the datatables API
@@ -264,17 +279,30 @@
                               <tr>
                                 <th>Snp Name</th>
                                 <th>State Model</th>
-                                <th>Tissue</th>
+                                <th >Tissue</th>
                                 <th>Regulatory Element</th>
-                                <th>Row Action</th>
+                                <!-- <th>Row Action</th> -->
                               </tr>
                             </thead>
-            
             
                             <tbody id="t-body">
                               
                             </tbody>
                           </table>
+                          <!-- Delete snps from all tables option -->
+                          <div>
+                             
+                                  <h2 class=""> Step 2.5 <small>Delete SNPs from Tables </small></h2>
+                                  
+                                  <p class="text-muted font-13 m-b-30">
+                                    Delete SNPs if you dont want to analyze them for third and fourth steps
+                                  </p>
+         
+                            <form class="form-inline">
+                                <input type="text" name="delete_snp" id="delete_snp" class="form-control"></input>
+                                <a href="#" class="btn btn-danger btn-xs delete_s"><i class="fa fa-trash-o"></i> Delete </a>
+                            </form>
+                          </div>
                         </div>
                       
                     </div>
@@ -283,11 +311,7 @@
                 <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
                 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
                 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<<<<<<< HEAD
                 <script type="text/javascript">
-=======
-                <script type=text/javascript>
->>>>>>> 11f9506f8fd474fb447f3b18b6eb81739dcc6a49
                   $(function() {
                     //Getting information from snp_datatable first step
                     //When run button is clicked in the second step
@@ -304,7 +328,14 @@
                       $("#datatable-buttons tbody tr").each(function () {
                         cur = {};
                         $(this).find("td").each(function(i, v) {
-                          cur[heads[i]] = $(this).text().trim();
+                          // TODO : testing
+                          if ($(this).text() == ''){
+                            console.log("HERE")
+                            cur[heads[i]] = $(this).children("input").val().trim();
+                            console.log(cur[heads[i]])
+                          }else{
+                            cur[heads[i]] = $(this).text().trim();
+                          }
                       });
                         rows.push(cur);
                         cur = {};
@@ -324,9 +355,12 @@
                         //some debbugging
                         alert("DONE")
                         console.log("LOG: " + response[0]['state_model'])
-                        console.log("SIZE: " + response.length)
+                        console.log("SIZE: " + response)
                         //declare datatable
-                        var t = $('#datatable-buttons-x').DataTable();
+                        var t = $('#datatable-buttons-x').DataTable({
+                          rowsGroup: [0,2,3],
+                          'aaData': {response}
+                        });
                         //iterate through response to add rows in the table
                         for(i=0;i<response.length;i++){
                           t.row.add( [
@@ -334,16 +368,17 @@
                           response[i]['state_model'],
                           response[i]['tissue'],
                           response[i]['reg_elemnt'],
-                          '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
+                          // '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
                           ] ).draw();
                         };
-                        
+
                       }
                               
                     });
                     });
                   });
                   </script>
+                  
                   <script type="text/javascript">
                     //JQuery to delete rows.Working and using the datatables API
                     $(document).ready(function() {
@@ -356,6 +391,42 @@
                         });
                       });
                                                       
+                  </script>
+                  <!-- STEP 2.5 Delete snps button function -->
+                  <script type="text/javascript">
+                    //STEP 2.5 delete snps logic
+                    $(function() {
+                    //Getting information from snp_datatable first step
+                    //When run button is clicked in the second step
+                    $('.btn.btn-danger.btn-xs.delete_s').bind('click', function() {
+                      //important method so that the ajax doesn't refresh the page
+                      event.preventDefault()
+                      //variable to put the header
+                      var heads = [];
+                      $("#datatable-buttons thead").find("th").each(function () {
+                        heads.push($(this).text().trim());
+                      });
+                      //variable for the rows of the datatable
+                      var rows = [];
+                      $("#datatable-buttons tbody tr").each(function () {
+                        cur = {};
+                        $(this).find("td").each(function(i, v) {
+                          // TODO : testing
+                          if ($(this).text() == ''){
+                            console.log("HERE")
+                            cur[heads[i]] = $(this).children("input").val().trim();
+                            console.log(cur[heads[i]])
+                          }else{
+                            cur[heads[i]] = $(this).text().trim();
+                          }
+                        });
+                        rows.push(cur);
+                        cur = {};
+                    }); 
+                    
+                    });
+                  });
+                                                                        
                   </script>
                 <!--<div class="col-md-12 col-sm-12 col-xs-12"></div>-->
                 <div id="step-3">
@@ -371,7 +442,7 @@
                           Your generated sequences will show up here. click on the generate button
                         </p>
                         <a href="#" class="btn btn-success btn-xs generate"><i class="fa fa-play"></i> Generate </a>
-                        <p id="sequences">
+                        <p id="sequences" style="font-family: 'Courier New', Courier, monospace">
 
                         </p>
                       </div>
@@ -379,6 +450,8 @@
                   </div>
                 
                 </div>
+                <!-- <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script> -->
+                <!-- <script src="dataTables.rowsGroup.js"></script> -->
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
                 <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
                 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -401,7 +474,13 @@
                       $("#datatable-buttons tbody tr").each(function () {
                         cur = {};
                         $(this).find("td").each(function(i, v) {
-                          cur[heads[i]] = $(this).text().trim();
+                          if ($(this).text() == ''){
+                            console.log("HERE")
+                            cur[heads[i]] = $(this).children("input").val().trim();
+                            console.log(cur[heads[i]])
+                          }else{
+                            cur[heads[i]] = $(this).text().trim();
+                          }
                       });
                         rows.push(cur);
                         cur = {};
@@ -412,8 +491,8 @@
                     if (element) {
                       element.innerHTML = "";
                     }
-                    console.log("HEAD: "+heads)
-                    console.log("Row: "+rows[0]['Location'])
+                    console.log("HEAD: "+ heads)
+                    console.log("Row: "+ rows[0]['Location'])
                     $.ajax({
                       url: 'http://127.0.0.1:5000/home/gen_sequence',
                       type: 'POST',
@@ -428,6 +507,7 @@
                         //insert text into 'p' element
                         for(i=0;i<response[0].length;i++){
                           $('#sequences').append( document.createTextNode( response[0][i]) );
+                          $('#sequences').append( document.createElement( "br") );
                           console.log(response[0][i])
                         }
                         //console.log("VALUE OF FIMO_RESULTS: " + response[1]);
@@ -439,6 +519,7 @@
                   });
 
                 </script>
+                
                 <div id="step-4">
                   <!-- step 4 -->
                   <div class="col-md-12 col-sm-12 col-xs-12">
@@ -454,11 +535,7 @@
                         <div>
                             <a href="#" class="btn btn-success btn-xs dif-tf"><i class="fa fa-play"></i> Run </a>
                           </div>
-<<<<<<< HEAD
                           <table id="datatable-buttons-ft" class="table table-striped table-bordered">
-=======
-                          <table id="datatable-buttons ft" class="table table-striped table-bordered">
->>>>>>> 11f9506f8fd474fb447f3b18b6eb81739dcc6a49
                             <thead>
                               <tr>
                                 <th>Motif ID</th>
@@ -472,17 +549,11 @@
                                 <th>Matched Sequence</th>
                               </tr>
                             </thead>
-            
-            
                             <tbody id="t-body">
-                             
                             </tbody>
                           </table>
-                        
+                        </div>
                       </div>
-                    
-                  </div>
-                  
                 </div>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
                 <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
@@ -543,11 +614,109 @@
                       </div>
                       <div class="x_content">
                         <p class="text-muted font-13 m-b-30">
-                          IN PROGRESS
+                          This part shows enhancer and promoter interaction pairs of snps inside enhancer region
                         </p>
-                        
+                        <div>
+                          <form class="form-inline">
+                              <input type="text" name="tissue_field_epi" id="tissue_field_epi" class="form-control"></input>
+                              <a href="#" class="btn btn-success btn-xs epi"><i class="fa fa-play"></i> Run </a>
+                          </form>
+
+                        </div>
+                        <table id="datatable-buttons-epi" class="table table-striped table-bordered">
+                          <thead>
+                            <tr>
+                              <th>SNP</th>
+                              <th>Location</th>
+                              <th>Gene ID</th>
+                              <th>Gene</th>
+                              <th>Gene Location</th>
+                              <th>Score</th>
+                              <th>Tissue</th>
+                              <th>File Type</th>
+                            </tr>
+                          </thead>
+          
+                          <tbody id="t-body">
+                            
+                          </tbody>
+                        </table>
                       </div>
-                    
+                          
+                    </div>
+                  </div>
+                  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+                  <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+                  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+                  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                  <script type="text/javascript">
+                        $(function() {
+                          //Getting information from snp_datatable first step
+                          //When run button is clicked in the second step
+                          $('.btn.btn-success.btn-xs.epi').bind('click', function() {
+                            //important method so that the ajax doesn't refresh the page
+                            event.preventDefault()
+                            //variable to put the header
+                            var heads = [];
+                            $("#datatable-buttons thead").find("th").each(function () {
+                              heads.push($(this).text().trim());
+                            });
+                            //variable for the rows of the datatable
+                            var rows = [];
+                            $("#datatable-buttons tbody tr").each(function () {
+                              cur = {};
+                              $(this).find("td").each(function(i, v) {
+                              // TODO : testing
+                              if ($(this).text() == ''){
+                                console.log("HERE")
+                                cur[heads[i]] = $(this).children("input").val().trim();
+                                console.log(cur[heads[i]])
+                              }else{
+                                cur[heads[i]] = $(this).text().trim();
+                              }
+                            });
+                            rows.push(cur);
+                            cur = {};
+                          }); 
+                          console.log("HEAD: "+heads)
+                          console.log("Row: "+rows[0]['Location'])
+                          var tissue = $('#tissue_field_epi').val();
+                          $.ajax({
+                            url: 'http://127.0.0.1:5000/home/epi',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: { snp_list: JSON.stringify(rows), 
+                                    tissue_field_epi: tissue,
+                            },
+                            async: false,
+                            success:function(response) {
+                              //some debbugging
+                              alert("DONE")
+                              console.log("LOG: " + response['SNP'])
+                              console.log("SIZE: " + response.length)
+                              //declare datatable
+                              var t = $('#datatable-buttons-epi').DataTable({
+                                // 'rowsGroup': [1]
+                              });
+                              //iterate through response to add rows in the table
+                                for(i=0;i<response.length;i++){
+                                  t.row.add( [
+                                    response[i]['SNP'],
+                                    response[i]['Location'],
+                                    response[i]['Gene ID'],
+                                    response[i]['Gene'],
+                                    response[i]['Gene Location'],
+                                    response[i]['Score'],
+                                    response[i]['Tissue'],
+                                    response[i]['File_Type'],
+                                  ] ).draw();
+                                };  
+                            }
+                                    
+                          });
+                          });
+                        });
+                        </script>
                   </div>
                 </div>
 
@@ -564,6 +733,8 @@
 {% block javascripts %}
   {{ super()}}
   <!-- Table methods -->
+  <!-- Rows Group -->
+  <!-- <script src="//cdn.rawgit.com/ashl1/datatables-rowsgroup/v1.0.0/dataTables.rowsGroup.js"></script> -->
   <!-- tables.js -->
   <script src=""></script>
   <!-- Chart.js -->
