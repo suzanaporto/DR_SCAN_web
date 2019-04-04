@@ -114,16 +114,19 @@
                                 <!--<div style="display: inline-flex"> </div>-->
                                 <input type="text" class="form-control" style="margin-right: 10px" name="snp_input" id="snp_input"></input>
                                 <button class="btn btn-success btn-xs submit" ><i class="fa fa-play"></i> Run </button>
+                              </form>
                                 <p style="margin-right: 30px;margin-left: 30px"> or </p>
-                                <form class="form_inline" enctype=app/home action="/uploader">
+                                <form class="form_inline" enctype="multipart/form-data" action="/uploader" method="POST" id="form_file">
                                   <div class="input-group">
                                     <div class="custom-file" style="display: inline-flex">
                                       <input type="file" class="custom-file-input" id="inputGroupFile01" name="file" aria-describedby="inputGroupFileAddon01"></input>
-                                      <button class="btn btn-success btn-xs submit_file" ><i class="fa fa-play"></i> Run </button>
+                                      <button type="submit" class="btn btn-success btn-xs submit_file" id="submit_file" onclick="$('.load').show();"><i class="fa fa-play"></i> Run </button>
+                                      <div class="load" style="display:inline-block"> <i class="fa fa-cog fa-spin fa-5x fa-fw"style="font-size: 25px;"></i> </div>
+                                      <span class="load">Processing...</span>
                                     </div>
                                   </div>
                                 </form>
-                              </form>
+                              
                             </div>
                             
                           </div>
@@ -153,48 +156,60 @@
                       <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
                       <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
                       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                      <script>
+                        //hide loading image
+                        $(document).ready(function() {
+                          $('.load').hide();
+                        });
+                     </script>
                       <script type=text/javascript>
                         $(function() {
-                          $('.btn.btn-success.btn-xs.submit').bind('click', function() {
-                            event.preventDefault()
-                            var snp = $('#snp_input').val();
-                            // var genome = $('#genome option:selected').text() 
-                            var genome = "GRCh37.p13"
-                            console.log("SNP: "+snp)
-                            console.log("Genome: " + genome)
+                          $('#form_file').on("submit", function() {
+                            // event.preventDefault()
+                            //send file excel file
+                            var formData = new FormData(this); 
+                            console.log("FORMDATA:"+ formData)
                             $.ajax({
-                              url: 'http://127.0.0.1:5000/home/get_snp_info',
+                              
+                              url: 'http://127.0.0.1:5000/home/uploader',
                               type: 'POST',
-                              dataType: 'json',
-                              data: { snp_name: snp,
-                                      genome_v: genome},
-                              async: false,
+                              // dataType: 'json',
+                              data: formData,
                               success:function(response) {
-                                console.log("RESPOSTA")
-                                console.log(response[0][0])
-                                var t = $('#datatable-buttons').DataTable();
+                                //success
+                                //hide after success
+                                $('.load').hide();
+                                console.log("Success form")
+                                console.log(response)
+                                for(i=0;i<response.length;i++){
+                                  var t = $('#datatable-buttons').DataTable();
                                     t.row.add( [
-                                      response[1],
-                                      response[0][0].location,
-                                      response[0][0].chrom,
-                                      response[0][0].allele_wt,
-                                      response[2],
+                                      response[i][1],
+                                      response[i][0][0].location,
+                                      response[i][0][0].chrom,
+                                      response[i][0][0].allele_wt,
+                                      response[i][2],
                                       '<a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
                                       '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
                                     ] ).draw();
-                              }
-                              
+                                }
+                              },
+                              cache: false,
+                              contentType: false,
+                              processData: false
                               });
+                              return false;
                             });
                           });
                         </script>
-                        <!-- <script type=text/javascript>
+                        <script type=text/javascript>
                           $(function() {
-                            $('.btn.btn-success.btn-xs.submit_file').bind('click', function() {
+                            $('.btn.btn-success.btn-xs.submit').bind('click', function() {
                               event.preventDefault()
-                              console.log("AQUI")
+                              var snp = $('#snp_input').val();
                               $.ajax({
-                                url: 'http://127.0.0.1:5000/home/uploader',
+                                url: 'http://127.0.0.1:5000/home/get_snp_info',
+                                data: {snp_name: snp},
                                 type: 'POST',
                                 dataType: 'json',
                                 success:function(response) {
@@ -214,7 +229,7 @@
                               });
                             });
                           });
-                        </script> -->
+                        </script>
                
                             <script type="text/javascript">
                               //JQuery to delete rows.Working and using the datatables API
@@ -270,7 +285,9 @@
                           <div>
                             <form class="form-inline">
                                 <input type="text" name="tissue_field" id="tissue_field" class="form-control"></input>
-                                <a href="#" class="btn btn-success btn-xs verify"><i class="fa fa-play"></i> Run </a>
+                                <a href="#" class="btn btn-success btn-xs verify" onclick="$('.load2').show();"><i class="fa fa-play"></i> Run </a>
+                                <div class="load2" style="display:inline-block"> <i class="fa fa-cog fa-spin fa-5x fa-fw"style="font-size: 25px;"></i> </div>
+                                <span class="load2">Processing...</span>
                             </form>
                             
                           </div>
@@ -311,6 +328,12 @@
                 <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
                 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
                 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                <script>
+                  //hide loading image
+                  $(document).ready(function() {
+                    $('.load2').hide();
+                  });
+                </script>
                 <script type="text/javascript">
                   $(function() {
                     //Getting information from snp_datatable first step
@@ -318,66 +341,50 @@
                     $('.btn.btn-success.btn-xs.verify').bind('click', function() {
                       //important method so that the ajax doesn't refresh the page
                       event.preventDefault()
-                      //variable to put the header
-                      var heads = [];
-                      $("#datatable-buttons thead").find("th").each(function () {
-                        heads.push($(this).text().trim());
-                      });
-                      //variable for the rows of the datatable
-                      var rows = [];
-                      $("#datatable-buttons tbody tr").each(function () {
-                        cur = {};
-                        $(this).find("td").each(function(i, v) {
-                          // TODO : testing
-                          if ($(this).text() == ''){
-                            console.log("HERE")
-                            cur[heads[i]] = $(this).children("input").val().trim();
-                            console.log(cur[heads[i]])
-                          }else{
-                            cur[heads[i]] = $(this).text().trim();
-                          }
-                      });
-                        rows.push(cur);
-                        cur = {};
-                    }); 
-                    console.log("HEAD: "+heads)
-                    console.log("Row: "+rows[0]['Location'])
-                    var tissue = $('#tissue_field').val();
-                    $.ajax({
-                      url: 'http://127.0.0.1:5000/home/verify_snps',
-                      type: 'POST',
-                      dataType: 'json',
-                      data: { snp_list: JSON.stringify(rows), 
+                      
+                      var table = $('#datatable-buttons').DataTable();
+                      var rows2 = table.rows().data().length;
+                      var row_list = []
+                      for(i=0;i<rows2;i++){
+                        row_list.push(table.rows().data()[i])
+                      };
+                      var tissue = $('#tissue_field').val();
+                      console.log("ROWS2")
+                      console.log(rows2)
+                      $.ajax({
+                        
+                        url: 'http://127.0.0.1:5000/home/verify_snps',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: { snp_list:JSON.stringify(row_list), 
                               tissue_field: tissue,
-                      },
-                      async: false,
-                      success:function(response) {
-                        //some debbugging
-                        alert("DONE")
-                        console.log("LOG: " + response[0]['state_model'])
-                        console.log("SIZE: " + response)
-                        //declare datatable
-                        var t = $('#datatable-buttons-x').DataTable({
-                          rowsGroup: [0,2,3],
-                          'aaData': {response}
-                        });
-                        //iterate through response to add rows in the table
-                        for(i=0;i<response.length;i++){
-                          t.row.add( [
-                          response[i]['snp_name'],
-                          response[i]['state_model'],
-                          response[i]['tissue'],
-                          response[i]['reg_elemnt'],
-                          // '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
-                          ] ).draw();
-                        };
-
-                      }
-                              
-                    });
+                        },
+                        // async: false,
+                        success:function(response) {
+                          //some debbugging
+                          $('.load2').hide();
+                          console.log("LOG: " + response[0]['state_model'])
+                          console.log("SIZE: " + response)
+                          //declare datatable
+                          var t = $('#datatable-buttons-x').DataTable({
+                            rowsGroup: [0,2,3],
+                            'aaData': {response}
+                          });
+                          //iterate through response to add rows in the table
+                          for(i=0;i<response.length;i++){
+                            t.row.add( [
+                            response[i]['snp_name'],
+                            response[i]['state_model'],
+                            response[i]['tissue'],
+                            response[i]['reg_elemnt'],
+                            // '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
+                            ] ).draw();
+                          };
+                        }
+                      });
                     });
                   });
-                  </script>
+                </script>
                   
                   <script type="text/javascript">
                     //JQuery to delete rows.Working and using the datatables API

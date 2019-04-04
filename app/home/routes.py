@@ -16,83 +16,108 @@ import itertools
 import os
 import os.path
 from os import path
+import time
 import json
 import app.home.sequence_gen as sg
 
 #step_1---------function
 def get_snp_info(snp_id):
-    ### Download Snp Info based on its id
-    def request_info_by_id(snp_id):
-        server = "https://api.ncbi.nlm.nih.gov/variation/v0/beta/refsnp/"
 
-        r = requests.get(server+snp_id, headers={ "Content-Type" : "application/json"})
+  ### Download Snp Info based on its id/OK
+  def request_info_by_id(snp_id):
 
-        if not r.ok:
-            r.raise_for_status()
-            sys.exit()
+    server = "https://api.ncbi.nlm.nih.gov/variation/v0/beta/refsnp/"
+    #needs to be tested without sleep function in continuous network connection
+    # time.sleep(5)
 
-        decoded = r.json()
+    r = requests.get(server+snp_id, headers={ "Content-Type" : "application/json"})
 
-        return decoded
+    print("STATUS CODE: " + str(r.status_code))
 
-    ### Parse information about the SNP requested
-    def parse_json(res_json):
-        #get num of genomic placements (versions)
-        num_genomic_placements = len(res_json['primary_snapshot_data']['placements_with_allele'])  
+    if not r.ok:
+      r.raise_for_status()
+      sys.exit()
 
-        # sometimes there is empty fields in the genomic placements... Detect and remove them! 
-        temp_assertion = np.array([res_json['primary_snapshot_data']['placements_with_allele'][idx]['placement_annot']['seq_id_traits_by_assembly'] for idx in range(num_genomic_placements)])
-        ban_idexs = np.array([len(x)!=0 for x in temp_assertion])
-        temp_assertion = temp_assertion[ban_idexs]
+    decoded = r.json()
 
-        # Get the genomic placements (versions) names
-        gnenome_versions = [ x[0]["assembly_name"] for x in temp_assertion]
+    r.connection.close()
 
-        # get the number of variations
-        allele_variations = len([res_json['primary_snapshot_data']['placements_with_allele'][idx]['alleles'] for idx in range(1)][0])
+    return decoded
 
-        # get the snps idexes
-        snp_idxs = np.array([[res_json['primary_snapshot_data']['placements_with_allele'][x]['alleles'][y]['hgvs'] for y in range(allele_variations)][1:] for x in range(num_genomic_placements)])
+  ### Parse information about the SNP requested/ not OK
+  def parse_json(res_json):
+    
+    ##placements with allele idx
+    num_seq_id = len(res_json['primary_snapshot_data']['placements_with_allele'])
+    ##ban indexes of some placements with allele idx/verifying seq id
+    true_hgvs = np.array([res_json['primary_snapshot_data']['placements_with_allele'][idx]['seq_id'] for idx in range(num_seq_id)])
+    ban = np.array([x[:2] == 'NC' for x in true_hgvs])
+    ###OLD VERSION
+    #get num of genomic placements (versions)
+    num_genomic_placements = len(res_json['primary_snapshot_data']['placements_with_allele']) 
 
-        # remove those without valid genomic placements (versions) names 
-        snp_idxs = snp_idxs[ban_idexs].tolist()
+    # sometimes there is empty fields in the genomic placements... Detect and remove them! 
+    temp_assertion = np.array([res_json['primary_snapshot_data']['placements_with_allele'][idx]['placement_annot']['seq_id_traits_by_assembly'] for idx in range(num_genomic_placements)])
+    ban_idexs = np.array([len(x)!=0 for x in temp_assertion])
+    temp_assertion = temp_assertion[ban]
 
-        return {"gnenome_versions": gnenome_versions, "snp_idxs_list": snp_idxs}
+    # Get the genomic placements (versions) names
+    gnenome_versions = [ x[0]["assembly_name"] for x in temp_assertion]
 
-    ### Parse snp information
-    def snp_info_input(snp_id):
-        base = re.compile("[^(\d)\w+]").split(snp_id)[3]
-        base_chrom = re.compile("[^(\d)\w+]").split(snp_id)[0]
+    # get the number of variations
+    allele_variations = len([res_json['primary_snapshot_data']['placements_with_allele'][idx]['alleles'] for idx in range(1)][0])
 
-        #  print (base)
-        dict = {
-            #"chrom" : re.compile("(\d+).0").split(base_chrom)[2],
-            "chrom" : re.compile(".0{2,}").split(base_chrom)[1],
-            "location" : re.compile("[^(\d)]").split(base)[0],
-            "allele_wt" : re.compile("[(\d)]").split(base)[-1],
-            "allele_v": re.compile("[^(\d)\w+]").split(snp_id)[4]
-        }
-        return dict
+    # get the snps idexes
+    snp_idxs = np.array([[res_json['primary_snapshot_data']['placements_with_allele'][x]['alleles'][y]['hgvs'] for y in range(allele_variations)][1:] for x in range(num_genomic_placements)])
 
-    ### Download Snp Info based on its id
-    res_json = request_info_by_id(snp_id)
-        
-    ### Parse information about the SNP requested
-    snp_info = parse_json(res_json)
+    # remove those without valid genomic placements (versions) names 
+    snp_idxs = snp_idxs[ban].tolist()
 
-    df_snp_info = pd.DataFrame(snp_info)
-        
-    gn_version = []
 
-    for snp_idx_list in df_snp_info['snp_idxs_list']:
-        res = []
-        for snp_idx in snp_idx_list:
-            res.append(snp_info_input(snp_idx))  
-        gn_version.append(res)
+    return {"gnenome_versions": gnenome_versions, "snp_idxs_list": snp_idxs}
 
-    df_snp_info['snp_info_dict'] = gn_version  
-            
-    return df_snp_info	
+  ### Parse snp information
+  def snp_info_input(snp_id):
+    base = re.compile("[^(\d)\w+]").split(snp_id)[3]
+    base_chrom = re.compile("[^(\d)\w+]").split(snp_id)[0]
+    #  print (base)
+    dict = {
+        "chrom" : re.compile(".0{2,}").split(base_chrom)[1],
+        "location" : re.compile("[^(\d)]").split(base)[0],
+        "allele_wt" : re.compile("[(\d)]").split(base)[-1],
+        "allele_v": re.compile("[^(\d)\w+]").split(snp_id)[4]
+    }
+
+    return dict
+  
+  ### Download Snp Info based on its id
+  res_json = request_info_by_id(snp_id)
+  
+  ##verify if snp has another name
+  if "merged_snapshot_data" in res_json:
+    new_snp = res_json['merged_snapshot_data']['merged_into'][0]
+    res_json = request_info_by_id(new_snp)
+    
+  empty_df = pd.DataFrame()  
+  ##verify if snp is actually an indel
+  if res_json['primary_snapshot_data']['variant_type'] != 'snv':
+    return empty_df
+  
+  ### Parse information about the SNP requested
+  snp_info = parse_json(res_json)
+
+  df_snp_info = pd.DataFrame(snp_info)
+  
+  gn_version = []
+
+  for snp_idx_list in df_snp_info['snp_idxs_list']:
+    res = []
+    for snp_idx in snp_idx_list:
+      res.append(snp_info_input(snp_idx))  
+    gn_version.append(res)
+
+  df_snp_info['snp_info_dict'] = gn_version  
+  return df_snp_info
 
 ## step_2---------function
 # state model verification
@@ -186,8 +211,8 @@ def apply_state_model(tissue, snp_list, snp_id, chrom):
         if 'state15_bed_f' in locals():
             for element in state15_bed_f:
                 eq_chrom = element[0] == 'chr'+str(chrom)
-                start_loc = int(element[1]) <= int(snp_list['Location'])
-                stop_loc = int(element[2]) >= int(snp_list['Location'])
+                start_loc = int(element[1]) <= int(snp_list[1])
+                stop_loc = int(element[2]) >= int(snp_list[1])
                 if( (eq_chrom)  and (  (start_loc) and (stop_loc) ) ):
                     print(" | STATE MODEL 15 regulatory element of tissue "+ tissue + " :"  + state_15[int(element[3])])
                     row15 = {'snp_name':snp_id,'state_model':str(15),'tissue':tissue,'reg_elemnt':state_15[int(element[3])]}
@@ -197,8 +222,8 @@ def apply_state_model(tissue, snp_list, snp_id, chrom):
         if 'state18_bed_f' in locals():
             for element in state18_bed_f:
                 eq_chrom = element[0] == 'chr'+str(chrom)
-                start_loc = int(element[1]) <= int(snp_list['Location'])
-                stop_loc = int(element[2]) >= int(snp_list['Location'])
+                start_loc = int(element[1]) <= int(snp_list[1])
+                stop_loc = int(element[2]) >= int(snp_list[1])
                 if( (eq_chrom)  and (  (start_loc) and (stop_loc) ) ):
                     print(" | STATE MODEL 18 regulatory element of tissue "+ tissue + ":"  + state_18[int(element[3])])
                     row18 = {'snp_name':snp_id,'state_model':str(18),'tissue':tissue,'reg_elemnt':state_18[int(element[3])]}
@@ -208,8 +233,8 @@ def apply_state_model(tissue, snp_list, snp_id, chrom):
         if 'state25_bed_f' in locals():
             for element in state25_bed_f:
                 eq_chrom = element[0] == 'chr'+str(chrom)
-                start_loc = int(element[1]) <= int(snp_list['Location'])
-                stop_loc = int(element[2]) >= int(snp_list['Location'])
+                start_loc = int(element[1]) <= int(snp_list[1])
+                stop_loc = int(element[2]) >= int(snp_list[1])
                 if( (eq_chrom)  and (  (start_loc) and (stop_loc) ) ):
                     print(" | STATE MODEL 25 regulatory element of tissue "+ tissue + " :"  + state_25[int(element[3])])
                     row25 = {'snp_name':snp_id,'state_model':str(25),'tissue':tissue,'reg_elemnt':state_25[int(element[3])]}
@@ -1285,6 +1310,7 @@ def index():
 def route_template(template):
     return render_template(template + '.html')
 
+#get only one snp
 @blueprint.route('/get_snp_info',methods=['GET','POST'])
 @login_required
 def teste():
@@ -1294,7 +1320,7 @@ def teste():
         minor_allele = []
         #get value from snp_name field from html form
         snp_input_form = str(request.form['snp_name'])
-        genome_input = str(request.form['genome_v'])
+        genome_input = "GRCh37.19"
         snp = snp_input_form[2:]
         #print(snp)
         a = get_snp_info(snp)
@@ -1329,14 +1355,14 @@ def verify_snps():
             for snp_info in snp_list_rows:
                 print(snp_info)
                 #change chromossome type from number to 'X' or 'Y' string
-                if str(snp_info['Chromossome']) == '23':
+                if str(snp_info[2]) == '23':
                     chrom = 'X'
-                elif str(snp_info['Chromossome']) == '24':
+                elif str(snp_info[2]) == '24':
                     chrom = 'Y'
                 else:
-                    chrom = snp_info['Chromossome']
-                #TODO: change genome version for analysis (already done in the command line version)
-                dict_snps += apply_state_model(tissue, snp_info, snp_info['Snp Name'], chrom)
+                    chrom = snp_info[2]
+
+                dict_snps += apply_state_model(tissue, snp_info, snp_info[0], chrom)
     return jsonify(dict_snps)
 #step 3
 @blueprint.route('/gen_sequence',methods=['GET','POST'])
@@ -1751,12 +1777,52 @@ def epi():
 @login_required
 def uploader():
     if request.method == 'POST':
+        print("REQUEST")
+        print(request.files) 
         f = request.files['file']
-        f.save(f.filename)
-        return process(f.filename)
+        file_path = "app/home/drscan.xlsx"
+        #save xlsx file
+        f.save(file_path)
+        #xlsx file into pandas dataframe
+        input = pd.read_excel(file_path)
+        #drop duplicates
+        input.drop_duplicates(subset=['SNPS'], keep='first',inplace=True)
+        #create snp list
+        snp_list = input['SNPS']
+        #only snp ids/ without rs
+        snp_ids = []
+        for snp in snp_list:
+            snp_ids.append(snp.strip()[2:])
+        
+        return jsonify(process(snp_ids))
 
-def process(filename):
-    pass
+def process(snp_ids):
+    list_all_snps = []
+    for snp in snp_ids:
+
+        minor_allele = []
+        a = get_snp_info(snp)
+        #verify if its an empty dataframe
+        if a.empty:
+            print("NOT SNV")
+            print("rs"+snp)
+            continue
+        #dictionary with information based on genome version
+        sample_dict = a[a["gnenome_versions"].str.contains("GRCh37")]['snp_info_dict'].values[0]
+        #if sample dict is bigger than 1(more than one allele in variation)
+        if len(sample_dict) > 1:
+            for dic in sample_dict:
+                minor_allele.append(dic['allele_v'])
+            #Stringfy minor allele
+            join_symbol = "|"
+            str_minor = join_symbol.join(minor_allele)
+        else:
+            str_minor = sample_dict[0]['allele_v']
+        snp_id_form = 'rs'+snp
+        snp_in = [sample_dict,snp_id_form,str_minor]
+        list_all_snps.append(snp_in)
+    return list_all_snps
+        #return dataframe
 
 @blueprint.route('index2/get_table',methods=['GET','POST'])
 @login_required
@@ -2706,12 +2772,3 @@ def get_info_dictionary():
     }
     if request.method == 'POST':
         return jsonify(roadmap,fantom_5)
-# @app.route('/uploader', methods = ['GET', 'POST'])
-# @login_required
-# def upload_file():
-#    if request.method == 'POST':
-#     #   f = request.files['file']
-#     #   f.save(secure_filename(f.filename))
-#     #   print('file uploaded successfully')
-#     #   print(f)
-#       return 'file uploaded successfully'
