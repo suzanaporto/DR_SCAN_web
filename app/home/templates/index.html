@@ -426,30 +426,19 @@
                         var rows2 = table_reg.rows().data();
                         var row_idx_del = [];
                         var row2_idx_del = [];
-                        //loop through array and delete the snp from table 1 and table 2
-                        // for(j=0;j<snps_del_array.length;j++){
-                        //   for(i=0;i<rows.length;i++){
-                        //     console.log("ROWS i:" + rows[i][0]);
-                        //     if(rows[i][0] == snps_del_array[j].trimLeft()){
-                        //       row_idx_del.push(i);
-                        //     }
-                        //   }
-                        // }
                         console.log("INDEXES 1:"+row_idx_del);
-                        //delete all at once
+                        //loop and remove tr from table 1
                         for(j=0;j<snps_del_array.length;j++){
-                          table_snp.rows().every(function () {
-                          var data = this.data();
-                          var id = this.id();
-                          console.log(data)
-                          if(data[0] == snps_del_array[j].trimLeft()){
-                            console.log("DEBUG")
-                            table_snp.row(id).remove().draw();
-                          }
-                        });
-                        }
                         
-
+                          table_snp.rows().nodes().each(function(a,b) {
+                            if($(a).children().eq(0).text() == snps_del_array[j].trimLeft()){
+                              table_snp.rows(a).remove();
+                            }
+                          });
+                        }
+                        table_snp.rows().invalidate();
+                        table_snp.draw();
+                        //loop and remove tr from table 1
                         for(k=0;k<snps_del_array.length;k++){
                           for(l=0;l<rows2.length;l++){
                             if(rows2[l][0] == snps_del_array[k].trimLeft()){
