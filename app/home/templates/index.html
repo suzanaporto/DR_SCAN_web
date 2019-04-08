@@ -167,8 +167,7 @@
                           $('#form_file').on("submit", function() {
                             // event.preventDefault()
                             //send file excel file
-                            var formData = new FormData(this); 
-                            console.log("FORMDATA:"+ formData)
+                            var formData = new FormData(this);
                             $.ajax({
                               
                               url: 'http://127.0.0.1:5000/home/uploader',
@@ -176,8 +175,8 @@
                               // dataType: 'json',
                               data: formData,
                               success:function(response) {
-                                //success
-                                //hide after success
+                                
+                                //hide gif after success
                                 $('.load').hide();
                                 console.log("Success form")
                                 console.log(response)
@@ -250,17 +249,17 @@
                             //working
                             //transform cells into editable text fields
                             $(document).ready(function(){
- 
+                              event.preventDefault()
                               $('#datatable-buttons').on( 'click', '.btn.btn-info.btn-xs', function () {
                                 var myTable = $('#datatable-buttons').DataTable();
                                 var idx = myTable.row( $(this).parents('tr') ).index();
                                 console.log("IDX: " + idx)
                                 //every cell turns into editable text field
-                                myTable.cell(idx,0).data('<input type="text" class="form-control" name="" value="" placeholder="e.g. rs4232"></input>').draw();
-                                myTable.cell(idx,1).data('<input type="text" class="form-control" name="" value="" placeholder="e.g. 1231321"></input>').draw();
-                                myTable.cell(idx,2).data('<input type="text" class="form-control" name="" value="" placeholder="e.g. 11"></input>').draw();
-                                myTable.cell(idx,3).data('<input type="text" class="form-control" name="" value="" placeholder="e.g. A"></input>').draw();
-                                myTable.cell(idx,4).data('<input type="text" class="form-control" name="" value="" placeholder="e.g. C"></input>').draw();
+                                myTable.cell(idx,0).data('<input type="text" class="form-control" name="" value="" placeholder="rs4232"></input>').draw();
+                                myTable.cell(idx,1).data('<input type="text" class="form-control" name="" value="" placeholder="1231321"></input>').draw();
+                                myTable.cell(idx,2).data('<input type="text" class="form-control" name="" value="" placeholder="11"></input>').draw();
+                                myTable.cell(idx,3).data('<input type="text" class="form-control" name="" value="" placeholder="A"></input>').draw();
+                                myTable.cell(idx,4).data('<input type="text" class="form-control" name="" value="" placeholder="C"></input>').draw();
 
                               } );
                             });
@@ -308,32 +307,35 @@
                           </table>
                           <!-- Delete snps from all tables option -->
                           <div>
-                             
-                                  <h2 class=""> Step 2.5 <small>Delete SNPs from Tables </small></h2>
-                                  
-                                  <p class="text-muted font-13 m-b-30">
-                                    Delete SNPs if you dont want to analyze them for third and fourth steps
-                                  </p>
-         
+                            <!--Step 2.5 title-->
+                            <h2 class=""> Step 2.5 <small>Delete SNPs from Tables </small></h2>
+                              <!--Explanation-->
+                              <p class="text-muted font-13 m-b-30">
+                                Delete SNPs if you dont want to analyze them for third and fourth steps
+                              </p>
+                            <!--Delete snps form/ Delete from step 1 and step 2-->
                             <form class="form-inline">
+                                <!--Text fiel to insert snp ids-->
                                 <input type="text" name="delete_snp" id="delete_snp" class="form-control"></input>
-                                <a href="#" class="btn btn-danger btn-xs delete_s"><i class="fa fa-trash-o"></i> Delete </a>
+                                <!--Button to delete snps-->
+                                <a href="#" class="btn btn-danger btn-xs delete_snps"><i class="fa fa-trash-o"></i> Delete </a>
                             </form>
                           </div>
                         </div>
-                      
                     </div>
                 </div>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
                 <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
                 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
                 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+                <!--hide loading image-->
                 <script>
-                  //hide loading image
                   $(document).ready(function() {
                     $('.load2').hide();
                   });
                 </script>
+                <!--Verify Regulatory elements button (Step 2 Button)-->
                 <script type="text/javascript">
                   $(function() {
                     //Getting information from snp_datatable first step
@@ -341,18 +343,25 @@
                     $('.btn.btn-success.btn-xs.verify').bind('click', function() {
                       //important method so that the ajax doesn't refresh the page
                       event.preventDefault()
-                      
+
+                      //table from step 1
                       var table = $('#datatable-buttons').DataTable();
+                      //table from step 2
+                      var table_re = $('#datatable-buttons-x').DataTable();
+
+                      //get snp info from step 1
                       var rows2 = table.rows().data().length;
                       var row_list = []
                       for(i=0;i<rows2;i++){
                         row_list.push(table.rows().data()[i])
                       };
                       var tissue = $('#tissue_field').val();
-                      console.log("ROWS2")
-                      console.log(rows2)
+                      
+                      //delete data from table 2
+                      table_re.rows().remove().draw();
+
                       $.ajax({
-                        
+
                         url: 'http://127.0.0.1:5000/home/verify_snps',
                         type: 'POST',
                         dataType: 'json',
@@ -361,23 +370,19 @@
                         },
                         // async: false,
                         success:function(response) {
-                          //some debbugging
+                          //hide load button
                           $('.load2').hide();
+                          //some debbugging
                           console.log("LOG: " + response[0]['state_model'])
-                          console.log("SIZE: " + response)
                           //declare datatable
-                          var t = $('#datatable-buttons-x').DataTable({
-                            rowsGroup: [0,2,3],
-                            'aaData': {response}
-                          });
+                          var t = $('#datatable-buttons-x').DataTable();
                           //iterate through response to add rows in the table
                           for(i=0;i<response.length;i++){
                             t.row.add( [
-                            response[i]['snp_name'],
-                            response[i]['state_model'],
-                            response[i]['tissue'],
-                            response[i]['reg_elemnt'],
-                            // '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
+                              response[i]['snp_name'],
+                              response[i]['state_model'],
+                              response[i]['tissue'],
+                              response[i]['reg_elemnt'],
                             ] ).draw();
                           };
                         }
@@ -385,8 +390,8 @@
                     });
                   });
                 </script>
-                  
-                  <script type="text/javascript">
+                  <!--Delete snps old version-->
+                  <!-- <script type="text/javascript">
                     //JQuery to delete rows.Working and using the datatables API
                     $(document).ready(function() {
                       $('#datatable-buttons-x tbody').on( 'click', '.btn.btn-danger.btn-xs', function () {
@@ -397,45 +402,68 @@
                                 .draw();
                         });
                       });
-                                                      
-                  </script>
+
+                  </script> -->
                   <!-- STEP 2.5 Delete snps button function -->
                   <script type="text/javascript">
                     //STEP 2.5 delete snps logic
                     $(function() {
-                    //Getting information from snp_datatable first step
-                    //When run button is clicked in the second step
-                    $('.btn.btn-danger.btn-xs.delete_s').bind('click', function() {
-                      //important method so that the ajax doesn't refresh the page
-                      event.preventDefault()
-                      //variable to put the header
-                      var heads = [];
-                      $("#datatable-buttons thead").find("th").each(function () {
-                        heads.push($(this).text().trim());
-                      });
-                      //variable for the rows of the datatable
-                      var rows = [];
-                      $("#datatable-buttons tbody tr").each(function () {
-                        cur = {};
-                        $(this).find("td").each(function(i, v) {
-                          // TODO : testing
-                          if ($(this).text() == ''){
-                            console.log("HERE")
-                            cur[heads[i]] = $(this).children("input").val().trim();
-                            console.log(cur[heads[i]])
-                          }else{
-                            cur[heads[i]] = $(this).text().trim();
+                      //Getting information from snp_datatable first step
+                      //When run button is clicked in the second step
+                      $('.btn.btn-danger.btn-xs.delete_snps').bind('click', function() {
+                        //important method so that the ajax doesn't refresh the page
+                        event.preventDefault()
+                        //get snps from text field
+                        var snps = document.getElementById("delete_snp").value;
+                        console.log(snps);
+                        //split string
+                        var snps_del_array = snps.split(",");
+
+                        var table_snp = $('#datatable-buttons').DataTable();
+                        var table_reg = $('#datatable-buttons-x').DataTable();
+
+                        var rows = table_snp.rows().data();
+                        var rows2 = table_reg.rows().data();
+                        var row_idx_del = [];
+                        var row2_idx_del = [];
+                        //loop through array and delete the snp from table 1 and table 2
+                        // for(j=0;j<snps_del_array.length;j++){
+                        //   for(i=0;i<rows.length;i++){
+                        //     console.log("ROWS i:" + rows[i][0]);
+                        //     if(rows[i][0] == snps_del_array[j].trimLeft()){
+                        //       row_idx_del.push(i);
+                        //     }
+                        //   }
+                        // }
+                        console.log("INDEXES 1:"+row_idx_del);
+                        //delete all at once
+                        for(j=0;j<snps_del_array.length;j++){
+                          table_snp.rows().every(function () {
+                          var data = this.data();
+                          var id = this.id();
+                          console.log(data)
+                          if(data[0] == snps_del_array[j].trimLeft()){
+                            console.log("DEBUG")
+                            table_snp.row(id).remove().draw();
                           }
                         });
-                        rows.push(cur);
-                        cur = {};
-                    }); 
-                    
+                        }
+                        
+
+                        for(k=0;k<snps_del_array.length;k++){
+                          for(l=0;l<rows2.length;l++){
+                            if(rows2[l][0] == snps_del_array[k].trimLeft()){
+                              row2_idx_del.push(l);
+                            }
+                          }
+                        }
+                        console.log("INDEXES 2:"+row2_idx_del);
+                        //delete all at once
+                        table_reg.rows(row2_idx_del).remove().draw();
+                      });
                     });
-                  });
-                                                                        
                   </script>
-                <!--<div class="col-md-12 col-sm-12 col-xs-12"></div>-->
+
                 <div id="step-3">
                   <!-- step 3 -->
                   <div class="col-md-12 col-sm-12 col-xs-12">
@@ -471,6 +499,12 @@
                     $('.btn.btn-success.btn-xs.generate').bind('click', function() {
                       //important method so that ajax doesn't refresh the page
                       event.preventDefault()
+                      var table = $('#datatable-buttons').DataTable();
+                      var rows2 = table.rows().data().length;
+                      var row_list = []
+                      for(i=0;i<rows2;i++){
+                        row_list.push(table.rows().data()[i])
+                      };
                       //variable to put the header
                       var heads = [];
                       $("#datatable-buttons thead").find("th").each(function () {
@@ -504,7 +538,7 @@
                       url: 'http://127.0.0.1:5000/home/gen_sequence',
                       type: 'POST',
                       dataType: 'json',
-                      data: { snp_list: JSON.stringify(rows) },
+                      data: { snp_list: JSON.stringify(row_list) },
                       async: false,
                       success:function(response) {
                         //some debbugging

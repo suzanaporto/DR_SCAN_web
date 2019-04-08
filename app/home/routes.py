@@ -247,8 +247,14 @@ def apply_state_model(tissue, snp_list, snp_id, chrom):
         if 'row18' not in locals():
             row18 = {'snp_name':"DO NOT EXIST",'state_model':str(18),'tissue':tissue,'reg_elemnt':"DO NOT EXIST"}
         
+        #create row with all 3 rows
+        row = {'snp_name':snp_id,
+                'state_model':str(25)+" | "+str(18)+" | "+str(15),
+                'tissue':tissue,
+                'reg_elemnt':row25['reg_elemnt']+" | "+row18['reg_elemnt']+" | "+row15['reg_elemnt']
+        }
         #return info to javascript
-        return row25,row15,row18
+        return row
 
 # step 5 function
 #enhancer promoter interaction
@@ -1362,7 +1368,7 @@ def verify_snps():
                 else:
                     chrom = snp_info[2]
 
-                dict_snps += apply_state_model(tissue, snp_info, snp_info[0], chrom)
+                dict_snps.append(apply_state_model(tissue, snp_info, snp_info[0], chrom))
     return jsonify(dict_snps)
 #step 3
 @blueprint.route('/gen_sequence',methods=['GET','POST'])
@@ -1477,13 +1483,15 @@ def gen_sequence():
     if request.method == 'POST':
         #get snp list information from the datatable
         filtered_snp = json.loads(request.form['snp_list'])
-        #TODO: receive as a parameter
+        #hardcoded genome version
         gnenome_version = 'GRCh37.p13'
-
+        #debug information
+        print(filtered_snp)
         #get snps ids from filtered list (stage 2)
         snp_ids_list = []
         for x in filtered_snp:
-            snp_ids_list.append(x['Snp Name'])
+            # snp_ids_list.append(x['Snp Name'])
+            snp_ids_list.append(x[0])
         
         #only unique values
         snp_ids_list_unique = list(set(snp_ids_list))
