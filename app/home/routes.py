@@ -1375,80 +1375,81 @@ def verify_snps():
 @login_required
 def gen_sequence():
 
-    def get_snp_info(snp_id):
-        ### Download Snp Info based on its id
-        def request_info_by_id(snp_id):
-            server = "https://api.ncbi.nlm.nih.gov/variation/v0/beta/refsnp/"
+    # def get_snp_info(snp_id):
+    #     ### Download Snp Info based on its id
+    #     def request_info_by_id(snp_id):
+    #         server = "https://api.ncbi.nlm.nih.gov/variation/v0/beta/refsnp/"
 
-            r = requests.get(server+snp_id, headers={ "Content-Type" : "application/json"})
+    #         r = requests.get(server+snp_id, headers={ "Content-Type" : "application/json"})
 
-            if not r.ok:
-                r.raise_for_status()
-                sys.exit()
+    #         if not r.ok:
+    #             r.raise_for_status()
+    #             sys.exit()
 
-            decoded = r.json()
+    #         decoded = r.json()
 
-            return decoded
+    #         return decoded
 
-        ### Parse information about the SNP requested
-        def parse_json(res_json):
-            #get num of genomic placements (versions)
-            num_genomic_placements = len(res_json['primary_snapshot_data']['placements_with_allele'])  
+    #     ### Parse information about the SNP requested
+    #     def parse_json(res_json):
+    #         #get num of genomic placements (versions)
+    #         num_genomic_placements = len(res_json['primary_snapshot_data']['placements_with_allele'])  
 
-            # sometimes there is empty fields in the genomic placements... Detect and remove them! 
-            temp_assertion = np.array([res_json['primary_snapshot_data']['placements_with_allele'][idx]['placement_annot']['seq_id_traits_by_assembly'] for idx in range(num_genomic_placements)])
-            ban_idexs = np.array([len(x)!=0 for x in temp_assertion])
-            temp_assertion = temp_assertion[ban_idexs]
+    #         # sometimes there is empty fields in the genomic placements... Detect and remove them! 
+    #         temp_assertion = np.array([res_json['primary_snapshot_data']['placements_with_allele'][idx]['placement_annot']['seq_id_traits_by_assembly'] for idx in range(num_genomic_placements)])
+    #         ban_idexs = np.array([len(x)!=0 for x in temp_assertion])
+    #         temp_assertion = temp_assertion[ban_idexs]
 
-            # Get the genomic placements (versions) names
-            gnenome_versions = [ x[0]["assembly_name"] for x in temp_assertion]
+    #         # Get the genomic placements (versions) names
+    #         gnenome_versions = [ x[0]["assembly_name"] for x in temp_assertion]
 
-            # get the number of variations
-            allele_variations = len([res_json['primary_snapshot_data']['placements_with_allele'][idx]['alleles'] for idx in range(1)][0])
+    #         # get the number of variations
+    #         allele_variations = len([res_json['primary_snapshot_data']['placements_with_allele'][idx]['alleles'] for idx in range(1)][0])
 
-            # get the snps idexes
-            snp_idxs = np.array([[res_json['primary_snapshot_data']['placements_with_allele'][x]['alleles'][y]['hgvs'] for y in range(allele_variations)][1:] for x in range(num_genomic_placements)])
+    #         # get the snps idexes
+    #         snp_idxs = np.array([[res_json['primary_snapshot_data']['placements_with_allele'][x]['alleles'][y]['hgvs'] for y in range(allele_variations)][1:] for x in range(num_genomic_placements)])
 
-            # remove those without valid genomic placements (versions) names 
-            snp_idxs = snp_idxs[ban_idexs].tolist()
+    #         # remove those without valid genomic placements (versions) names 
+    #         snp_idxs = snp_idxs[ban_idexs].tolist()
 
-            return {"gnenome_versions": gnenome_versions, "snp_idxs_list": snp_idxs}
+    #         return {"gnenome_versions": gnenome_versions, "snp_idxs_list": snp_idxs}
 
-        ### Parse snp information
-        def snp_info_input(snp_id):
-            base = re.compile("[^(\d)\w+]").split(snp_id)[3]
-            base_chrom = re.compile("[^(\d)\w+]").split(snp_id)[0]
+    #     ### Parse snp information
+    #     def snp_info_input(snp_id):
+    #         base = re.compile("[^(\d)\w+]").split(snp_id)[3]
+    #         base_chrom = re.compile("[^(\d)\w+]").split(snp_id)[0]
 
-            #  print (base)
-            dict = {
-                #"chrom" : re.compile("(\d+).0").split(base_chrom)[2],
-                "chrom" : re.compile(".0{2,}").split(base_chrom)[1],
-                "location" : re.compile("[^(\d)]").split(base)[0],
-                "allele_wt" : re.compile("[(\d)]").split(base)[-1],
-                "allele_v": re.compile("[^(\d)\w+]").split(snp_id)[4]
-            }
-            return dict
+    #         #  print (base)
+    #         dict = {
+    #             #"chrom" : re.compile("(\d+).0").split(base_chrom)[2],
+    #             "chrom" : re.compile(".0{2,}").split(base_chrom)[1],
+    #             "location" : re.compile("[^(\d)]").split(base)[0],
+    #             "allele_wt" : re.compile("[(\d)]").split(base)[-1],
+    #             "allele_v": re.compile("[^(\d)\w+]").split(snp_id)[4]
+    #         }
+    #         return dict
 
-        ### Download Snp Info based on its id
-        res_json = request_info_by_id(snp_id)
+    #     ### Download Snp Info based on its id
+    #     res_json = request_info_by_id(snp_id)
             
-        ### Parse information about the SNP requested
-        snp_info = parse_json(res_json)
+    #     ### Parse information about the SNP requested
+    #     snp_info = parse_json(res_json)
 
-        df_snp_info = pd.DataFrame(snp_info)
+    #     df_snp_info = pd.DataFrame(snp_info)
             
-        gn_version = []
+    #     gn_version = []
 
-        for snp_idx_list in df_snp_info['snp_idxs_list']:
-            res = []
-            for snp_idx in snp_idx_list:
-                res.append(snp_info_input(snp_idx))  
-            gn_version.append(res)
+    #     for snp_idx_list in df_snp_info['snp_idxs_list']:
+    #         res = []
+    #         for snp_idx in snp_idx_list:
+    #             res.append(snp_info_input(snp_idx))  
+    #         gn_version.append(res)
 
-        df_snp_info['snp_info_dict'] = gn_version  
+    #     df_snp_info['snp_info_dict'] = gn_version  
                 
-        return df_snp_info	
+    #     return df_snp_info	
 
+    #TODO this method is needed for step 4
     def create_alleles_dictionary(snp_names,info_list):
         dict_snp_allele = {}
         tuple_al = []
@@ -1456,19 +1457,25 @@ def gen_sequence():
         index = 0
         #iterate through names and all dictionaies in snp
         for i,snp_name in zip(info_list,snp_names):
-            snp_al = i[index]['allele_wt']
+            # snp_al = i[index]['allele_wt']
+            snp_al = i[3]
             tuple_al.append(snp_al)
             list_minor = []
             
             #check if there is more than one minor allele
-            if (len(i) > 1):
-                for dic in i:
+            # if (len(i) > 1):
+            #     for dic in i:
                     #list_minor.append(dic['allele_v'])
-                    tuple_al.append(dic['allele_v'])
-                    print("nome da snp",snp_name)
-            else:
+                    # tuple_al.append(dic['allele_v'])
+                    # print("nome da snp",snp_name)
+            # else:
                 #list_minor.append(i[index]['allele_v'])
-                tuple_al.append(i[index]['allele_v'])
+                # tuple_al.append(i[index]['allele_v'])
+
+            #split allele and insert in a list
+            minor_allele = i[4].split('|')
+            for al in minor_allele:
+                tuple_al.append(al)
             
         list_minor=[]
         
@@ -1485,11 +1492,11 @@ def gen_sequence():
         filtered_snp = json.loads(request.form['snp_list'])
         #hardcoded genome version
         gnenome_version = 'GRCh37.p13'
-        #debug information
-        print(filtered_snp)
+        
         #get snps ids from filtered list (stage 2)
         snp_ids_list = []
         for x in filtered_snp:
+            print("SNP ROW:" + str(x[0]))
             # snp_ids_list.append(x['Snp Name'])
             snp_ids_list.append(x[0])
         
@@ -1498,17 +1505,27 @@ def gen_sequence():
 
         #download snp info
         info_snp_list = []
-        for snp_id in snp_ids_list_unique:
-            snp_id = snp_id[2:]
-            info_snp_list.append(get_snp_info(snp_id))
+        # for snp_id in snp_ids_list_unique:
+        #     snp_id = snp_id[2:]
+        #     info_snp_list.append(get_snp_info(snp_id))
 
         snp_names = []
         snp_dicts = []
-        for snp_id,df_snp_info in zip(snp_ids_list_unique,info_snp_list):
+        # for snp_id,df_snp_info in zip(snp_ids_list_unique,info_snp_list):
         
-            snp_name = snp_id
-            sample_dict = df_snp_info[df_snp_info["gnenome_versions"] == gnenome_version]['snp_info_dict'].values[0]
-            
+        #     snp_name = snp_id
+        #     sample_dict = df_snp_info[df_snp_info["gnenome_versions"].str.contains(gnenome_version[:6])]['snp_info_dict'].values[0]
+
+        #     snp_names.append(snp_name)
+        #     snp_dicts.append(sample_dict)
+
+        for snp_info in (filtered_snp):
+        
+            snp_name = snp_info[0]
+            sample_dict = snp_info
+
+            print(sample_dict)
+
             snp_names.append(snp_name)
             snp_dicts.append(sample_dict)
 
@@ -1527,7 +1544,7 @@ def gen_sequence():
         #FIMO
         meme= "./meme.meme"
         os.system("export PATH=$HOME/meme/bin:$PATH ")
-        os.system("~/meme/bin/fimo "+meme+" "+fna_filename )                    
+        os.system("~/meme/bin/fimo "+meme+" "+fna_filename )
     
     return jsonify(res)
 

@@ -8,18 +8,15 @@
 #and return as output sequences
 # with snps in middle position
 #com as combinações das snps se necessário. Está modificado para python3
-#snps assembly: 
+#snps assembly: GRCh37
 #
-########Algoritmo:
-#1)Definir as variaveis
+########Algorithm:
+#1)Define variables
 #2)Pegar informações da snp atraves do servidor e colocar a snp na lista
 #3)Organizar a lista com base no local
 #4)Fazer um loop na lista para ver se existe uma distancia maenor de 50 nts entre uma snp e outra
 #5)Se não tiver, fazer as combinacões com uma snp e se tiver juntas snps e fazer as sequencias com as snps e as suas
 #combinações
-#
-########O que ainda falta ser feito:
-#1) Fazer tratamento de erros diversos
 #
 #
 #
@@ -112,7 +109,6 @@ def main(args):
 							i.charact,
 							i.ancestral_al,
 							i.minor_al] for i in lista_snp), columns=columns_df)
-	
 	#make sequences
 	#group snps by their chromossomes
 	snp_df_2 = snp_df.groupby('Chromossome')

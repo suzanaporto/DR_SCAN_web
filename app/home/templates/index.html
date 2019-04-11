@@ -438,17 +438,29 @@
                         }
                         table_snp.rows().invalidate();
                         table_snp.draw();
-                        //loop and remove tr from table 1
-                        for(k=0;k<snps_del_array.length;k++){
-                          for(l=0;l<rows2.length;l++){
-                            if(rows2[l][0] == snps_del_array[k].trimLeft()){
-                              row2_idx_del.push(l);
-                            }
+                        //loop and remove tr from table 2
+                        // for(k=0;k<snps_del_array.length;k++){
+                        //   for(l=0;l<rows2.length;l++){
+                        //     if(rows2[l][0] == snps_del_array[k].trimLeft()){
+                        //       row2_idx_del.push(l);
+                        //     }
+                        //   }
+                        // }
+                        // console.log("INDEXES 2:"+row2_idx_del);
+                        // //delete all at once
+                        // table_reg.rows(row2_idx_del).remove().draw();
+
+                        for(j=0;j<snps_del_array.length;j++){
+                        
+                          table_reg.rows().nodes().each(function(a,b) {
+                          if($(a).children().eq(0).text() == snps_del_array[j].trimLeft()){
+                            table_reg.rows(a).remove();
                           }
-                        }
-                        console.log("INDEXES 2:"+row2_idx_del);
-                        //delete all at once
-                        table_reg.rows(row2_idx_del).remove().draw();
+                        });
+                      }
+                      table_reg.rows().invalidate();
+                      table_reg.draw();
+
                       });
                     });
                   </script>
@@ -495,56 +507,55 @@
                         row_list.push(table.rows().data()[i])
                       };
                       //variable to put the header
-                      var heads = [];
-                      $("#datatable-buttons thead").find("th").each(function () {
-                        heads.push($(this).text().trim());
-                      });
+                      // var heads = [];
+                      // $("#datatable-buttons thead").find("th").each(function () {
+                      //   heads.push($(this).text().trim());
+                      // });
                       //variable for the rows of the datatable
-                      var rows = [];
-                      $("#datatable-buttons tbody tr").each(function () {
-                        cur = {};
-                        $(this).find("td").each(function(i, v) {
-                          if ($(this).text() == ''){
-                            console.log("HERE")
-                            cur[heads[i]] = $(this).children("input").val().trim();
-                            console.log(cur[heads[i]])
-                          }else{
-                            cur[heads[i]] = $(this).text().trim();
-                          }
-                      });
-                        rows.push(cur);
-                        cur = {};
-                    }); 
+                    //   var rows = [];
+                    //   $("#datatable-buttons tbody tr").each(function () {
+                    //     cur = {};
+                    //     $(this).find("td").each(function(i, v) {
+                    //       if ($(this).text() == ''){
+                    //         console.log("HERE")
+                    //         cur[heads[i]] = $(this).children("input").val().trim();
+                    //         console.log(cur[heads[i]])
+                    //       }else{
+                    //         cur[heads[i]] = $(this).text().trim();
+                    //       }
+                    //   });
+                    //     rows.push(cur);
+                    //     cur = {};
+                    // }); 
                     //sequence space needs to be empty
-                    var element;
-                    element = document.getElementById("sequences");
-                    if (element) {
-                      element.innerHTML = "";
-                    }
-                    console.log("HEAD: "+ heads)
-                    console.log("Row: "+ rows[0]['Location'])
-                    $.ajax({
-                      url: 'http://127.0.0.1:5000/home/gen_sequence',
-                      type: 'POST',
-                      dataType: 'json',
-                      data: { snp_list: JSON.stringify(row_list) },
-                      async: false,
-                      success:function(response) {
-                        //some debbugging
-                        alert("DONE")
-                        console.log("SIZE: " + response[0].length)
-                        console.log(response[0])
-                        //insert text into 'p' element
-                        for(i=0;i<response[0].length;i++){
-                          $('#sequences').append( document.createTextNode( response[0][i]) );
-                          $('#sequences').append( document.createElement( "br") );
-                          console.log(response[0][i])
+                      var element;
+                      element = document.getElementById("sequences");
+                      if (element) {
+                        element.innerHTML = "";
+                      }
+                      // console.log("HEAD: "+ heads)
+                      // console.log("Row: "+ rows[0]['Location'])
+                      $.ajax({
+                        url: 'http://127.0.0.1:5000/home/gen_sequence',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: { snp_list: JSON.stringify(row_list) },
+                        async: false,
+                        success:function(response) {
+                          //some debbugging
+                          alert("DONE")
+                          console.log("SIZE: " + response[0].length)
+                          console.log(response[0])
+                          //insert text into 'p' element
+                          for(i=0;i<response[0].length;i++){
+                            $('#sequences').append( document.createTextNode( response[0][i]) );
+                            $('#sequences').append( document.createElement( "br") );
+                            console.log(response[0][i])
+                          }
+                          //console.log("VALUE OF FIMO_RESULTS: " + response[1]);
+                          //fimo_results = response[1];
                         }
-                        //console.log("VALUE OF FIMO_RESULTS: " + response[1]);
-                        //fimo_results = response[1];
-                        
-                      }        
-                    });
+                      });
                     });
                   });
 

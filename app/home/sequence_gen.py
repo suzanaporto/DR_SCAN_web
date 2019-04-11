@@ -17,25 +17,35 @@ def gen_sequence(snp_names, info_list,genome_version):
 	minor_allele_list = []
 	res = []
 
-	index = 0
+	# index = 0
 
 	for i,snp_name in zip(info_list,snp_names):
 
-		snp_location = int(i[index]['location'])
-		print("Identifying problem: ", i[index]['chrom'])
-		snp_chrom = int(i[index]['chrom'])
-		snp_al = i[index]['allele_wt']
+		# snp_location = int(i[index]['location'])
+		# print("Identifying problem: ", i[index]['chrom'])
+		# snp_chrom = int(i[index]['chrom'])
+		# snp_al = i[index]['allele_wt']
+
+		#from table. Snp location is in first position
+		snp_location = int(i[1])
+		snp_chrom = int(i[2])
+		snp_allele = i[3]
 
 		list_minor = []
 
-		#check if there is more than one minor allele
-		if (len(i) > 1):
-			for dic in i:
-				list_minor.append(dic['allele_v'])
-		else:
-			list_minor.append(i[index]['allele_v'])
+		#split allele and insert in a list
+		minor_allele = i[4].split('|')
+		for al in minor_allele:
+			list_minor.append(al)
 
-		allele_comum_insert = Allele(nome=snp_al,local=snp_location,cromossomo=snp_chrom,is_comum=True,snp_pos=0)
+		#check if there is more than one minor allele
+		# if (len(i) > 1):
+		# 	for dic in i:
+		# 		list_minor.append(dic['allele_v'])
+		# else:
+		# 	list_minor.append(i[index]['allele_v'])
+
+		allele_comum_insert = Allele(nome=snp_allele,local=snp_location,cromossomo=snp_chrom,is_comum=True,snp_pos=0)
 
 		for m_allele in list_minor:
 			minor_allele_insert = Allele(nome=m_allele,local=snp_location,cromossomo=snp_chrom,is_comum=False,snp_pos=0)
