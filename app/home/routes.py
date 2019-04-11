@@ -1271,8 +1271,8 @@ def epi_function(snps,tissues):
                             tissue_selected = elemt
                             tissue_name = fantom_5[elemt][1]
                             tissue_id = fantom_5[elemt][0]
-            result.append(epi_search(snp['Location'],
-                                    snp['Chromossome'],snp['Snp Name'],
+            result.append(epi_search(snp[1],
+                                    snp[2],snp[0],
                                     str(tissue_selected),
                                     tissue_name,tissue_id))
 
@@ -1281,6 +1281,10 @@ def epi_function(snps,tissues):
     result3 = result2.drop_duplicates(subset=['SNP','Location','Gene','Score','Tissue','File_Type'],
                                         keep='first', inplace=False)
     new = result3["Gene"].str.split("$", n = 50, expand = True) 
+    rint("**---RESULT3---**")
+    print(result3)
+    print("**---NEW---**")
+    print(new)
     # making seperate first name column from new data frame 
     result3["Gene ID"]= new[0]
     # making seperate last name column from new data frame 
@@ -1545,7 +1549,7 @@ def dif_tf():
             condition_1 = seq_type == 'sequence_variation'
             condition_2 = seq_type == 'sequence_wild_type'
             condition_3 = seq_type == 'sequence_combinations'
-    
+
             #first filter is out_of_range filter
             if (condition_1 or condition_2):
                 index = row_out_of_range_single(seq_start,seq_stop,seq_name,idx)
@@ -1555,29 +1559,23 @@ def dif_tf():
                 index = row_out_of_range_multiple(seq_start,seq_stop,seq_name,idx)
                 if (not(index == None)):
                     index_list.append(index)
-      
+
         #print (str(index_list))
         print ("Tamanho da lista: " + str(len(index_list)))
         #print ("-------------------------Testando----------------------------")
         #filter by id
         #new_df = df_fimo_output.drop(df_fimo_output.index[index_list],axis=0)
         idx_list_selected = [ i for i in range(len(df_fimo_output)) if not i in index_list ]
-  
+
         new_df = df_fimo_output.iloc[idx_list_selected]
-  
+
         return new_df
 
     def filter_dataframe(table_output, log=False):
-  
+
         new_df = filter_range(table_output)
-  
-        print ("Tamanho linha: ", len(new_df))  
-        print ("DATAFRAME WITH RANGE FILTER")
-        #display(new_df.sort_values(['motif_alt_id','start']))
-  
-        #display sorted motifs
-        #display (new_df.sort_values(['motif_alt_id','start']))
-        #display (new_df)
+
+        print ("DataFrame with range filter size: ", len(new_df))  
 
         new_df.sort_values(['motif_alt_id','start'],inplace = True)
 
@@ -1599,14 +1597,16 @@ def dif_tf():
             current_seq_name = seq_name
             current_start = seq_start
             current_stop = seq_stop
-      
+
             seq_type = seq_name.split('|')[0]
             condition_1 = seq_type == 'sequence_variation'
             condition_2 = seq_type == 'sequence_wild_type'
             condition_3 = seq_type == 'sequence_combinations'
-      
+
             if condition_1 or condition_2:
+
                 for idx, (seq_start,seq_stop,seq_name,motif) in enumerate( zip(array_start, array_stop, array_sequence_name, array_motifs) ):
+
                     snp_name = seq_name.split('|')[1]
                     #compare list with current values
                     condition_m = current_motif == motif
@@ -1616,11 +1616,11 @@ def dif_tf():
                     condition_csta1 = seq_start == range(int(current_start-50),int(current_start))
                     condition_csto = current_stop == seq_stop
                     condition_csto1 = seq_stop == range(int(current_stop),int(current_stop + 50))
-        
-                if condition_m and condition_sn and condition_sn2 and (condition_csta or condition_csta1).any and (condition_csto or condition_csto1).any:
-                    #new data frame droping all occurences of specified TF-snp pair
-                    new_df = new_df.drop(new_df[(new_df.motif_alt_id == motif) & (new_df.sequence_name.str.contains(snp_name))].index)
-            
+
+                    if condition_m and condition_sn and condition_sn2 and (condition_csta or condition_csta1).any and (condition_csto or condition_csto1).any:
+                        #new data frame droping all occurences of specified TF-snp pair
+                        new_df = new_df.drop(new_df[(new_df.motif_alt_id == motif) & (new_df.sequence_name.str.contains(snp_name))].index)
+
             #missing tests/half completed/reset variables after processing    
             if condition_3:
                 #snp list
@@ -1665,15 +1665,7 @@ def dif_tf():
                     #range search needs maintain in snp start stop in snp range.
                     condition_csta = current_start == seq_start
                     condition_csto = current_stop == seq_stop
-          
-                    #print("MOTIF CURRENT",current_motif)
-                    #print("MOTIF",motif)
-                    #print("seq_name_list: ",snp_name_list)
-                    #print("seq_name: ",seq_name.split('|')[1:total+1])
-                    #print("condition_m: ",condition_m)
-                    #print("condition_sn2: ",condition_sn2)
-          
-          
+
                     if condition_m and condition_sn2 and condition_csta and condition_csto:
                         print(motif)
                         print(count_comb)
@@ -1688,7 +1680,7 @@ def dif_tf():
                     new_df = new_df.drop(new_df[ (new_df.motif_alt_id == current_motif) & (new_df.sequence_name.str.contains(snp_name_list[0]))].index)
           
         #display (new_df.sort_values(['motif_alt_id','start']))
-        print ("Tamanho DataFrame: ",len(new_df))
+        print ("DataFrame final size: ",len(new_df))
         return new_df
     
     if request.method == 'POST':
@@ -1711,11 +1703,15 @@ def dif_tf():
 @login_required
 def epi():
     if request.method == 'POST':
-        #TODO hg19 all snps
+
         #get snp list information from the datatable
         snp_list_rows = request.form['snp_list']
         #transform it in a json file(dictionary?)
         snp_list_rows = json.loads(snp_list_rows)
+
+        print("EPI")
+        print(snp_list_rows)
+
         tissue_list = request.form['tissue_field_epi'].split("|")
 
         dataframe_epi = epi_function(snp_list_rows,tissue_list)
