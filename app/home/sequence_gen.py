@@ -68,5 +68,6 @@ def gen_sequence(snp_names, info_list,genome_version):
 		"delete_snp":'n',
 		"genome_version":genome_version}
 	res.append(m3.main(args))
+	
 	#print(res)
 	return res

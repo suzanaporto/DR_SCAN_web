@@ -1375,80 +1375,6 @@ def verify_snps():
 @login_required
 def gen_sequence():
 
-    # def get_snp_info(snp_id):
-    #     ### Download Snp Info based on its id
-    #     def request_info_by_id(snp_id):
-    #         server = "https://api.ncbi.nlm.nih.gov/variation/v0/beta/refsnp/"
-
-    #         r = requests.get(server+snp_id, headers={ "Content-Type" : "application/json"})
-
-    #         if not r.ok:
-    #             r.raise_for_status()
-    #             sys.exit()
-
-    #         decoded = r.json()
-
-    #         return decoded
-
-    #     ### Parse information about the SNP requested
-    #     def parse_json(res_json):
-    #         #get num of genomic placements (versions)
-    #         num_genomic_placements = len(res_json['primary_snapshot_data']['placements_with_allele'])  
-
-    #         # sometimes there is empty fields in the genomic placements... Detect and remove them! 
-    #         temp_assertion = np.array([res_json['primary_snapshot_data']['placements_with_allele'][idx]['placement_annot']['seq_id_traits_by_assembly'] for idx in range(num_genomic_placements)])
-    #         ban_idexs = np.array([len(x)!=0 for x in temp_assertion])
-    #         temp_assertion = temp_assertion[ban_idexs]
-
-    #         # Get the genomic placements (versions) names
-    #         gnenome_versions = [ x[0]["assembly_name"] for x in temp_assertion]
-
-    #         # get the number of variations
-    #         allele_variations = len([res_json['primary_snapshot_data']['placements_with_allele'][idx]['alleles'] for idx in range(1)][0])
-
-    #         # get the snps idexes
-    #         snp_idxs = np.array([[res_json['primary_snapshot_data']['placements_with_allele'][x]['alleles'][y]['hgvs'] for y in range(allele_variations)][1:] for x in range(num_genomic_placements)])
-
-    #         # remove those without valid genomic placements (versions) names 
-    #         snp_idxs = snp_idxs[ban_idexs].tolist()
-
-    #         return {"gnenome_versions": gnenome_versions, "snp_idxs_list": snp_idxs}
-
-    #     ### Parse snp information
-    #     def snp_info_input(snp_id):
-    #         base = re.compile("[^(\d)\w+]").split(snp_id)[3]
-    #         base_chrom = re.compile("[^(\d)\w+]").split(snp_id)[0]
-
-    #         #  print (base)
-    #         dict = {
-    #             #"chrom" : re.compile("(\d+).0").split(base_chrom)[2],
-    #             "chrom" : re.compile(".0{2,}").split(base_chrom)[1],
-    #             "location" : re.compile("[^(\d)]").split(base)[0],
-    #             "allele_wt" : re.compile("[(\d)]").split(base)[-1],
-    #             "allele_v": re.compile("[^(\d)\w+]").split(snp_id)[4]
-    #         }
-    #         return dict
-
-    #     ### Download Snp Info based on its id
-    #     res_json = request_info_by_id(snp_id)
-            
-    #     ### Parse information about the SNP requested
-    #     snp_info = parse_json(res_json)
-
-    #     df_snp_info = pd.DataFrame(snp_info)
-            
-    #     gn_version = []
-
-    #     for snp_idx_list in df_snp_info['snp_idxs_list']:
-    #         res = []
-    #         for snp_idx in snp_idx_list:
-    #             res.append(snp_info_input(snp_idx))  
-    #         gn_version.append(res)
-
-    #     df_snp_info['snp_info_dict'] = gn_version  
-                
-    #     return df_snp_info	
-
     #TODO this method is needed for step 4
     def create_alleles_dictionary(snp_names,info_list):
         dict_snp_allele = {}
@@ -1609,12 +1535,12 @@ def dif_tf():
         array_sequence_name = df_fimo_output['sequence_name'].values
         #index list
         index_list = []
-  
+
         #with pd.option_context('display.max_rows', 100, 'display.max_columns', 100):
         #display(df_fimo_output)
-  
+
         for idx, (seq_start,seq_stop,seq_name) in enumerate( zip(array_start, array_stop, array_sequence_name) ):
-    
+
             seq_type = seq_name.split('|')[0]
             condition_1 = seq_type == 'sequence_variation'
             condition_2 = seq_type == 'sequence_wild_type'
@@ -1652,9 +1578,9 @@ def dif_tf():
         #display sorted motifs
         #display (new_df.sort_values(['motif_alt_id','start']))
         #display (new_df)
-  
+
         new_df.sort_values(['motif_alt_id','start'],inplace = True)
-  
+
         #start values(new_df) into array
         array_start = new_df['start'].values
         #stop values(new_df) into array
@@ -1771,7 +1697,7 @@ def dif_tf():
         df_fimo_output = pd.read_csv(fimo_res, sep='\t') 
         print(df_fimo_output)
 
-        f_dataframe = filter_dataframe (fimo_res,True)
+        f_dataframe = filter_dataframe(fimo_res,True)
 
         f_dataframe = f_dataframe.drop_duplicates(keep="last")
 

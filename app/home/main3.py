@@ -132,6 +132,7 @@ def main(args):
 						charact=chrom_df.iloc[0]['Characteristic'],
 						ancestral_al=chrom_df.iloc[0]['Allele Wild Type'],
 						minor_al=chrom_df.iloc[0]['Allele Variation'])
+			print("135 name: " + chrom_df.iloc[0]['Name'])
 			first_write = snp_stuff.request_sequence(snp,genome_version,first_write)
 		#check if there is more than one element
 		elif (size > 0):
@@ -172,6 +173,7 @@ def main(args):
 										charact=chrom_df.iloc[i+1]['Characteristic'],
 										ancestral_al=chrom_df.iloc[i+1]['Allele Wild Type'],
 										minor_al=chrom_df.iloc[i+1]['Allele Variation'])
+							print("176 name: " + chrom_df.iloc[i+1]['Name'])
 							first_write = snp_stuff.request_sequence(snp,genome_version,first_write)
 							if (len(lista_comb) > 1 ):
 								first_write = snp_stuff.request_sequence_combinations(lista_comb,genome_version,first_write)
@@ -191,6 +193,7 @@ def main(args):
 								charact=chrom_df.iloc[i]['Characteristic'],
 								ancestral_al=chrom_df.iloc[i]['Allele Wild Type'],
 								minor_al=chrom_df.iloc[i]['Allele Variation'])
+					print("196 name: " + chrom_df.iloc[i]['Name'])
 					first_write = snp_stuff.request_sequence(snp,genome_version,first_write)
 					if i == size-1:
 						snp = Snp(	name=chrom_df.iloc[i+1]['Name'],
@@ -199,7 +202,8 @@ def main(args):
 									charact=chrom_df.iloc[i+1]['Characteristic'],
 									ancestral_al=chrom_df.iloc[i+1]['Allele Wild Type'],
 									minor_al=chrom_df.iloc[i+1]['Allele Variation'])
-					first_write = snp_stuff.request_sequence(snp,genome_version,first_write)
+						print("205 name: " + chrom_df.iloc[i+1]['Name'])
+						first_write = snp_stuff.request_sequence(snp,genome_version,first_write)
 	lista_comb = []
 
 	return txt_2_list(args['return_list'], filename = "sequenciasdef.fna")
@@ -225,5 +229,5 @@ if __name__ == '__main__':
 	parser.add_argument('--delete_snp', default='n', type=str)
 	parser.add_argument('--return_list', default=False, type=bool)
 	parser.add_argument('--genome_version', default='GRCh37', type=str)
-	args = vars(parser.parse_args())    
+	args = vars(parser.parse_args())
 	main(args)
