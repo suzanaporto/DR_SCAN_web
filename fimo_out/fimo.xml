@@ -4,10 +4,10 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation=  xmlns:fimo="http://noble.gs.washington.edu/schema/fimo"
 >
-<command-line>fimo ./meme.meme ./seq.fna</command-line>
+<command-line>fimo ./TFs/JASPAR2018_CORE_vertebrates_non-redundant.meme ./seq.fna</command-line>
 <settings>
 <setting name="output directory">fimo_out</setting>
-<setting name="MEME file name">./meme.meme</setting>
+<setting name="MEME file name">./TFs/JASPAR2018_CORE_vertebrates_non-redundant.meme</setting>
 <setting name="sequence file name">./seq.fna</setting>
 <setting name="background file name">--nrdb--</setting>
 <setting name="allow clobber">true</setting>
@@ -21,7 +21,7 @@
 <setting name="pseudocount">0.1</setting>
 <setting name="verbosity">2</setting>
 </settings>
-<sequence-data num-sequences="71" num-residues="7171" />
+<sequence-data num-sequences="4" num-residues="484" />
 <alphabet name="DNA" like="dna">
 <letter id="A" symbol="A" complement="T" name="Adenine" colour="CC0000"/>
 <letter id="C" symbol="C" complement="G" name="Cytosine" colour="0000CC"/>

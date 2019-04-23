@@ -1281,29 +1281,30 @@ def epi_function(snps,tissues):
     result3 = result2.drop_duplicates(subset=['SNP','Location','Gene','Score','Tissue','File_Type'],
                                         keep='first', inplace=False)
     new = result3["Gene"].str.split("$", n = 50, expand = True) 
-    rint("**---RESULT3---**")
+    print("**---RESULT3---**")
     print(result3)
     print("**---NEW---**")
     print(new)
-    # making seperate first name column from new data frame 
-    result3["Gene ID"]= new[0]
-    # making seperate last name column from new data frame 
-    result3["Gene"]= new[1]
-    result3["Gene Location"]= new[2]+ "-" + new[3].map(str)
-    if 4 in new:
-        new2 = new[4].str.split("%", n = 50, expand = True)
-        gene_id = result3["Gene ID"]
-        print(new2)
-        if 1 in new2:
-            list_new_id = new2[1]
-            new_gene_id = []
-            for i,j in zip(gene_id,list_new_id):
-                if j is None:
-                    new_gene_id.append(i)
-                else:
-                    new_gene_id.append(i+'|'+j)
-            result3["Gene ID"] = new_gene_id
-        result3["Gene Location"] = result3["Gene Location"]+ "" + new2[0].map(str)
+    if not(result3.empty):
+        # making seperate first name column from new data frame 
+        result3["Gene ID"]= new[0]
+        # making seperate last name column from new data frame 
+        result3["Gene"]= new[1]
+        result3["Gene Location"]= new[2]+ "-" + new[3].map(str)
+        if 4 in new:
+            new2 = new[4].str.split("%", n = 50, expand = True)
+            gene_id = result3["Gene ID"]
+            print(new2)
+            if 1 in new2:
+                list_new_id = new2[1]
+                new_gene_id = []
+                for i,j in zip(gene_id,list_new_id):
+                    if j is None:
+                        new_gene_id.append(i)
+                    else:
+                        new_gene_id.append(i+'|'+j)
+                result3["Gene ID"] = new_gene_id
+            result3["Gene Location"] = result3["Gene Location"]+ "" + new2[0].map(str)
     result3 = result3[['SNP', 'Location', 'Gene ID', 'Gene', 'Gene Location', 'Score', 'Tissue', 'File_Type']]
     result3 = result3.reset_index().drop(columns=['index'])
     # result3 = result3.to_json()
@@ -1391,29 +1392,17 @@ def gen_sequence():
             snp_al = i[3]
             tuple_al.append(snp_al)
             list_minor = []
-            
-            #check if there is more than one minor allele
-            # if (len(i) > 1):
-            #     for dic in i:
-                    #list_minor.append(dic['allele_v'])
-                    # tuple_al.append(dic['allele_v'])
-                    # print("nome da snp",snp_name)
-            # else:
-                #list_minor.append(i[index]['allele_v'])
-                # tuple_al.append(i[index]['allele_v'])
-
-            #split allele and insert in a list
             minor_allele = i[4].split('|')
             for al in minor_allele:
                 tuple_al.append(al)
-            
-        list_minor=[]
-        
-        print (tuple_al)
-        
-        dict_snp_allele[snp_name] = tuple_al 
-        tuple_al = []
-        
+
+            list_minor=[]
+
+            print (tuple_al)
+
+            dict_snp_allele[snp_name] = tuple_al 
+            tuple_al = []
+
         return dict_snp_allele
 
     #if request method is post execute
@@ -1422,7 +1411,9 @@ def gen_sequence():
         filtered_snp = json.loads(request.form['snp_list'])
         #hardcoded genome version
         gnenome_version = 'GRCh37.p13'
-        
+        #user selected transcription factor matrix
+        tf_selected = request.form['tf']
+        print(tf_selected)
         #get snps ids from filtered list (stage 2)
         snp_ids_list = []
         for x in filtered_snp:
@@ -1435,19 +1426,9 @@ def gen_sequence():
 
         #download snp info
         info_snp_list = []
-        # for snp_id in snp_ids_list_unique:
-        #     snp_id = snp_id[2:]
-        #     info_snp_list.append(get_snp_info(snp_id))
 
         snp_names = []
         snp_dicts = []
-        # for snp_id,df_snp_info in zip(snp_ids_list_unique,info_snp_list):
-        
-        #     snp_name = snp_id
-        #     sample_dict = df_snp_info[df_snp_info["gnenome_versions"].str.contains(gnenome_version[:6])]['snp_info_dict'].values[0]
-
-        #     snp_names.append(snp_name)
-        #     snp_dicts.append(sample_dict)
 
         for snp_info in (filtered_snp):
         
@@ -1472,11 +1453,11 @@ def gen_sequence():
                 for element in line:
                     f.write("%s\n" % element)
         #FIMO
-        meme= "./meme.meme"
+        meme= "./TFs/" + tf_selected + ".meme"
         os.system("export PATH=$HOME/meme/bin:$PATH ")
         os.system("~/meme/bin/fimo "+meme+" "+fna_filename )
     
-    return jsonify(res)
+    return jsonify(res,dictionary_snp_allele)
 
 @blueprint.route('/dif_tf',methods=['GET','POST'])
 @login_required
@@ -1571,7 +1552,7 @@ def dif_tf():
 
         return new_df
 
-    def filter_dataframe(table_output, log=False):
+    def filter_dataframe(table_output,dictionary_snp_allele, log=False):
 
         new_df = filter_range(table_output)
 
@@ -1686,10 +1667,12 @@ def dif_tf():
     if request.method == 'POST':
         #insert in a variable fimo path for fimo results
         fimo_res = request.form['fimo_tsv']
-        df_fimo_output = pd.read_csv(fimo_res, sep='\t') 
-        print(df_fimo_output)
+        alleles_dict = json.loads(request.form['al_dict'])
 
-        f_dataframe = filter_dataframe(fimo_res,True)
+        print(alleles_dict)
+        df_fimo_output = pd.read_csv(fimo_res, sep='\t') 
+
+        f_dataframe = filter_dataframe(fimo_res,alleles_dict,True)
 
         f_dataframe = f_dataframe.drop_duplicates(keep="last")
 

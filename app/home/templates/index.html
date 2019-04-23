@@ -65,7 +65,7 @@
                       <span class="step_no">3</span>
                       <span class="step_descr">
                                         Step 3<br />
-                                        <small>Generate Sequences</small>
+                                        <small>Generate Sequences</br>Upload TF Matrix</small>
                                     </span>
                     </a>
                   </li>
@@ -74,7 +74,7 @@
                       <span class="step_no">4</span>
                       <span class="step_descr">
                                         Step 4<br />
-                                        <small>Differential TF</small>
+                                        <small>Differential TFs</small>
                                     </span>
                     </a>
                   </li>
@@ -83,7 +83,7 @@
                       <span class="step_no">5</span>
                       <span class="step_descr">
                                         Step 5<br />
-                                        <small>EPI         </small>
+                                        <small>Enhancer Promoter Interaction</small>
                                     </span>
                     </a>
                   </li>
@@ -299,7 +299,7 @@
                                 <!-- <th>Row Action</th> -->
                               </tr>
                             </thead>
-            
+
                             <tbody id="t-body">
                               
                             </tbody>
@@ -451,7 +451,36 @@
                         <p class="text-muted font-13 m-b-30">
                           Your generated sequences will show up here. click on the generate button
                         </p>
-                        <a href="#" class="btn btn-success btn-xs generate" onclick="$('.load3').show();"><i class="fa fa-play"></i> Generate </a>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Matrix</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          
+                          <select class="form-control" id="tfs">
+                            <option>HOCOMOCOv9</option>
+                            <option>HOCOMOCOv10_HUMAN_mono_meme_format</option>
+                            <option>HOCOMOCOv11_core_HUMAN_mono_meme_format</option>
+                            <option>HOCOMOCOv11_full_HUMAN_mono_meme_format</option>
+                            <option>JASPAR_CNE_2008</option>
+                            <option>JASPAR_CORE_2014_vertebrates</option>
+                            <option>JASPAR_CORE_2014</option>
+                            <option>JASPAR_CORE_2016_vertebrates</option>
+                            <option>JASPAR_CORE_2016</option>
+                            <option>JASPAR_CORE_REDUNDANT_2014_vertebrates</option>
+                            <option>JASPAR_CORE_REDUNDANT_2014</option>
+                            <option>JASPAR_CORE_REDUNDANT_2016_vertebrates</option>
+                            <option>JASPAR_FAM_2008</option>
+                            <option>JASPAR_PHYLOFACTS_2008</option>
+                            <option>JASPAR_POLII_2008</option>
+                            <option>JASPAR_SPLICE_2008</option>
+                            <option>JASPAR2018_CNE</option>
+                            <option>JASPAR2018_CORE_vertebrates_non-redundant</option>
+                            <option>JASPAR2018_CORE_vertebrates_redundant</option>
+                            <option>JASPAR2018_FAM</option>
+                            <option>JASPAR2018_PHYLOFACTS</option>
+                            <option>JASPAR2018_POLII</option>
+                            <option>JASPAR2018_SPLICE</option>
+                          </select>
+                        </div>
+                        <a href="#" class="btn btn-success btn-xs generate" onclick="$('.load3').show();"><i class="fa fa-play"></i> Generate/ Upload </a>
                         <div class="load3" style="display:inline-block"> <i class="fa fa-cog fa-spin fa-5x fa-fw"style="font-size: 25px;"></i> </div>
                         <span class="load3">Processing...</span>
                         <p id="sequences" style="font-family: 'Courier New', Courier, monospace"></p>
@@ -473,6 +502,8 @@
                   });
                 </script>
                 <script type="text/javascript">
+                  //create global variable
+                  var allele_dict;
                   //Script for generate button
                   $(function() {
                     //Getting information from snp_datatable first step
@@ -502,7 +533,9 @@
                         url: 'http://127.0.0.1:5000/home/gen_sequence',
                         type: 'POST',
                         dataType: 'json',
-                        data: { snp_list: JSON.stringify(row_list) },
+                        data: { snp_list: JSON.stringify(row_list),
+                                tf:$('#tfs').val()
+                              },
                         // async: false,
                         success:function(response) {
                           //hide load button
@@ -511,11 +544,13 @@
                           alert("DONE")
                           console.log("SIZE: " + response[0].length)
                           console.log(response[0])
+                          //insert alleles dictionary in variable
+                          allele_dict = response[1]
                           //insert text into 'p' element
-                          for(i=0;i<response[0].length;i++){
-                            $('#sequences').append( document.createTextNode( response[0][i]) );
+                          for(i=0;i<response[0][0].length;i++){
+                            $('#sequences').append( document.createTextNode( response[0][0][i]) );
                             $('#sequences').append( document.createElement( "br") );
-                            console.log(response[0][i])
+                            console.log(response[0][0][i])
                           }
                         }
                       });
@@ -564,22 +599,23 @@
                 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
                 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
                 <script type="text/javascript">
-                  variavel = "abc"
                   //Script for run button in step 4
                   //Show differential transcription factor
                   $(function() {
-
                     //Getting information from snp_datatable first step
                     //When run button is clicked in the second step
                     $('.btn.btn-success.btn-xs.dif-tf').bind('click', function() {
+                      console.log(allele_dict)
                       //important method so that the ajax doesn't refresh the page
                       event.preventDefault()
                       $.ajax({
                         url: 'http://127.0.0.1:5000/home/dif_tf',
                         type: 'POST',
                         dataType: 'json',
-                        data: { fimo_tsv: "fimo_out/fimo.tsv"},
-                        async: false,
+                        data: { fimo_tsv: "fimo_out/fimo.tsv",
+                                al_dict: JSON.stringify(allele_dict),
+                                },
+                        // async: false,
                         success:function(response) {
                           //some debbugging
                           alert("DONE");
@@ -656,7 +692,6 @@
                   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
                   <script type="text/javascript">
                         $(function() {
-                          console.log(variavel)
                           //Getting information from snp_datatable first step
                           //When run button is clicked in the second step
                           $('.btn.btn-success.btn-xs.epi').bind('click', function() {
@@ -673,30 +708,6 @@
                             for(i=0;i<rows_size;i++){
                               row_list.push(table.rows().data()[i])
                             };
-                          //   //variable to put the header
-                          //   var heads = [];
-                          //   $("#datatable-buttons thead").find("th").each(function () {
-                          //     heads.push($(this).text().trim());
-                          //   });
-                          //   //variable for the rows of the datatable
-                          //   var rows = [];
-                          //   $("#datatable-buttons tbody tr").each(function () {
-                          //     cur = {};
-                          //     $(this).find("td").each(function(i, v) {
-                          //     // TODO : testing
-                          //     if ($(this).text() == ''){
-                          //       console.log("HERE")
-                          //       cur[heads[i]] = $(this).children("input").val().trim();
-                          //       console.log(cur[heads[i]])
-                          //     }else{
-                          //       cur[heads[i]] = $(this).text().trim();
-                          //     }
-                          //   });
-                          //   rows.push(cur);
-                          //   cur = {};
-                          // }); 
-                          // console.log("HEAD: "+heads)
-                          // console.log("Row: "+rows[0]['Location'])
                             console.log(row_list);
                             console.log(row_list[0]);
                             var tissue = $('#tissue_field_epi').val();
