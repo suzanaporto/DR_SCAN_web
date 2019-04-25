@@ -39,7 +39,9 @@
             <div class="x_content">
 
               <!-- Smart Wizard -->
-              <p>This step-by-step guide will give you instructions on how to put snps and analyze it</p>
+              <p>This step-by-step guide will give you instructions on how to put snps and analyze it.
+                 Steps 2 and 5 are bound only by step1, step 4 is bound to steps 1 and 3, 
+                 and step 3 is bound to step 1 and optionally by step 2.</p>
               <div id="wizard" class="form_wizard wizard_horizontal">
                 <ul class="wizard_steps">
                   <li>
@@ -162,6 +164,7 @@
                         });
                      </script>
                       <script type=text/javascript>
+                        
                         $(function() {
                           $('#form_file').on("submit", function() {
                             // event.preventDefault()
@@ -289,6 +292,7 @@
                             </form>
                             
                           </div>
+                          
                           <table id="datatable-buttons-x" class="table table-striped table-bordered">
                             <thead>
                               <tr>
@@ -299,13 +303,19 @@
                                 <!-- <th>Row Action</th> -->
                               </tr>
                             </thead>
-
+                            <!--Style Datatables-buttons-x to add margin-->
+                            <style>
+                              #datatable-buttons-x_wrapper {
+                                margin-top: 10px;
+                              }
+                            </style>
                             <tbody id="t-body">
                               
                             </tbody>
                           </table>
+                        
                           <!-- Delete snps from all tables option -->
-                          <div>
+                          <div style="margin-top:60px;padding-top:10px">
                             <!--Step 2.5 title-->
                             <h2 class=""> Step 2.5 <small>Delete SNPs from Tables </small></h2>
                               <!--Explanation-->
@@ -336,6 +346,18 @@
                 </script>
                 <!--Verify Regulatory elements button (Step 2 Button)-->
                 <script type="text/javascript">
+                  $(document).ready(function() {
+                    $('#datatable-buttons-x').DataTable( {
+                      dom: 'Bfrtip',
+                      buttons: {
+                        buttons: [
+                          { extend: 'copy', className: 'btn-sm' },
+                          { extend: 'csv', className: 'btn-sm' },
+                          { extend: 'print', className: 'btn-sm' }
+                        ]
+                      }
+                    } );
+                  } );
                   $(function() {
                     //Getting information from snp_datatable first step
                     //When run button is clicked in the second step
@@ -589,6 +611,12 @@
                               </tr>
                             </thead>
                             <tbody id="t-body">
+                              <!--Style Datatables-buttons-ft to add margin-->
+                            <style>
+                                #datatable-buttons-ft_wrapper {
+                                  margin-top: 10px;
+                                }
+                              </style>
                             </tbody>
                           </table>
                         </div>
@@ -599,6 +627,18 @@
                 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
                 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
                 <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#datatable-buttons-ft').DataTable( {
+                      dom: 'Bfrtip',
+                      buttons: {
+                        buttons: [
+                          { extend: 'copy', className: 'btn-sm' },
+                          { extend: 'csv', className: 'btn-sm' },
+                          { extend: 'print', className: 'btn-sm' }
+                        ]
+                      }
+                      } );
+                  } );
                   //Script for run button in step 4
                   //Show differential transcription factor
                   $(function() {
@@ -608,6 +648,8 @@
                       console.log(allele_dict)
                       //important method so that the ajax doesn't refresh the page
                       event.preventDefault()
+                      var tab_tf = $('#datatable-buttons-ft').DataTable();
+                      tab_tf.clear().draw();
                       $.ajax({
                         url: 'http://127.0.0.1:5000/home/dif_tf',
                         type: 'POST',
@@ -677,10 +719,16 @@
                               <th>File Type</th>
                             </tr>
                           </thead>
-          
+
                           <tbody id="t-body">
                             
                           </tbody>
+                            <!--Style Datatables-buttons-epi to add margin-->
+                            <style>
+                                #datatable-buttons-epi_wrapper {
+                                  margin-top: 10px;
+                                }
+                              </style>
                         </table>
                       </div>
                           
@@ -691,12 +739,26 @@
                   <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
                   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
                   <script type="text/javascript">
+                    $(document).ready(function() {
+                      $('#datatable-buttons-epi').DataTable( {
+                        dom: 'Bfrtip',
+                        buttons: {
+                        buttons: [
+                          { extend: 'copy', className: 'btn-sm' },
+                          { extend: 'csv', className: 'btn-sm' },
+                          { extend: 'print', className: 'btn-sm' }
+                        ]
+                      }
+                        } );
+                    } );
                         $(function() {
                           //Getting information from snp_datatable first step
                           //When run button is clicked in the second step
                           $('.btn.btn-success.btn-xs.epi').bind('click', function() {
                             //important method so that the ajax doesn't refresh the page
                             event.preventDefault()
+                            var tab_epi = $('#datatable-buttons-epi').DataTable();
+                            tab_epi.clear().draw();
                             ////get information from table in step 1
                             //instantiate table
                             var table = $('#datatable-buttons').DataTable();
@@ -721,7 +783,9 @@
                             async: false,
                             success:function(response) {
                               //some debbugging
-                              alert("DONE")
+                              if (response.length == 0){
+                                alert("Interaction Not Found")
+                              }
                               console.log("LOG: " + response['SNP'])
                               console.log("SIZE: " + response.length)
                               //declare datatable

@@ -1271,10 +1271,9 @@ def epi_function(snps,tissues):
                             tissue_selected = elemt
                             tissue_name = fantom_5[elemt][1]
                             tissue_id = fantom_5[elemt][0]
-            result.append(epi_search(snp[1],
-                                    snp[2],snp[0],
-                                    str(tissue_selected),
-                                    tissue_name,tissue_id))
+            result.append( epi_search( snp[1], snp[2], snp[0],
+                                       str(tissue_selected),
+                                       tissue_name,tissue_id))
 
     result2 = pd.DataFrame(columns= ['SNP','Location','Gene','Score','Tissue','File_Type'])
     result2 = pd.concat(result)
@@ -1305,7 +1304,7 @@ def epi_function(snps,tissues):
                         new_gene_id.append(i+'|'+j)
                 result3["Gene ID"] = new_gene_id
             result3["Gene Location"] = result3["Gene Location"]+ "" + new2[0].map(str)
-    result3 = result3[['SNP', 'Location', 'Gene ID', 'Gene', 'Gene Location', 'Score', 'Tissue', 'File_Type']]
+            result3 = result3[['SNP', 'Location', 'Gene ID', 'Gene', 'Gene Location', 'Score', 'Tissue', 'File_Type']]
     result3 = result3.reset_index().drop(columns=['index'])
     # result3 = result3.to_json()
     return result3
