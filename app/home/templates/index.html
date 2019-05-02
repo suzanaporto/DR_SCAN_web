@@ -170,14 +170,20 @@
                             // event.preventDefault()
                             //send file excel file
                             var formData = new FormData(this);
+
+                            if ($('input[type="file"]').val().trim() == false){
+                              alert("Insert .xlxs file with SNP ids in rows")
+                              $('.load').hide();
+                              return false;
+                            }
                             $.ajax({
-                              
+
                               url: 'http://127.0.0.1:5000/home/uploader',
                               type: 'POST',
                               // dataType: 'json',
                               data: formData,
                               success:function(response) {
-                                
+
                                 //hide gif after success
                                 $('.load').hide();
                                 console.log("Success form")
@@ -194,7 +200,10 @@
                                       '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
                                     ] ).draw();
                                 }
-                              },
+                              },error:function(){
+                                  alert("SNP not found. Try to verify if each snp is corrected in your file")
+                                  $('.load').hide();
+                                },
                               cache: false,
                               contentType: false,
                               processData: false
@@ -208,15 +217,19 @@
                             $('.btn.btn-success.btn-xs.submit').bind('click', function() {
                               event.preventDefault()
                               var snp = $('#snp_input').val();
+                              if (snp.substring(0,2) !== "rs"){
+                                alert("Insert 'rs' and number (e.g. rs21231)")
+                                return false
+                              }
                               $.ajax({
                                 url: 'http://127.0.0.1:5000/home/get_snp_info',
                                 data: {snp_name: snp},
                                 type: 'POST',
                                 dataType: 'json',
                                 success:function(response) {
-                                console.log("RESPOSTA")
-                                console.log(response[0][0])
-                                var t = $('#datatable-buttons').DataTable();
+                                  //if SNP couldnt be found send alert to user
+                                  
+                                    var t = $('#datatable-buttons').DataTable();
                                     t.row.add( [
                                       response[1],
                                       response[0][0].location,
@@ -226,7 +239,11 @@
                                       '<a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
                                       '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
                                     ] ).draw();
-                              }
+                                  
+                                },error: function(){
+                                  alert("SNP not found")
+                                }
+                                
                               });
                             });
                           });
@@ -237,6 +254,7 @@
                               $(document).ready(function() {
                                 
                                 $('#datatable-buttons tbody').on( 'click', '.btn.btn-danger.btn-xs', function () {
+                                  event.preventDefault();
                                   var table_edit = $('#datatable-buttons').DataTable();
                                   table_edit
                                     .row( $(this).parents('tr') )
@@ -244,7 +262,6 @@
                                     .draw();
                                 });
                               });
-                              
                             </script>
                             <script>
                             //JQuery for editing datatable
@@ -281,7 +298,7 @@
                         </div>
                         <div class="x_content">
                           <p class="text-muted font-13 m-b-30">
-                            Second step verify if the snps are in a cis-regulatory element
+                            Second step verify if the snps are in a cis-regulatory element. See <a href="/home/index2" target="_blank">ID Catalogue</a> to insert in field
                           </p>
                           <div>
                             <form class="form-inline">
@@ -394,18 +411,28 @@
                           //hide load button
                           $('.load2').hide();
                           //some debbugging
-                          console.log("LOG: " + response[0]['state_model'])
+                          if (response[0] == undefined){
+                              alert("Insert snp first")
+                          }else{
+                            console.log("LOG: " + response[0]['state_model'])
                           //declare datatable
                           var t = $('#datatable-buttons-x').DataTable();
                           //iterate through response to add rows in the table
                           for(i=0;i<response.length;i++){
-                            t.row.add( [
+                            console.log("HERE - Debug")
+                            console.log(response[i]['reg_elemnt'].split("|")[0])
+                            if (response[i]['reg_elemnt'].split("|")[0] != "DO NOT EXIST "){
+                              t.row.add( [
                               response[i]['snp_name'],
                               response[i]['state_model'],
                               response[i]['tissue'],
                               response[i]['reg_elemnt'],
                             ] ).draw();
+                            }
+                            
                           };
+                          }
+
                         }
                       });
                     });
@@ -435,11 +462,14 @@
                         var row2_idx_del = [];
                         console.log("INDEXES 1:"+row_idx_del);
                         //loop and remove tr from table 1
+                        var snp_exist = false
+
                         for(j=0;j<snps_del_array.length;j++){
                         
                           table_snp.rows().nodes().each(function(a,b) {
                             if($(a).children().eq(0).text() == snps_del_array[j].trimLeft()){
                               table_snp.rows(a).remove();
+                              snp_exist = true
                             }
                           });
                         }
@@ -451,12 +481,15 @@
                           table_reg.rows().nodes().each(function(a,b) {
                           if($(a).children().eq(0).text() == snps_del_array[j].trimLeft()){
                             table_reg.rows(a).remove();
+                            snp_exist = true
                           }
                         });
                       }
                       table_reg.rows().invalidate();
                       table_reg.draw();
-
+                      if(snp_exist == false){
+                        alert("This snp doesnt exist!")
+                      }
                       });
                     });
                   </script>
@@ -466,7 +499,7 @@
                   <div class="col-md-12 col-sm-12 col-xs-12">
                       
                       <div class="x_title">
-                        <h2 class="StepTitle"> Step 3 <small>Generate Sequences </small></h2>
+                        <h2 class="StepTitle"> Step 3 <small> Generate Sequences </small></h2>
                         <div class="clearfix"></div>
                       </div>
                       <div class="x_content">
@@ -533,24 +566,31 @@
                     $('.btn.btn-success.btn-xs.generate').bind('click', function() {
                       //important method so that ajax doesn't refresh the page
                       event.preventDefault()
-                      ////get information from table in step 1
-                      //instantiate table
-                      var table = $('#datatable-buttons').DataTable();
-                      //get size of all rows data
-                      var rows2 = table.rows().data().length;
-                      //empty row list information
-                      var row_list = []
-                      //get data from all rows
-                      for(i=0;i<rows2;i++){
-                        row_list.push(table.rows().data()[i])
-                      };
                       //empty HTML element to put sequences in
                       var element;
                       element = document.getElementById("sequences");
                       if (element) {
                         element.innerHTML = "";
                       }
-
+                      ////get information from table in step 1
+                      
+                      //instantiate table
+                      var table = $('#datatable-buttons').DataTable();
+                      //get size of all rows data
+                      var rows2 = table.rows().data().length;
+                      //empty row list information
+                      if (rows2 == 0){
+                        alert("Insert snp first");
+                        //hide load button
+                        $('.load3').hide();
+                        return false;
+                      }
+                      var row_list = []
+                      //get data from all rows
+                      for(i=0;i<rows2;i++){
+                        row_list.push(table.rows().data()[i])
+                      };
+                      
                       $.ajax({
                         url: 'http://127.0.0.1:5000/home/gen_sequence',
                         type: 'POST',
@@ -645,11 +685,16 @@
                     //Getting information from snp_datatable first step
                     //When run button is clicked in the second step
                     $('.btn.btn-success.btn-xs.dif-tf').bind('click', function() {
-                      console.log(allele_dict)
+
                       //important method so that the ajax doesn't refresh the page
                       event.preventDefault()
                       var tab_tf = $('#datatable-buttons-ft').DataTable();
                       tab_tf.clear().draw();
+                      //if user clicks on button before clicking on step 3 button
+                      if( allele_dict== undefined) {
+                        alert('Click generate button on step 3');
+                        return false;
+                      }
                       $.ajax({
                         url: 'http://127.0.0.1:5000/home/dif_tf',
                         type: 'POST',
@@ -660,9 +705,11 @@
                         // async: false,
                         success:function(response) {
                           //some debbugging
-                          alert("DONE");
-                          console.log("SIZE: " + response.length);
-                          console.log("TESTE: " + response['motif_id'] );
+                          if (response.length == 0){
+                            alert("Differential Transciption Factors not found")
+                          }else{
+                            alert("DONE");
+                          }
                           //insert into table
                           //declare datatable
                           var t = $('#datatable-buttons-ft').DataTable();
@@ -697,7 +744,7 @@
                       </div>
                       <div class="x_content">
                         <p class="text-muted font-13 m-b-30">
-                          This part shows enhancer and promoter interaction pairs of snps inside enhancer region
+                          This part shows enhancer and promoter interaction pairs of snps inside enhancer region. See <a href="/home/index2" target="_blank">ID Catalogue</a> to insert in field
                         </p>
                         <div>
                           <form class="form-inline">
@@ -789,9 +836,7 @@
                               console.log("LOG: " + response['SNP'])
                               console.log("SIZE: " + response.length)
                               //declare datatable
-                              var t = $('#datatable-buttons-epi').DataTable({
-                                // 'rowsGroup': [1]
-                              });
+                              var t = $('#datatable-buttons-epi').DataTable();
                               //iterate through response to add rows in the table
                                 for(i=0;i<response.length;i++){
                                   t.row.add( [
@@ -805,6 +850,8 @@
                                     response[i]['File_Type'],
                                   ] ).draw();
                                 };  
+                            },error: function(){
+                              alert("Tissue do not exist")
                             }
 
                           });

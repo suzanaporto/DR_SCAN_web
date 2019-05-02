@@ -89,10 +89,13 @@ def get_snp_info(snp_id):
     }
 
     return dict
-  
+
   ### Download Snp Info based on its id
-  res_json = request_info_by_id(snp_id)
   
+  res_json = request_info_by_id(snp_id)
+
+  # TODO When request is 404
+
   ##verify if snp has another name
   if "merged_snapshot_data" in res_json:
     new_snp = res_json['merged_snapshot_data']['merged_into'][0]
@@ -1334,6 +1337,7 @@ def teste():
         snp = snp_input_form[2:]
         #print(snp)
         a = get_snp_info(snp)
+
         #dictionary with information based on genome version
         sample_dict = a[a["gnenome_versions"].str.contains(genome_input[:6])]['snp_info_dict'].values[0]
 
