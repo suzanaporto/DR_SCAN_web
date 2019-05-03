@@ -33,7 +33,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
-              <h2>DR_SCAN </h2>
+              <h2>REGULOMIX </h2>
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -196,7 +196,7 @@
                                       response[i][0][0].chrom,
                                       response[i][0][0].allele_wt,
                                       response[i][2],
-                                      '<a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
+                                      '<a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-pencil"></i> Edit </a>'+
                                       '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
                                     ] ).draw();
                                 }
@@ -236,7 +236,7 @@
                                       response[0][0].chrom,
                                       response[0][0].allele_wt,
                                       response[2],
-                                      '<a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'+
+                                      '<a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-pencil"></i> Edit </a>'+
                                       '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
                                     ] ).draw();
                                   
@@ -268,19 +268,56 @@
                             //working
                             //transform cells into editable text fields
                             $(document).ready(function(){
-                              event.preventDefault()
-                              $('#datatable-buttons').on( 'click', '.btn.btn-info.btn-xs', function () {
+
+                              
+
+                              $('#datatable-buttons').on( 'click.edit', '.btn.btn-info.btn-xs.edit', function () {
+                                event.preventDefault()
+                                //table
                                 var myTable = $('#datatable-buttons').DataTable();
-                                var idx = myTable.row( $(this).parents('tr') ).index();
-                                console.log("IDX: " + idx)
+                                //change edit icon and text inside a href from edit to save
+                                $(this).children('i').removeClass("fa fa-pencil").addClass("fa fa-check");
+                                $(this).removeClass("edit").addClass("save");
+                                this.childNodes[1].nodeValue = "Save"
+                                //get row and change all of them to input type text and put its value as their text
+                                var $row = $(this).closest("tr")
+                                var $tds = $row.find("td").not(':first').not(':last');
+
+                                $.each($tds, function(i, el) {
+                                  var txt = $(this).text();
+                                  $(this).html("").append("<input type='text' value=\""+txt+"\">");
+                                });
+
+                                // var idx = myTable.row( $(this).parents('tr') ).index();
+                                // console.log("IDX: " + idx)
                                 //every cell turns into editable text field
-                                myTable.cell(idx,0).data('<input type="text" class="form-control" name="" value="" placeholder="rs4232"></input>').draw();
-                                myTable.cell(idx,1).data('<input type="text" class="form-control" name="" value="" placeholder="1231321"></input>').draw();
-                                myTable.cell(idx,2).data('<input type="text" class="form-control" name="" value="" placeholder="11"></input>').draw();
-                                myTable.cell(idx,3).data('<input type="text" class="form-control" name="" value="" placeholder="A"></input>').draw();
-                                myTable.cell(idx,4).data('<input type="text" class="form-control" name="" value="" placeholder="C"></input>').draw();
+                                // myTable.cell(idx,0).data('<input type="text" class="form-control" name="" value="" placeholder="rs4232"></input>').draw();
+                                // myTable.cell(idx,1).data('<input type="text" class="form-control" name="" value="" placeholder="1231321"></input>').draw();
+                                // myTable.cell(idx,2).data('<input type="text" class="form-control" name="" value="" placeholder="11"></input>').draw();
+                                // myTable.cell(idx,3).data('<input type="text" class="form-control" name="" value="" placeholder="A"></input>').draw();
+                                // myTable.cell(idx,4).data('<input type="text" class="form-control" name="" value="" placeholder="C"></input>').draw();
 
                               } );
+
+                              //stop propagation input
+                              $("#datatable-buttons").on('click', "input", function(e) {
+                                e.stopPropagation();
+                              });
+                              
+                              //save button
+                              $("#datatable-buttons").on('click.save', ".btn.btn-info.btn-xs.save", function(e) {
+                                e.preventDefault()
+                                $(this).children('i').removeClass("fa fa-check").addClass("fa fa-pencil");
+                                $(this).removeClass("save").addClass("edit");
+                                this.childNodes[1].nodeValue = "Edit"
+                                var $row = $(this).closest("tr");
+                                var $tds = $row.find("td").not(':first').not(':last');
+
+                                $.each($tds, function(i, el) {
+                                  var txt = $(this).find("input").val()
+                                  $(this).html(txt);
+                                });
+                              });
                             });
                             </script>
                     </div>
