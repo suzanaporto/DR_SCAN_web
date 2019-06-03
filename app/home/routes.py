@@ -1456,7 +1456,16 @@ def gen_sequence():
                 for element in line:
                     f.write("%s\n" % element)
         #FIMO
-        meme= "./TFs/" + tf_selected + ".meme"
+        print("UPLOADED")
+        print(request.form['upload'])
+        upload_value = request.form['upload']
+        if (int(upload_value) == 0):
+            meme= "./TFs/" + tf_selected + ".meme"
+            print("not uploaded")
+        else:
+            meme= "app/home/meme.meme"
+            print("uploaded")
+        # meme= "./TFs/" + tf_selected + ".meme"
         os.system("export PATH=$HOME/meme/bin:$PATH ")
         os.system("~/meme/bin/fimo "+meme+" "+fna_filename )
     
@@ -1728,6 +1737,19 @@ def uploader():
             snp_ids.append(snp.strip()[2:])
         
         return jsonify(process(snp_ids))
+
+@blueprint.route('/upload_matrix',methods=['GET','POST'])
+@login_required
+def upload_matrix():
+    if request.method == 'POST':
+        print("REQUEST")
+        print(request.files) 
+        f = request.files['file_matrix']
+        file_path = "app/home/meme.meme"
+        #save xlsx file
+        f.save(file_path)
+        
+        return "OK"
 
 def process(snp_ids):
     list_all_snps = []
