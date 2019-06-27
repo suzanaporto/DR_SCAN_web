@@ -7,12 +7,40 @@
 {% endblock stylesheets %}
 
 {% block content %}
+<style>
+  .wizard_verticle ul.wizard_steps li a.selected:before, .step_no {
+    background: #006938;
+    color: #fff;
+  }
+  .wizard_horizontal ul.wizard_steps li a.selected:before, .step_no {
+    background: #006938;
+    color: #fff;
+  }
+  .wizard_horizontal ul.wizard_steps li a.done:before, .wizard_horizontal ul.wizard_steps li a.done .step_no {
+    background: #5EC199;
+    color: #fff;
+  }
+  .btn-primary {
+    color: #fff;
+    background-color: #006938;
+    border-color: #005e32;
+  }
+  .btn-primary:hover {
+    color: #fff;
+    background-color: #00743e;
+    border-color: #005e32;
+  }
+  .btn-success {
+    background: #5EC199;
+    border: 1px solid rgb(87, 177, 141);
+  }
 
+</style>
   <div class="right_col" role="main">
     <div class="">
       <div class="page-title">
         <div class="title_left">
-          <h3>SNP SCANNER</h3>
+          <!-- <h3>SNP SCANNER</h3> -->
         </div>
 
         <div class="title_right">
@@ -384,8 +412,8 @@
                                 <p class="text-muted font-13 m-b-30">
                                   Choose regulatory element you want to keep snps from. The rest is going to be deleted.
                                 </p>
-                                <label  style="display: inline-flex">Select Tissue</label>
-                                  <div  style="display: inline-flex">
+                                <label  style="display: flexbox">Select Tissue</label>
+                                  <div style= "display: inline-flex">
                                     <select class="form-control" id="tissues_option">
                                       <option>E001</option>
                                       <option>E002</option>
@@ -517,6 +545,7 @@
                                       <option>E129</option>
                                     </select>
                                   </div>
+                                <div style="display: flexbox">
                                 <div class="checkbox col-sm-3 col-md-6">
                                   <label class>
 
@@ -866,6 +895,7 @@
                                     Flanking Bivalent TSS/Enh
                                   </label>
                                 </div>
+                              </div>
                               </form>
                               <button type="submit" class="btn btn-success submit delete_s">Submit</button>
                             </div>
@@ -1211,6 +1241,7 @@
                                 console.log("Success form")
                                 console.log(response)
                                 uploaded = 1
+                                $('#tfs').attr("disabled", 'disabled');
                                 
                               },error:function(){
                                   alert("Error")
@@ -1272,6 +1303,8 @@
                           $('.load3').hide();
                           //reset upload
                           uploaded = 0
+                          //reset disable
+                          $('#tfs').removeAttr('disabled');
                           //some debbugging
                           alert("DONE")
                           console.log("SIZE: " + response[0].length)

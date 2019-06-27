@@ -10,11 +10,14 @@
   <link href="{{ url_for('static', filename='vendors/alertifyjs/css/alertify.min.css') }}" rel="stylesheet">
   <link href="{{ url_for('static', filename='vendors/alertifyjs/css/custom.alertify.css') }}" rel="stylesheet">
   <style>
-    h1   {color: #3e7c7c;
+    h1   {color: #006938;
         }
-    p   {color: #3e7c7c;
+    p   {color: #006938;
         }
-    a.to_register   {color: #3e7c7c;}
+    a.to_register   {color: #006938;}
+    #register {
+      margin-top:50px
+    }
   </style>
 {% endblock stylesheets %}
 
@@ -32,9 +35,10 @@
   <div>
     <a class="hiddenanchor" id="signup"></a>
     <a class="hiddenanchor" id="signin"></a>
-    <div class="login_wrapper">
-      <h1><i class="fa fa-user-md"></i> DR_SCAN </h1>
-      <div class="animate form login_form">
+    <div class="login_wrapper" style="margin-top: 20px;">
+      <img src="static/images/regulomix-cor.png" alt="Regulomix Logo" width="210" height="80" style="margin-left: 50px">
+      <!-- <h1><i class="fa fa-user-md"></i> REGULOMIX </h1> -->
+      <div class="animate form login_form" style="margin-top: 50px">
         <section class="login_content">
           <form data-parsley-validate method="post">
             <h1>Login</h1>

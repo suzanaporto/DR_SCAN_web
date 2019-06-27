@@ -1,13 +1,14 @@
 <div class="nav_menu">
   <nav>
     <div class="nav toggle">
-      <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+      <a id="menu_toggle"><i class="fa fa-bars" style="color: #006938"></i></a>
     </div>
 
     <ul class="nav navbar-nav navbar-right">
       <li class="">
         <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-          <img src="/static/images/img.jpg" alt="">{{ current_user.username }}
+          <!-- <img src="/static/images/img.jpg" alt=""> -->
+          {{ current_user.username }}
           <span class=" fa fa-angle-down"></span>
         </a>
         <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -24,10 +25,10 @@
       </li>
 
       <li role="presentation" class="dropdown">
-        <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+        <!-- <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
           <i class="fa fa-envelope-o"></i>
           <span class="badge bg-green">6</span>
-        </a>
+        </a> -->
         <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
           <li>
             <a>
