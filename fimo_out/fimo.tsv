@@ -1,17 +1,21 @@
 motif_id	motif_alt_id	sequence_name	start	stop	strand	score	p-value	q-value	matched_sequence
-MA0645.1	ETV6	sequence_wild_type|rs2737005|4|A|32	31	40	-	13.9184	1.13e-05	0.00222	AGAGGAAGTG
-MA0109.1	HLTF	sequence_variation|rs2737005|4|G|32	8	17	-	8.8427	3.13e-05	0.00319	CACCTTATGT
-MA0109.1	HLTF	sequence_wild_type|rs2737005|4|A|32	8	17	-	8.8427	3.13e-05	0.00319	CACCTTATGT
-MA0786.1	POU3F1	sequence_variation|rs2737005|4|G|32	2	13	-	11.7229	4.49e-05	0.00396	TTATGTTAAATA
-MA0786.1	POU3F1	sequence_wild_type|rs2737005|4|A|32	2	13	-	11.7229	4.49e-05	0.00396	TTATGTTAAATA
-MA0787.1	POU3F2	sequence_variation|rs2737005|4|G|32	2	13	-	11.1774	5.43e-05	0.00512	TTATGTTAAATA
-MA0787.1	POU3F2	sequence_wild_type|rs2737005|4|A|32	2	13	-	11.1774	5.43e-05	0.00512	TTATGTTAAATA
-MA0826.1	OLIG1	sequence_variation|rs2737005|4|G|32	7	16	+	10.6531	5.51e-05	0.00542	AACATAAGGT
-MA0826.1	OLIG1	sequence_wild_type|rs2737005|4|A|32	7	16	+	10.6531	5.51e-05	0.00542	AACATAAGGT
-MA0081.1	SPIB	sequence_variation|rs2737005|4|G|32	34	40	-	11.2333	6.51e-05	0.0062	AGAGGAA
-MA0081.1	SPIB	sequence_wild_type|rs2737005|4|A|32	34	40	-	11.2333	6.51e-05	0.0062	AGAGGAA
-MA0645.1	ETV6	sequence_variation|rs2737005|4|G|32	31	40	-	11.2041	7.11e-05	0.00698	AGAGGAAGCG
+SRY_f1	SRY	sequence_variation|rs2222|18|A|32	55	63	-	11.8158	7.28e-06	0.000718	TTTTGTTTT
+SRY_f1	SRY	sequence_variation|rs2222|18|T|32	55	63	-	11.8158	7.28e-06	0.000718	TTTTGTTTT
+SRY_f1	SRY	sequence_wild_type|rs2222|18|C|32	55	63	-	11.8158	7.28e-06	0.000718	TTTTGTTTT
+IRF4_si	IRF4	sequence_variation|rs2222|18|T|32	48	63	+	13.1356	1.69e-05	0.00142	AAGGGAGAAAACAAAA
+IRF4_si	IRF4	sequence_wild_type|rs2222|18|C|32	48	63	+	13.1356	1.69e-05	0.00142	AAGGGAGAAAACAAAA
+IRF4_si	IRF4	sequence_variation|rs2222|18|A|32	48	63	+	13.1356	1.69e-05	0.00142	AAGGGAGAAAACAAAA
+ATF5_si	ATF5	sequence_variation|rs2222|18|A|32	47	58	+	12	3.58e-05	0.00326	GAAGGGAGAAAA
+ATF5_si	ATF5	sequence_variation|rs2222|18|T|32	47	58	+	12	3.58e-05	0.00326	GAAGGGAGAAAA
+ATF5_si	ATF5	sequence_wild_type|rs2222|18|C|32	47	58	+	12	3.58e-05	0.00326	GAAGGGAGAAAA
+COE1_f2	COE1	sequence_variation|rs2222|18|A|32	24	35	+	11.9828	3.89e-05	0.0111	GCCTCTGGAGAC
+FOXO4_f1	FOXO4	sequence_variation|rs2222|18|A|32	53	61	-	12.3258	4.1e-05	0.00416	TTGTTTTCT
+FOXO4_f1	FOXO4	sequence_variation|rs2222|18|T|32	53	61	-	12.3258	4.1e-05	0.00416	TTGTTTTCT
+FOXO4_f1	FOXO4	sequence_wild_type|rs2222|18|C|32	53	61	-	12.3258	4.1e-05	0.00416	TTGTTTTCT
+IRF4_si	IRF4	sequence_variation|rs2222|18|A|32	47	62	+	10.3898	8.9e-05	0.00376	GAAGGGAGAAAACAAA
+IRF4_si	IRF4	sequence_variation|rs2222|18|T|32	47	62	+	10.3898	8.9e-05	0.00376	GAAGGGAGAAAACAAA
+IRF4_si	IRF4	sequence_wild_type|rs2222|18|C|32	47	62	+	10.3898	8.9e-05	0.00376	GAAGGGAGAAAACAAA
 
 # FIMO (Find Individual Motif Occurrences): Version 5.0.2 compiled on Sep 14 2018 at 17:23:41
 # The format of this file is described at http://meme-suite.org//doc/fimo-output-format.html.
-# fimo ./TFs/JASPAR2018_CORE_vertebrates_non-redundant.meme ./seq.fna
+# fimo ./TFs/HOCOMOCOv9.meme ./seq.fna
