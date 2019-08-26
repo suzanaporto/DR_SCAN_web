@@ -35,8 +35,20 @@ def get_snp_info(snp_id):
     print("STATUS CODE: " + str(r.status_code))
 
     if not r.ok:
-      r.raise_for_status()
-      sys.exit()
+      if r.status_code == 404:
+          r.raise_for_status()
+          sys.exit()
+      for i in range(10):
+          r = requests.get(server+snp_id, headers={ "Content-Type" : "application/json"})
+          if r.status_code == 200:
+              break
+          time.sleep(5)
+      if not r.ok:
+        print("STATUS CODE: " + str(r.status_code))
+        r.raise_for_status()
+        sys.exit()
+    #   r.raise_for_status()
+    #   sys.exit()
 
     decoded = r.json()
 
@@ -1350,6 +1362,7 @@ def teste():
             str_minor = join_symbol.join(minor_allele)
         else:
             str_minor = sample_dict[0]['allele_v']
+        
         return jsonify(sample_dict,snp_input_form,str_minor)
 #step 2        
 @blueprint.route('/verify_snps',methods=['GET','POST'])
@@ -1377,6 +1390,8 @@ def verify_snps():
                     chrom = snp_info[2]
 
                 dict_snps.append(apply_state_model(tissue, snp_info, snp_info[0], chrom))
+    with open('app/users_workflow/data2.txt', 'w') as out:  
+            json.dump(dict_snps, out)
     return jsonify(dict_snps)
 #step 3
 @blueprint.route('/gen_sequence',methods=['GET','POST'])
@@ -1533,7 +1548,6 @@ def dif_tf():
         #index list
         index_list = []
 
-        #with pd.option_context('display.max_rows', 100, 'display.max_columns', 100):
         #display(df_fimo_output)
 
         for idx, (seq_start,seq_stop,seq_name) in enumerate( zip(array_start, array_stop, array_sequence_name) ):
@@ -1606,9 +1620,9 @@ def dif_tf():
                     condition_sn = current_seq_name.split('|')[0] != seq_name.split('|')[0]
                     condition_sn2 = current_seq_name.split('|')[1] == seq_name.split('|')[1]
                     condition_csta = current_start == seq_start
-                    condition_csta1 = seq_start == range(int(current_start-50),int(current_start))
+                    condition_csta1 = seq_start == range(int(current_start-32),int(current_start))
                     condition_csto = current_stop == seq_stop
-                    condition_csto1 = seq_stop == range(int(current_stop),int(current_stop + 50))
+                    condition_csto1 = seq_stop == range(int(current_stop),int(current_stop + 32))
 
                     if condition_m and condition_sn and condition_sn2 and (condition_csta or condition_csta1).any and (condition_csto or condition_csto1).any:
                         #new data frame droping all occurences of specified TF-snp pair
@@ -1633,16 +1647,21 @@ def dif_tf():
                 multi_snps = 1
                 count_al = 0
                 #iterate through dictionary of snp and alleles
-                for snp_name,snp_dict in zip(snp_name_list,dictionary_snp_allele):
-                    #if snp in list of combinations is the same in the dictionary 
-                    if snp_dict == snp_name:
-                        #loop through alleles and count it 
-                        for allele in dictionary_snp_allele[snp_dict]:
-                            #print ("SNP DICT: ",snp_dict," ",allele)
-                            count_al +=1
-                        #multiply the amount of alleles to find the amount of combinations
-                        multi_snps *= count_al
-                        count_al = 0
+                for snp_name in snp_name_list:
+                    for allele in dictionary_snp_allele[snp_name]:
+                        count_al +=1
+                    multi_snps *= count_al
+                    count_al = 0
+                # for snp_name,snp_dict in zip(snp_name_list,dictionary_snp_allele):
+                #     #if snp in list of combinations is the same in the dictionary 
+                #     if snp_dict == snp_name:
+                #         #loop through alleles and count it 
+                #         for allele in dictionary_snp_allele[snp_dict]:
+                #             print ("SNP DICT: ",snp_dict,"--",allele)
+                #             count_al +=1
+                #         #multiply the amount of alleles to find the amount of combinations
+                #         multi_snps *= count_al
+                #         count_al = 0
         
                 print ("THE AMOUNT OF COMBINATIONS: ",multi_snps)
                 #position_in_list = pos_in_TF(current_start,current_stop)
@@ -1690,7 +1709,7 @@ def dif_tf():
 
         dataframe_out = f_dataframe.to_dict(orient='records')
         print("DATA FRAME DICT")
-        print(dataframe_out)
+        # print(dataframe_out)
 
     return jsonify(dataframe_out)
 
@@ -1715,6 +1734,16 @@ def epi():
 
     return jsonify(dataframe_new)
 
+@blueprint.route('/data_retrive',methods=['GET','POST'])
+@login_required
+def data_retriever():
+    if not os.path.getsize('app/users_workflow/data.txt') == 0:
+        with open('app/users_workflow/data.txt') as json_file:  
+            data = json.load(json_file)
+            return jsonify(data)
+    else:
+        return None
+
 @blueprint.route('/uploader',methods=['GET','POST'])
 @login_required
 def uploader():
@@ -1735,8 +1764,13 @@ def uploader():
         snp_ids = []
         for snp in snp_list:
             snp_ids.append(snp.strip()[2:])
-        
-        return jsonify(process(snp_ids))
+
+        #saving json file
+        teste = process(snp_ids)
+        with open('app/users_workflow/data.txt', 'w') as outfile:  
+            json.dump(teste, outfile)
+        # return jsonify(process(snp_ids))
+        return jsonify(teste)
 
 @blueprint.route('/upload_matrix',methods=['GET','POST'])
 @login_required

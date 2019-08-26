@@ -126,6 +126,7 @@
                       
                         <div class="x_title">
                           <h2 class="StepTitle"> Step 1 <small>Insert Snps </small></h2>
+                          <i class="fa fa-question-circle fa-2x" data-container="body"data-toggle="tooltip" data-placement="top" title="Tooltip on top"></i>
                           <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
@@ -133,6 +134,7 @@
                             First step is to insert snps id into its respective field. Click run to get snp information by its id. 
                             Or you can insert an .xlsx file with your SNPs, create one column named SNP, and write down all SNPs IDs
                           </p>
+                          
                           <div style="padding-bottom: 12px;">
                             <div style="display: inline-flex">
                               <form class='form-inline'>
@@ -190,6 +192,36 @@
                         $(document).ready(function() {
                           $('.load').hide();
                         });
+                        
+                        $(document).ready(function() {
+                          $.ajax({
+                            url: 'http://127.0.0.1:5000/home/data_retrive',
+                              type: 'POST',
+                              // dataType: 'json',
+                              success:function(response) {
+                                //TODO implement retrival
+                                console.log(response)
+                                var t = $('#datatable-buttons').DataTable();
+                                for(i=0;i<response.length;i++){
+                                  // var t = $('#datatable-buttons').DataTable();
+                                    t.row.add( [
+                                      response[i][1],
+                                      response[i][0][0].location,
+                                      response[i][0][0].chrom,
+                                      response[i][0][0].allele_wt,
+                                      response[i][2],
+                                      '<a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-pencil"></i> Edit </a>'+
+                                      '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
+                                    ] );
+                                    // t.draw();
+                                }
+                                t.draw();
+                              }
+                          });
+                        });
+                        $(function () {
+                          $('[data-toggle="tooltip"]').tooltip()
+                        })
                      </script>
                       <script type=text/javascript>
                         
@@ -216,8 +248,9 @@
                                 $('.load').hide();
                                 console.log("Success form")
                                 console.log(response)
+                                var t = $('#datatable-buttons').DataTable();
                                 for(i=0;i<response.length;i++){
-                                  var t = $('#datatable-buttons').DataTable();
+                                  // var t = $('#datatable-buttons').DataTable();
                                     t.row.add( [
                                       response[i][1],
                                       response[i][0][0].location,
@@ -226,8 +259,10 @@
                                       response[i][2],
                                       '<a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-pencil"></i> Edit </a>'+
                                       '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
-                                    ] ).draw();
+                                    ] );
+                                    // t.draw();
                                 }
+                                t.draw();
                               },error:function(){
                                   alert("SNP not found. Try to verify if each snp is corrected in your file")
                                   // $('.load').hide();
@@ -278,6 +313,13 @@
                             });
                           });
                         </script>
+                        <script>
+                          $(function() {
+                            $('.buttonNext.btn.btn-success').bind('click', function() {
+                              console.log('BUTTON CLICKED');
+                            });
+                          });
+                        </script>
                
                             <script type="text/javascript">
                               //JQuery to delete rows.Working and using the datatables API
@@ -289,7 +331,7 @@
                                   table_edit
                                     .row( $(this).parents('tr') )
                                     .remove()
-                                    .draw();
+                                    .draw(false);
                                 });
                               });
                             </script>
@@ -336,7 +378,7 @@
                                   var txt = $(this).find("input").val()
                                   var td_index = $(this).index();
                                   // $(this).html(txt);
-                                  $("#datatable-buttons").DataTable().cell(row_idx,td_index).data(txt).draw();
+                                  $("#datatable-buttons").DataTable().cell(row_idx,td_index).data(txt).draw(false);
                                   $(this).html(txt);
                                 });
                                 
@@ -354,6 +396,7 @@
                       
                         <div class="x_title">
                           <h2 class="StepTitle"> Step 2 <small>Verify Cis-Regulatory Elements </small></h2>
+                          <i class="fa fa-question-circle fa-2x" data-container="body"data-toggle="tooltip" data-placement="top" title="Tooltip on top"></i>
                           <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
@@ -395,6 +438,7 @@
                           <div style="margin-top:60px;padding-top:10px">
                             <!--Step 2.1 title-->
                             <h2 class=""> Step 2.1 <small>Delete SNPs from Tables </small></h2>
+                            <i class="fa fa-question-circle fa-2x" data-container="body"data-toggle="tooltip" data-placement="top" title="Tooltip on top"></i>
                               <!--Explanation-->
                               <p class="text-muted font-13 m-b-30">
                                 Delete SNPs if you dont want to analyze them for third and fourth steps
@@ -977,11 +1021,12 @@
                             console.log(response[i]['reg_elemnt'].split("|")[0])
                             if (response[i]['reg_elemnt'].split("|")[0] != "DO NOT EXIST "){
                               t.row.add( [
-                              response[i]['snp_name'],
-                              response[i]['state_model'],
-                              response[i]['tissue'],
-                              response[i]['reg_elemnt'],
-                            ] ).draw();
+                                response[i]['snp_name'],
+                                response[i]['state_model'],
+                                response[i]['tissue'],
+                                response[i]['reg_elemnt'],
+                              ] );
+                              t.draw();
                             }else{
                               if (x_boolean){
                                 alert("One of the tissues does not exist")
@@ -1146,6 +1191,7 @@
                       
                       <div class="x_title">
                         <h2 class="StepTitle"> Step 3 <small> Generate Sequences </small></h2>
+                        <i class="fa fa-question-circle fa-2x" data-container="body"data-toggle="tooltip" data-placement="top" title="Tooltip on top"></i>
                         <div class="clearfix"></div>
                       </div>
                       <div class="x_content">
@@ -1330,6 +1376,7 @@
                       
                       <div class="x_title">
                         <h2 class="StepTitle"> Step 4 <small>Differential Transcription Factors </small></h2>
+                        <i class="fa fa-question-circle fa-2x" data-container="body"data-toggle="tooltip" data-placement="top" title="Tooltip on top"></i>
                         <div class="clearfix"></div>
                       </div>
                       <div class="x_content">
@@ -1405,7 +1452,6 @@
                         data: { fimo_tsv: "fimo_out/fimo.tsv",
                                 al_dict: JSON.stringify(allele_dict),
                                 },
-                        // async: false,
                         success:function(response) {
                           //some debbugging
                           if (response.length == 0){
@@ -1415,7 +1461,9 @@
                           }
                           //insert into table
                           //declare datatable
+
                           var t = $('#datatable-buttons-ft').DataTable();
+
                           //iterate through response to add rows in the table
                           for(i=0;i<response.length;i++){
                             t.row.add( [
@@ -1428,8 +1476,9 @@
                               response[i]['p-value'],
                               response[i]['q-value'],
                               response[i]['matched_sequence'],
-                            ] ).draw();
-                          };  
+                            ] );
+                          }; 
+                          t.draw(); 
                         }
                       });
                     });
@@ -1443,6 +1492,7 @@
                       
                       <div class="x_title">
                         <h2 class="StepTitle"> Step 5 <small>Enhancer Promoter Interaction </small></h2>
+                        <i class="fa fa-question-circle fa-2x" data-container="body"data-toggle="tooltip" data-placement="top" title="Tooltip on top"></i>
                         <div class="clearfix"></div>
                       </div>
                       <div class="x_content">

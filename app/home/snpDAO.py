@@ -20,8 +20,8 @@ class SnpDAO (object):
         server = "http://rest.ensembl.org"
 
         #declara as variáveis para montar as urls para fazer o request
-        x = start_location - 50
-        y = end_location + 50
+        x = start_location - 31
+        y = end_location + 31
         ext = "/sequence/region/human/" + str(snp_chrom) +":"+ str(x) + ".."+ str(y) + ":1?coord_system_version=" + genome_version
 
         r1 = requests.get(server+ext, headers={ "Content-Type" : "text/plain"})
@@ -35,8 +35,8 @@ class SnpDAO (object):
     def request_sequence(self,snp,genome_version,is_first,filename="sequenciasdef.fna"):
         #declara o servidor
         server = "http://rest.ensembl.org"
-        x = snp.location - 50
-        y = snp.location + 50
+        x = snp.location - 31
+        y = snp.location + 31
         chrom_req = snp.chrom
         if snp.chrom == 23:
             chrom_req = "X"
@@ -49,9 +49,9 @@ class SnpDAO (object):
             sys.exit()
 		# Coloca as sequencias de snp no meio na variavel declarada
         starting_at_one = 1
-        tamanho_seq = 50*2 + 1
+        tamanho_seq = 31*2 + 1
         seq_meio = r1.text
-        seq_meio = seq_meio[:50] + snp.ancestral_al.nome + seq_meio[51:]
+        seq_meio = seq_meio[:31] + snp.ancestral_al.nome + seq_meio[32:]
         print (">sequence_wild_type|"+str(snp.name) +"|"+str(chrom_req)+"|"+str(snp.ancestral_al)+"|"+str((snp.location-x)+starting_at_one))
         print (seq_meio)
         if is_first:
@@ -62,7 +62,7 @@ class SnpDAO (object):
         f.write(line_seq)
         f.write(seq_meio + '\n')  #writes o/p to add.txt file
         for j in snp.minor_al:
-            seq_meio_alt = seq_meio[:50] + j.nome + seq_meio[51:]
+            seq_meio_alt = seq_meio[:31] + j.nome + seq_meio[32:]
             print (">sequence_variation|"+str(snp.name) +"|"+str(chrom_req)+"|"+j.nome+"|"+str((snp.location-x)+starting_at_one))
             print (seq_meio_alt)
             f.write(">sequence_variation|"+str(snp.name) +"|"+str(chrom_req)+"|"+j.nome+"|"+str((snp.location-x)+starting_at_one)+ '\n')
@@ -115,7 +115,7 @@ class SnpDAO (object):
                 for l in range(len(j)):
                     if (l == 0):
                         #index do primeiro elemento
-                        real_index = 50
+                        real_index = 31
                     else:
                         #calculo do index real
                         real_index = real_index + lista_comb[l].location - lista_comb[l-1].location
@@ -125,8 +125,8 @@ class SnpDAO (object):
                 string_nomes_snps = '|'.join(map(str, lista_comb))
                 pos_relativa = '|'.join(pos_relativa_lista)
                 #string_nomes_snps = '|'.join(str(lista_comb))
-                print (">sequence_combinations|"+ string_nomes_snps + "|" + str(lista_comb[0].chrom) + "|" +string_dos_alelos+ "|" + pos_relativa)
-                print(request_text_middle)
+                # print (">sequence_combinations|"+ string_nomes_snps + "|" + str(lista_comb[0].chrom) + "|" +string_dos_alelos+ "|" + pos_relativa)
+                # print(request_text_middle)
                 if is_first:
                     f = open(filename,"w")   #create add file in write mode
                 else:

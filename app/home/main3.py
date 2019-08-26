@@ -125,6 +125,8 @@ def main(args):
 		#get size until the end of iterations
 		size = len(chrom_df)-1
 		#make sequence if there is only one element
+		#debug
+		print(chrom_df)
 		if (size == 0):
 			snp = Snp(	name=chrom_df.iloc[0]['Name'],
 						location=chrom_df.iloc[0]['Location'],
@@ -138,12 +140,18 @@ def main(args):
 		elif (size > 0):
 			#iterate chrmossome list
 			for i in range(len(chrom_df)-1):
-				next_smaller = chrom_df.iloc[i + 1]['Difference'] <50
-				bigger = chrom_df.iloc[i]['Difference'] >=50
+				next_smaller = chrom_df.iloc[i + 1]['Difference'] <31
+				bigger = chrom_df.iloc[i]['Difference'] >=31
 				current_0 = chrom_df.iloc[i]['Difference'] == 0
-				smaller = chrom_df.iloc[i]['Difference'] <50
+				smaller = chrom_df.iloc[i]['Difference'] <31
 				#check if it needs to be in list of combinations
 				if ( (bigger and next_smaller) or (smaller and not(current_0)) or (current_0 and next_smaller) ):
+					#TODO see if it works. Added now
+					if (len(lista_comb) > 1 ):
+						if (bigger and next_smaller):
+							first_write = snp_stuff.request_sequence_combinations(lista_comb,genome_version,first_write)
+                    		#delete combinations list
+							del lista_comb[:]
 					
 					snp = Snp(	name=chrom_df.iloc[i]['Name'],
 								location=chrom_df.iloc[i]['Location'],

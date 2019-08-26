@@ -13,7 +13,7 @@ class Sequence (object):
     def __init__(self,seq,chrom,alelles,start,end,snps_nomes,snps_pos):
         self.seq = seq
         self.chrom = chrom
-        self.alleles = alleles
+        self.alleles = alelles
         self.start = start
         self.end = end
         self.snps_nomes = snps_nomes

@@ -26,7 +26,6 @@ class ProductionConfig(Config):
         environ.get('GENTELELLA_DATABASE_NAME', 'gentelella')
     )
 
-
 class DebugConfig(Config):
     DEBUG = True
 
