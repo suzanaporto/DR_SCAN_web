@@ -1,21 +1,12 @@
 motif_id	motif_alt_id	sequence_name	start	stop	strand	score	p-value	q-value	matched_sequence
-SRY_f1	SRY	sequence_variation|rs2222|18|A|32	55	63	-	11.8158	7.28e-06	0.000718	TTTTGTTTT
-SRY_f1	SRY	sequence_variation|rs2222|18|T|32	55	63	-	11.8158	7.28e-06	0.000718	TTTTGTTTT
-SRY_f1	SRY	sequence_wild_type|rs2222|18|C|32	55	63	-	11.8158	7.28e-06	0.000718	TTTTGTTTT
-IRF4_si	IRF4	sequence_variation|rs2222|18|T|32	48	63	+	13.1356	1.69e-05	0.00142	AAGGGAGAAAACAAAA
-IRF4_si	IRF4	sequence_wild_type|rs2222|18|C|32	48	63	+	13.1356	1.69e-05	0.00142	AAGGGAGAAAACAAAA
-IRF4_si	IRF4	sequence_variation|rs2222|18|A|32	48	63	+	13.1356	1.69e-05	0.00142	AAGGGAGAAAACAAAA
-ATF5_si	ATF5	sequence_variation|rs2222|18|A|32	47	58	+	12	3.58e-05	0.00326	GAAGGGAGAAAA
-ATF5_si	ATF5	sequence_variation|rs2222|18|T|32	47	58	+	12	3.58e-05	0.00326	GAAGGGAGAAAA
-ATF5_si	ATF5	sequence_wild_type|rs2222|18|C|32	47	58	+	12	3.58e-05	0.00326	GAAGGGAGAAAA
-COE1_f2	COE1	sequence_variation|rs2222|18|A|32	24	35	+	11.9828	3.89e-05	0.0111	GCCTCTGGAGAC
-FOXO4_f1	FOXO4	sequence_variation|rs2222|18|A|32	53	61	-	12.3258	4.1e-05	0.00416	TTGTTTTCT
-FOXO4_f1	FOXO4	sequence_variation|rs2222|18|T|32	53	61	-	12.3258	4.1e-05	0.00416	TTGTTTTCT
-FOXO4_f1	FOXO4	sequence_wild_type|rs2222|18|C|32	53	61	-	12.3258	4.1e-05	0.00416	TTGTTTTCT
-IRF4_si	IRF4	sequence_variation|rs2222|18|A|32	47	62	+	10.3898	8.9e-05	0.00376	GAAGGGAGAAAACAAA
-IRF4_si	IRF4	sequence_variation|rs2222|18|T|32	47	62	+	10.3898	8.9e-05	0.00376	GAAGGGAGAAAACAAA
-IRF4_si	IRF4	sequence_wild_type|rs2222|18|C|32	47	62	+	10.3898	8.9e-05	0.00376	GAAGGGAGAAAACAAA
+MA0814.1	TFAP2C(var.2)	sequence_wild_type|rs2222|18|C|32	23	33	-	11.3269	6.17e-05	0.019	CGCCAGAGGCA
+MA0593.1	FOXP2	sequence_variation|rs2222|18|A|32	52	62	+	11.5606	7.05e-05	0.00679	GAGAAAACAAA
+MA0593.1	FOXP2	sequence_variation|rs2222|18|T|32	52	62	+	11.5606	7.05e-05	0.00679	GAGAAAACAAA
+MA0593.1	FOXP2	sequence_wild_type|rs2222|18|C|32	52	62	+	11.5606	7.05e-05	0.00679	GAGAAAACAAA
+MA0480.1	Foxo1	sequence_variation|rs2222|18|A|32	53	63	-	10.9483	9.53e-05	0.00917	TTTTGTTTTCT
+MA0480.1	Foxo1	sequence_variation|rs2222|18|T|32	53	63	-	10.9483	9.53e-05	0.00917	TTTTGTTTTCT
+MA0480.1	Foxo1	sequence_wild_type|rs2222|18|C|32	53	63	-	10.9483	9.53e-05	0.00917	TTTTGTTTTCT
 
 # FIMO (Find Individual Motif Occurrences): Version 5.0.2 compiled on Sep 14 2018 at 17:23:41
 # The format of this file is described at http://meme-suite.org//doc/fimo-output-format.html.
-# fimo ./TFs/HOCOMOCOv9.meme ./seq.fna
+# fimo ./TFs/JASPAR2018_CORE_vertebrates_non-redundant.meme ./seq.fna

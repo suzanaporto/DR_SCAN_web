@@ -1,0 +1,1 @@
+[{"snp_name": "rs2222", "state_model": "25 | 18 | 15", "tissue": "E074", "reg_elemnt": "Quiescent/Low | Quiescent/Low | Quiescent/Low"}]
