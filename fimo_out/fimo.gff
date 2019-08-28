@@ -1,8 +1,0 @@
-##gff-version 3
-sequence_wild_type|rs2222|18|C|32	fimo	nucleotide_motif	53	63	40.2	-	.	Name=MA0480.1_sequence_wild_type|rs2222|18|C|32-;Alias=Foxo1;ID=MA0480.1-Foxo1-1-sequence_wild_type|rs2222|18|C|32;pvalue=9.53e-05;qvalue= 0.00917;sequence=TTTTGTTTTCT;
-sequence_variation|rs2222|18|A|32	fimo	nucleotide_motif	53	63	40.2	-	.	Name=MA0480.1_sequence_variation|rs2222|18|A|32-;Alias=Foxo1;ID=MA0480.1-Foxo1-1-sequence_variation|rs2222|18|A|32;pvalue=9.53e-05;qvalue= 0.00917;sequence=TTTTGTTTTCT;
-sequence_variation|rs2222|18|T|32	fimo	nucleotide_motif	53	63	40.2	-	.	Name=MA0480.1_sequence_variation|rs2222|18|T|32-;Alias=Foxo1;ID=MA0480.1-Foxo1-1-sequence_variation|rs2222|18|T|32;pvalue=9.53e-05;qvalue= 0.00917;sequence=TTTTGTTTTCT;
-sequence_wild_type|rs2222|18|C|32	fimo	nucleotide_motif	52	62	41.5	+	.	Name=MA0593.1_sequence_wild_type|rs2222|18|C|32+;Alias=FOXP2;ID=MA0593.1-FOXP2-1-sequence_wild_type|rs2222|18|C|32;pvalue=7.05e-05;qvalue= 0.00679;sequence=GAGAAAACAAA;
-sequence_variation|rs2222|18|A|32	fimo	nucleotide_motif	52	62	41.5	+	.	Name=MA0593.1_sequence_variation|rs2222|18|A|32+;Alias=FOXP2;ID=MA0593.1-FOXP2-1-sequence_variation|rs2222|18|A|32;pvalue=7.05e-05;qvalue= 0.00679;sequence=GAGAAAACAAA;
-sequence_variation|rs2222|18|T|32	fimo	nucleotide_motif	52	62	41.5	+	.	Name=MA0593.1_sequence_variation|rs2222|18|T|32+;Alias=FOXP2;ID=MA0593.1-FOXP2-1-sequence_variation|rs2222|18|T|32;pvalue=7.05e-05;qvalue= 0.00679;sequence=GAGAAAACAAA;
-sequence_wild_type|rs2222|18|C|32	fimo	nucleotide_motif	23	33	42.1	-	.	Name=MA0814.1_sequence_wild_type|rs2222|18|C|32-;Alias=TFAP2C(var.2);ID=MA0814.1-TFAP2C(var.2)-1-sequence_wild_type|rs2222|18|C|32;pvalue=6.17e-05;qvalue= 0.019;sequence=CGCCAGAGGCA;
