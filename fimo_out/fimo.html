@@ -1,0 +1,2824 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:cis="http://zlab.bu.edu/schema/cisml" xmlns:fimo="http://noble.gs.washington.edu/schema/cisml" xmlns:mem="http://noble.gs.washington.edu/meme">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>FIMO Results</title>
+<style type="text/css">
+td.left {text-align: left;}
+td.right {text-align: right; padding-right: 1cm;}
+</style>
+</head>
+<body color="#000000">
+<a name="top_buttons"></a>
+<hr>
+<table summary="buttons" align="left" cellspacing="0">
+<tr>
+<td bgcolor="#00FFFF"><a href="#database_and_motifs"><b>Database and Motifs</b></a></td>
+<td bgcolor="#DDFFDD"><a href="#sec_i"><b>High-scoring Motif Occurences</b></a></td>
+<td bgcolor="#DDDDFF"><a href="#debugging_information"><b>Debugging Information</b></a></td>
+<td bgcolor="#FFDD00"><a href="fimo.tsv""><b>Results in TSV Format</b></a></td>
+<td bgcolor="#FFDDFF"><a href="fimo.gff""><b>Results in GFF3 Format</b></a></td>
+</tr>
+</table>
+<br/>
+<br/>
+<hr/>
+<center><big><b>FIMO - Motif search tool</b></big></center>
+<hr>
+<p>
+FIMO version 5.0.2, (Release date: Thu Aug 30 14:26:08 2018 -0700)
+</p>
+<p>
+For further information on how to interpret these results please access <a href="http://meme-suite.org//doc/fimo-output-format.html">http://meme-suite.org//doc/fimo-output-format.html</a>.<br>
+To get a copy of the FIMO software please access <a href="http://meme-suite.org">http://meme-suite.org</a>
+
+</p>
+<p>If you use FIMO in your research, please cite the following paper:<br>
+Charles E. Grant, Timothy L. Bailey, and William Stafford Noble,
+"FIMO: Scanning for occurrences of a given motif",
+<i>Bioinformatics</i>, <b>27</b>(7):1017-1018, 2011.
+<a href="http://bioinformatics.oxfordjournals.org/content/27/7/1017">[full text]</a></p>
+<hr>
+<center><big><b><a name="database_and_motifs">DATABASE AND MOTIFS</a></b></big></center>
+<hr>
+<div style="padding-left: 0.75in; line-height: 1em; font-family: monospace;">
+<p>
+  DATABASE ./seq.fna
+  <br />
+  Database contains 4 sequences, 252 residues
+</p>
+<p>
+  MOTIFS ./TFs/HOCOMOCOv9.meme (DNA)
+  <table>
+    <thead>
+      <tr>
+        <th style="border-bottom: 1px dashed;">MOTIF</th>
+        <th style="border-bottom: 1px dashed; padding-left: 1em;">WIDTH</th>
+        <th style="border-bottom: 1px dashed; padding-left: 1em;text-align:left;" >
+         BEST POSSIBLE MATCH
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align:right;">AHR_si</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">GTTGCGTGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">AIRE_f2</td>
+        <td style="text-align:right;padding-left: 1em;">18</td>
+        <td style="text-align:left;padding-left: 1em;">ATTGGTTATATTGGTTAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ALX1_si</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">ATAATTGAATTA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ANDR_do</td>
+        <td style="text-align:right;padding-left: 1em;">16</td>
+        <td style="text-align:left;padding-left: 1em;">GGAACAGAATGTTCTT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">AP2A_f2</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">GCCTGAGGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">AP2B_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">GCCCGGGGGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">AP2C_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">GCCTGGGGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">AP2D_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">CGCCCGAGGCGCGT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ARI3A_do</td>
+        <td style="text-align:right;padding-left: 1em;">22</td>
+        <td style="text-align:left;padding-left: 1em;">AATTAATCGAAATCAAATTAAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ARI3A_f1</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">AATTAAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ARI5B_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">TGTTAGTATTGTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ARNT2_si</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">GGCGTGGGAGGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ARNT_f1</td>
+        <td style="text-align:right;padding-left: 1em;">8</td>
+        <td style="text-align:left;padding-left: 1em;">TCACGTGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ATF1_si</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">GTGACGTCAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ATF2+ATF4_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">GTGACGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ATF3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">GTGACGCCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ATF5_si</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">TAAGGAAGAAGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ATF6A_si</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">GTGGTGACGTGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">BACH1_si</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">TGCTGAGTCATGGT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">BARX2_si</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">TTATTAATTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">BATF_si</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">ATGAGTCATA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">BCL6_f1</td>
+        <td style="text-align:right;padding-left: 1em;">16</td>
+        <td style="text-align:left;padding-left: 1em;">AAAAGCTTTCTAGGAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">BHE40_f2</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">GCACGTGAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">BHE41_f1</td>
+        <td style="text-align:right;padding-left: 1em;">20</td>
+        <td style="text-align:left;padding-left: 1em;">ACAGTGTCACGTGCAGAAGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">BMAL1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">TGGACACGTGACCC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">BPTF_si</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">TTTGTTGTTTTC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">BRAC_si</td>
+        <td style="text-align:right;padding-left: 1em;">25</td>
+        <td style="text-align:left;padding-left: 1em;">ACATAGTGACACCTAGGTGTGAAAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">BRCA1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">TTTGGGTTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">CDC5L_si</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">GTGATTTAACATAAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">CDX1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">8</td>
+        <td style="text-align:left;padding-left: 1em;">ATTTATGT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">CDX2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">8</td>
+        <td style="text-align:left;padding-left: 1em;">ATTTATGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">CEBPA_do</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">ATTGTGCAAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">CEBPB_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">GTTGTGCAAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">CEBPD_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">AATTGTGCAAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">CEBPE_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">TTGCGCAATCTT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">CEBPG_si</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">ATTTTGCAATCTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">CEBPZ_si</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">GCTGATTGGCT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">COE1_f2</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">GTCCCTGGGGAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">COT1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">GGTCAAAGGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">COT1_si</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">CAAAGGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">COT2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">CAAAGGTCAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">COT2_f2</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">AAGGTCAAAGGTCAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">CREB1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">GTGACGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">CREM_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">TGACGTCAGTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">CRX_si</td>
+        <td style="text-align:right;padding-left: 1em;">8</td>
+        <td style="text-align:left;padding-left: 1em;">GGGATTAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">CTCF_f2</td>
+        <td style="text-align:right;padding-left: 1em;">19</td>
+        <td style="text-align:left;padding-left: 1em;">TGGCCACCAGGGGGCGCTA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">CUX1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">AGGGGGATCGATGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">CXXC1_si</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">CGTTGGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">DBP_si</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">GTTATGTAATA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">DDIT3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">GGGGATTGCATTC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">DLX2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">8</td>
+        <td style="text-align:left;padding-left: 1em;">ATAATTAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">DLX3_do</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">GATAATTACA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">E2F1_f2</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">AATTGGCGGGAAAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">E2F2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">GGCGCGAAAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">E2F3_si</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">CGCGCGAAAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">E2F4_do</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">AATTGGCGGGAAAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">E2F5_do</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">GGCGCGAAAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">E2F6_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">TGGGCGGGAAGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">E2F7_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">TAAGGCGCGAAAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">E4F1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">CGTGACGTC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">EGR1_f2</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">TGCGGGGGCGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">EGR2_si</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">GGCGTGGGCGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">EGR3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">AGAGTGGGTGT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">EGR4_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">GGCGGCAGGGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">EHF_si</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">AAACCCGGAAGTA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ELF1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">ACCGGAAGTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ELF2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">TAGCAGGAAGTGAGT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ELF3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">GGCAAACAGGAAAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ELF5_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">ATAAGGAAGTA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ELK1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">ACCGGAAGT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ELK3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">CCCAGGAAGTGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ELK4_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">CACCGGAAGTA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ENOA_si</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">CACCACGTGGGCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">EOMES_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">CGGGGATACGAAAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">EPAS1_si</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">GTGAGTACGTGGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ERG_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">ACCGGAAATCC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ERR1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">TCAAGGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ERR2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">TCAAGGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ERR3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">TCAAGGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ESR1_do</td>
+        <td style="text-align:right;padding-left: 1em;">18</td>
+        <td style="text-align:left;padding-left: 1em;">AGGTCACGGTGACCTGGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ESR2_do</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">GGGTCACGGTGACCT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ESR2_si</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">AGGTCAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ETS1_si</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">ACAGGAAGT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ETS2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">GCGGGAAGTGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ETV4_f1</td>
+        <td style="text-align:right;padding-left: 1em;">8</td>
+        <td style="text-align:left;padding-left: 1em;">CAGGAAGT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ETV5_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">GACAGGAAGTAAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ETV7_si</td>
+        <td style="text-align:right;padding-left: 1em;">17</td>
+        <td style="text-align:left;padding-left: 1em;">TCAACAGGAAGTAACTC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">EVI1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">16</td>
+        <td style="text-align:left;padding-left: 1em;">AAGATAAGATAAGATA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FEV_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">CAGGAAATAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FLI1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">17</td>
+        <td style="text-align:left;padding-left: 1em;">GCCACAGGAAGTGAGGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOSB_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">GATGAGTCAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOSL1_f2</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">AACGTGACTCAGCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOSL2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">GGATGAGTCAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOS_si</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">TTCTGATTGGTC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOXA1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">TGTTTACTTTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOXA2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">TTGTTTACTTAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOXA3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">TTGTTTGCTTTGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOXC1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">CATTGTTTACTTAAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOXC2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">GTTTGTTTTGTCAGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOXD1_si</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">CTTTGTTTACTTAAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOXD3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">TGTTTGTTT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOXF1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">ATGTTTATTTT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOXF2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">TGTTTACTTAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOXI1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">CTCTGATTGGTC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOXJ2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">TGTTTATTTA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOXJ3_f2</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">TTGTTTTTGTTTA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOXJ3_si</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">TTGTTTATTTTTT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOXM1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">TTTGTTTGTTTTC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOXO1_si</td>
+        <td style="text-align:right;padding-left: 1em;">16</td>
+        <td style="text-align:left;padding-left: 1em;">GGTTTGTTTACTTTTT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOXO3_si</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">TGTTTGTTTACCT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOXO4_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">TTGTTTATT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOXP2_si</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">TTGTTTACT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOXP3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">AATTTGTTT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FOXQ1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">TATTGTTTATTT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">FUBP1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">TTGTGTTTTTTT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">GABP1+GABP2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">CCGGAAGTGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">GABPA_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">GAACCGGAAGTGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">GATA1_si</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">ACAGATAAGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">GATA2_si</td>
+        <td style="text-align:right;padding-left: 1em;">8</td>
+        <td style="text-align:left;padding-left: 1em;">CAGATAAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">GATA3_si</td>
+        <td style="text-align:right;padding-left: 1em;">8</td>
+        <td style="text-align:left;padding-left: 1em;">GAGATAAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">GATA4_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">ACAGATAAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">GATA5_f1</td>
+        <td style="text-align:right;padding-left: 1em;">17</td>
+        <td style="text-align:left;padding-left: 1em;">TAAAAGATAACTTAGAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">GATA6_f2</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">TAGATAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">GCM1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">ATCATGCGGGTATT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">GCR_do</td>
+        <td style="text-align:right;padding-left: 1em;">18</td>
+        <td style="text-align:left;padding-left: 1em;">GAGAACAGACTGTCCCGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">GCR_si</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">AGAACAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">GFI1B_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">TGCAGTGATTT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">GFI1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">GCTGTGATTT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">GLI1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">CTGGGTGGTCT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">GLI2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">GTGGGTGGTCT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">GLI3_si</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">CTGGGTGGTCT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">GLIS3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">GTGGGGGGTA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HAND1_si</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">GGGTCTGGCATT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HBP1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">TCAATGAGT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HEN1_si</td>
+        <td style="text-align:right;padding-left: 1em;">20</td>
+        <td style="text-align:left;padding-left: 1em;">TGGGGAGCAGCTGCGTCCCT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HES1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">GGGCTCGTGGCGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HESX1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">16</td>
+        <td style="text-align:left;padding-left: 1em;">ATGCGGCACGTGGCAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HEY2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">17</td>
+        <td style="text-align:left;padding-left: 1em;">GGTGGCACGTGGCATTA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HIC1_si</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">GGGTTGCCC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HIF1A_si</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">GCGTACGTGCGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HINFP_f1</td>
+        <td style="text-align:right;padding-left: 1em;">16</td>
+        <td style="text-align:left;padding-left: 1em;">GCGCTAGCGGACGTTA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HLF_si</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">GATTATGTAACAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HLTF_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">TAAGGCTGCAAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HMGA1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">GTATTTT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HMGA2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">AATAATCGCGAATAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HNF1A_f1</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">GGTTAATAATTAACC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HNF1B_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">GGTTAATGATTAAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HNF4A_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">AGGCCAAAGTCCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HNF4G_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">GGCCAAAGTCCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HNF6_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">TTTATTGATTTTTT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HSF1_f2</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">AGAAAGTTCTAGAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HSF2_si</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">AGAATGTTCTAGAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HTF4_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">AGCAGGTGT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HXA10_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">GATAATTTATGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HXA13_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">GATTTTATTGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HXA1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">TTGATGGATG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HXA5_si</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">TTGATTAATG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HXA7_f1</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">AATCAATAGATTGGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HXA9_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">TGACAGTTTTATGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HXB1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">TGATGGATGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HXB6_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">ATTGATTTATGCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HXB7_si</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">TTGATTAATG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HXB8_do</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">TTGATTAATGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HXC6_f1</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">ATGATTTATTACTTT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HXC8_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">TTTGATTAATGCCC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HXD10_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">TGCTTTAATT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HXD13_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">TTTATTAGAGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HXD4_f1</td>
+        <td style="text-align:right;padding-left: 1em;">8</td>
+        <td style="text-align:left;padding-left: 1em;">TTAATTGT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">HXD9_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">AATTTTATTA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">IKZF1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">8</td>
+        <td style="text-align:left;padding-left: 1em;">TTGGGAGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">INSM1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">TGTCAGGGGGCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">IRF1_si</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">GAAAGTGAAAGT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">IRF2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">GGAAAGTGAAAGCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">IRF3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">17</td>
+        <td style="text-align:left;padding-left: 1em;">GGAAAGCGAAACTGAAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">IRF4_si</td>
+        <td style="text-align:right;padding-left: 1em;">16</td>
+        <td style="text-align:left;padding-left: 1em;">AAAAAAGAAAATGAAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">IRF5_f1</td>
+        <td style="text-align:right;padding-left: 1em;">20</td>
+        <td style="text-align:left;padding-left: 1em;">TAAAGGAAAGCCAAAAGTGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">IRF7_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">GAAAGTGAAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">IRF8_si</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">GAGAAACTGAAAGTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">IRF9_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">GAAAGCGAAACT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ISL1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">GTTAATG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ITF2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">CCAGGTGCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">JUNB_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">GATGAGTCAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">JUND_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">GATGAGTCATC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">JUN_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">ATGAGTCAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">KAISO_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">CTCGCAGGAAGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">KLF15_f1</td>
+        <td style="text-align:right;padding-left: 1em;">17</td>
+        <td style="text-align:left;padding-left: 1em;">GGCTGGGAGGTGGGGGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">KLF1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">CAGGGTGTGGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">KLF3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">TGCTTGGGTGTGGCT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">KLF4_f2</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">TGGGCGGGGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">KLF6_si</td>
+        <td style="text-align:right;padding-left: 1em;">8</td>
+        <td style="text-align:left;padding-left: 1em;">GGGGGCGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">KLF8_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">CAGGGGGTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">LEF1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">CTTTGAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">LHX2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">CACTTTTAATTAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">LHX3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">AAAATTAATTAAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MAFA_f1</td>
+        <td style="text-align:right;padding-left: 1em;">21</td>
+        <td style="text-align:left;padding-left: 1em;">CTGCTGACGCCGCAGCCTTCC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MAFB_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">TGCTGACGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MAFG_si</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">CATGACT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MAFK_si</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">TGCTGAGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MAF_f1</td>
+        <td style="text-align:right;padding-left: 1em;">8</td>
+        <td style="text-align:left;padding-left: 1em;">TTGCTGAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MAX_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">AGCCACGTGGT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MAZ_f1</td>
+        <td style="text-align:right;padding-left: 1em;">17</td>
+        <td style="text-align:left;padding-left: 1em;">GGGGGGGGGAGGGAGGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MBD2_si</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">GGGGCCGGAGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MCR_f1</td>
+        <td style="text-align:right;padding-left: 1em;">17</td>
+        <td style="text-align:left;padding-left: 1em;">TAGAACAGGTTGTTGTA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MECP2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">CCCGGAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MEF2A_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">GTTCTATTTATAGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MEF2C_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">TTCTATAAATAGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MEF2D_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">GCTATTTTTAGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MEIS1_f2</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">TGACAGTTTTATG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MEIS2_do</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">TTGACAGCTGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MITF_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">GTCATGTGAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MLXPL_f1</td>
+        <td style="text-align:right;padding-left: 1em;">19</td>
+        <td style="text-align:left;padding-left: 1em;">GCATGTGACACCGTCGTGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MSX2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">TAATTGT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MTF1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">17</td>
+        <td style="text-align:left;padding-left: 1em;">AGTGCCGTGTGCAAAAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MYBB_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">TGCAGGTTGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MYB_f1</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">CAGTTGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MYCN_si</td>
+        <td style="text-align:right;padding-left: 1em;">8</td>
+        <td style="text-align:left;padding-left: 1em;">CCACGTGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MYC_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">GAGCACGTGGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MYF6_f1</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">GCAGCTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MYOD1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">GACAGCTGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MYOG_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">TGACAGCTGCTGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">MZF1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">GGTGGGGAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NANOG_f1</td>
+        <td style="text-align:right;padding-left: 1em;">8</td>
+        <td style="text-align:left;padding-left: 1em;">TTTAATGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NDF1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">CGGCAGATGGCC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NF2L1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">AATGACT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NF2L2_si</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">TGCTGAGTCATG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NFAC1_do</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">TGGAAATTTCCAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NFAC1_si</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">CAATGGAAAATT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NFAC2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">TGGAAAATT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NFAC3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">TGGAAAACT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NFAC4_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">AGGAAAATTT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NFAT5_f1</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">GTGGAAAATTCCATT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NFE2_f2</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">AGCATGACTCAGCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NFIA+NFIB+NFIC+NFIX_f2</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">TTGGCACGGTGCCAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NFIA+NFIB+NFIC+NFIX_si</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">CTTGGCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NFIL3_si</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">GTTATGTAATGCAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NFKB1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">GGGGAATCCCC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NFKB2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">AGGGAGATTCC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NFYA_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">CTCTGATTGGCTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NFYB_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">CTCTGATTGGCTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NFYC_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">GCGCTGATTGGCTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NKX21_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">CTCAAGTGCT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NKX22_si</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">TTTAAGTGGTTT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NKX25_f1</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">TCAAGTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NKX28_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">TTCAAGGAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NKX31_si</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">AATAAGTATATAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NKX32_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">AGTTAAGTGGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NOBOX_si</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">TTAATTGGT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NR0B1_si</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">GCGTGGGAGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NR1D1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">AAAAGTAGGTCAAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NR1H2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">19</td>
+        <td style="text-align:left;padding-left: 1em;">TAAAGGTCAAAGGTCAACG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NR1H4_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">AGGGTCAATGACCT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NR1I2_f2</td>
+        <td style="text-align:right;padding-left: 1em;">19</td>
+        <td style="text-align:left;padding-left: 1em;">TGAGGTCAAGAAAGTTCAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NR1I2_si</td>
+        <td style="text-align:right;padding-left: 1em;">8</td>
+        <td style="text-align:left;padding-left: 1em;">AAGTTCAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NR1I3_f2</td>
+        <td style="text-align:right;padding-left: 1em;">18</td>
+        <td style="text-align:left;padding-left: 1em;">GAGGTCAGGAAAGTTCAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NR1I3_si</td>
+        <td style="text-align:right;padding-left: 1em;">8</td>
+        <td style="text-align:left;padding-left: 1em;">AAGTTCAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NR2C1_si</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">GGCCAGAGGTCAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NR2C2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">AGGTCAAAGGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NR2E3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">AAAGTCAAAAGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NR2F6_f1</td>
+        <td style="text-align:right;padding-left: 1em;">18</td>
+        <td style="text-align:left;padding-left: 1em;">AGGACAAAGTTCATTTGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NR4A1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">AAAGGTCAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NR4A2_si</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">AAAGGTCAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NR4A3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">CAAAGGTCAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NR5A2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">TTCAAGGCCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NR6A1_do</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">AAGTTCAAGGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">NRF1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">GCGCATGCGCAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ONEC2_si</td>
+        <td style="text-align:right;padding-left: 1em;">21</td>
+        <td style="text-align:left;padding-left: 1em;">GTCTTGTTATTGATTTTTTTT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">OTX1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">8</td>
+        <td style="text-align:left;padding-left: 1em;">AGGATTAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">OTX2_si</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">GTTAAGGGATTAAAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">OVOL1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">TGTAACTGT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">P53_f2</td>
+        <td style="text-align:right;padding-left: 1em;">20</td>
+        <td style="text-align:left;padding-left: 1em;">GGACATGCCCGGGCATGTCT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">P63_si</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">GAACATGTCTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">P73_si</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">GGGGCATGTCTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PAX2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">18</td>
+        <td style="text-align:left;padding-left: 1em;">GATCAGTCATGCGTGACA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PAX2_si</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">GCATGAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PAX5_f1</td>
+        <td style="text-align:right;padding-left: 1em;">19</td>
+        <td style="text-align:left;padding-left: 1em;">GAGGGCAGTGAAGCGTGAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PAX5_si</td>
+        <td style="text-align:right;padding-left: 1em;">8</td>
+        <td style="text-align:left;padding-left: 1em;">GGCTGAGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PAX6_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">TCAAGCGTGAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PAX8_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">GTCACTGAAGCGGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PBX1_do</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">AATTTGATTGATGGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PBX2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">TAAATTGATTGATTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PBX3_f2</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">CTCTGATTGGCTGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PDX1_do</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">GGTAATTAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PEBB_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">TCTGTGGTTTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PIT1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">CTCATGAATATAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PITX2_si</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">TGGGATTAAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PKNX1_si</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">AGATTGATTGATG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PLAG1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">17</td>
+        <td style="text-align:left;padding-left: 1em;">GGGGGCATCAGGAGGGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PLAG1_si</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">AGAGGGGGCTCTA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PLAL1_si</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">CGGGGGGCCC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PO2F1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">TATGCAAAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PO2F2_si</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">TATGCAAAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PO3F1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">AATTGTAATGCAAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PO3F2_si</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">ATTATTTATG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PO4F2_si</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">TATTAATGAGCTT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PO5F1_do</td>
+        <td style="text-align:right;padding-left: 1em;">16</td>
+        <td style="text-align:left;padding-left: 1em;">ATTTGCATAACAAAGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PO6F1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">TGCATAAATTATG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PPARA_f1</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">AAGGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PPARA_f2</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">AGGTCAAAGGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PPARD_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">TAGGACAAAGGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PPARG_f1</td>
+        <td style="text-align:right;padding-left: 1em;">18</td>
+        <td style="text-align:left;padding-left: 1em;">AAGTAGGTCAAAGGTCAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PPARG_si</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">CAAAGGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PRDM1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">GAAAGTGAAAGTGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PRGR_do</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">AGAACAGTCTGTA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PRGR_f1</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">AGAACAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PROP1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">GAGTAATTAATATAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PRRX1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">CAGATTA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PRRX2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">TTAATTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PTF1A_f1</td>
+        <td style="text-align:right;padding-left: 1em;">21</td>
+        <td style="text-align:left;padding-left: 1em;">CAGGAAAAAGAACAGCTGTGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">PURA_f1</td>
+        <td style="text-align:right;padding-left: 1em;">17</td>
+        <td style="text-align:left;padding-left: 1em;">GGAAGGGGTGGGCAGGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">RARA_f1</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">GAGGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">RARA_f2</td>
+        <td style="text-align:right;padding-left: 1em;">17</td>
+        <td style="text-align:left;padding-left: 1em;">AGGTCACCGAGAGGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">RARB_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">GAGGTCAGGGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">RARG_do</td>
+        <td style="text-align:right;padding-left: 1em;">20</td>
+        <td style="text-align:left;padding-left: 1em;">GGGGGTCAGCGAAAGGTCAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">RARG_f1</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">GAGGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">RELB_si</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">GGGGGATTTCCC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">REL_do</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">TGGGGATTTCCC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">REST_f1</td>
+        <td style="text-align:right;padding-left: 1em;">22</td>
+        <td style="text-align:left;padding-left: 1em;">GGGCGCTGTCCATGGTGCTGAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">RFX1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">GTTGCTAGGGAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">RFX2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">TGTTGCTAGGGAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">RFX3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">GGTTGCCATGGTAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">RORA_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">AAAACTAGGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">RORG_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">TAAAGTAGGTCAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">RREB1_si</td>
+        <td style="text-align:right;padding-left: 1em;">22</td>
+        <td style="text-align:left;padding-left: 1em;">GGGGGGGGGGGTGGTTTGGGGT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">RUNX1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">TTTGTGGTTA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">RUNX2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">CTGTGGTTTGT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">RUNX3_si</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">TGGGTTTTGTGGTT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">RXRA_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">AGGTCAAAGGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">RXRB_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">TGAGGTCACA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">RXRG_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">GGTCAAAGGTCAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SMAD1_si</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">AGCCTGTCTGCC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SMAD2_si</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">GTGTCTGTCTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SMAD3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">GTGTCTGGCC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SMAD4_si</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">TGTCTGGCC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SMRC1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">CTGAGTCAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SNAI1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">8</td>
+        <td style="text-align:left;padding-left: 1em;">CCAGGTGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SNAI2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">TCAGGTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SOX10_si</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">ACAAAGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SOX13_f1</td>
+        <td style="text-align:right;padding-left: 1em;">8</td>
+        <td style="text-align:left;padding-left: 1em;">GAACAATG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SOX15_f1</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">AACAATG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SOX17_f2</td>
+        <td style="text-align:right;padding-left: 1em;">18</td>
+        <td style="text-align:left;padding-left: 1em;">GGACAATGAAGATTGTTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SOX18_f1</td>
+        <td style="text-align:right;padding-left: 1em;">19</td>
+        <td style="text-align:left;padding-left: 1em;">GGAAAAGAACAATGGGTTC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SOX2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">16</td>
+        <td style="text-align:left;padding-left: 1em;">ATTTGCATAACAATGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SOX4_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">GAGAACAAAGCG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SOX5_f1</td>
+        <td style="text-align:right;padding-left: 1em;">8</td>
+        <td style="text-align:left;padding-left: 1em;">TAACAATA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SOX9_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">AGAACAATGGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SP1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">GGGGGCGGGGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SP1_f2</td>
+        <td style="text-align:right;padding-left: 1em;">19</td>
+        <td style="text-align:left;padding-left: 1em;">GGGGAGGGGGCGGGGCCGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SP2_si</td>
+        <td style="text-align:right;padding-left: 1em;">17</td>
+        <td style="text-align:left;padding-left: 1em;">GAGGGGGGCGGGGCTAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SP3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">20</td>
+        <td style="text-align:left;padding-left: 1em;">GGGGGGGGGCGGGGCCGGGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SP4_f1</td>
+        <td style="text-align:right;padding-left: 1em;">24</td>
+        <td style="text-align:left;padding-left: 1em;">GGGGCCAGGGGGGGGGCGGGGCCG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SPI1_si</td>
+        <td style="text-align:right;padding-left: 1em;">17</td>
+        <td style="text-align:left;padding-left: 1em;">AAAAAGAGGAAGTGAAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SPIB_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">AAAAAGAGGAAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SPZ1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">16</td>
+        <td style="text-align:left;padding-left: 1em;">CGGCTGTTACCCTGGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SRBP1_f2</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">GGTGGGGTGAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SRBP2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">GGGTGGGGTGAGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SRF_do</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">TCCATATATGGGCAT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SRY_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">TTTTGTTTT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">STA5A_do</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">AATTCCTGGAAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">STA5B_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">TTTTCTAGGAATT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">STAT1_f2</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">CATTTCCGGGAAATG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">STAT2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">GGAAAACGAAACTGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">STAT3_si</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">CTTCCTGGAAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">STAT4_si</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">CTTTTCTGGGAAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">STAT6_do</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">TTCCCAGGAATTT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">STF1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">TCAAGGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">SUH_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">CGTGGGAAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TAL1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">GAACAGATGGTC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TAL1_f2</td>
+        <td style="text-align:right;padding-left: 1em;">25</td>
+        <td style="text-align:left;padding-left: 1em;">AACAGATGGTCGCCCAACCACTGGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TBP_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">GGTATAAATTC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TBX2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">25</td>
+        <td style="text-align:left;padding-left: 1em;">TGCAATCAGAGGTGTGAAATGCGAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TBX3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">24</td>
+        <td style="text-align:left;padding-left: 1em;">AGGTAGAGAATTAGGTGTTAAAAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TBX5_si</td>
+        <td style="text-align:right;padding-left: 1em;">8</td>
+        <td style="text-align:left;padding-left: 1em;">AGGTGTGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TCF7_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">AGATCAAAGCGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TEAD1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">GGCGCAGGAATGTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TEAD3_si</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">TAAAGCAGAAATATC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TEAD4_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">AGAGCTATTTTT</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TEF_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">TGTTTATGTAAATG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TF65_f2</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">GGGAATTTCCC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TF7L2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">AAGATCAAAGGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TFAP4_si</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">GCCAGCTGCGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TFCP2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">16</td>
+        <td style="text-align:left;padding-left: 1em;">GCCTGAACTGGCCAGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TFDP1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">ATTTGGCGGGAAAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TFE2_f2</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">ACCAGATGGTC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TFE3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">AGTCATGTGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TFEB_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">GGTCACGTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TGIF1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">16</td>
+        <td style="text-align:left;padding-left: 1em;">TGTCAGGTGTCACCTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TGIF1_si</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">TTGACAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">THA_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">TTCAGGTCAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">THA_f2</td>
+        <td style="text-align:right;padding-left: 1em;">17</td>
+        <td style="text-align:left;padding-left: 1em;">GGGTCACTTCAGGTCAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">THB_do</td>
+        <td style="text-align:right;padding-left: 1em;">17</td>
+        <td style="text-align:left;padding-left: 1em;">GAGGTCAGGTCAGGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">THB_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">GGTCAGGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TLX1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">CGCCAAGGAGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TLX1_f2</td>
+        <td style="text-align:right;padding-left: 1em;">17</td>
+        <td style="text-align:left;padding-left: 1em;">CTGGCAAGTTGCCAAGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TWST1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">ACCCAGGTGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">TYY1_f2</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">CAAGATGGCGGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">UBIP1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">GCAGAAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">USF1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">10</td>
+        <td style="text-align:left;padding-left: 1em;">GGTCACGTGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">USF2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">GTCACGTGGGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">VDR_f1</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">GAGGTCA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">VDR_f2</td>
+        <td style="text-align:right;padding-left: 1em;">16</td>
+        <td style="text-align:left;padding-left: 1em;">GGGTCAAGGAGTTCAC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">VSX2_si</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">TAATTAGCTAA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">WT1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">GCGGGGGCGGGGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">XBP1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">GACGTGTCATTA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">YBOX1_f2</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">GGGGATTGGCC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ZBT7A_f1</td>
+        <td style="text-align:right;padding-left: 1em;">17</td>
+        <td style="text-align:left;padding-left: 1em;">AGCAGTGGGTTCCCCAG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ZBT7B_si</td>
+        <td style="text-align:right;padding-left: 1em;">22</td>
+        <td style="text-align:left;padding-left: 1em;">CGGAGAGGGGGAGGGGGGGGGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ZBTB4!METH_f1</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">CAATAGCGATGGTGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ZBTB4_si</td>
+        <td style="text-align:right;padding-left: 1em;">17</td>
+        <td style="text-align:left;padding-left: 1em;">CCTAGATGGCAGGTGGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ZBTB6_si</td>
+        <td style="text-align:right;padding-left: 1em;">13</td>
+        <td style="text-align:left;padding-left: 1em;">AGATGATAGAGCC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ZEB1_do</td>
+        <td style="text-align:right;padding-left: 1em;">7</td>
+        <td style="text-align:left;padding-left: 1em;">TCAGGTG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ZEP1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">TGGGAAATCCCC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ZEP2_si</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">GGTTGGGAAACCCC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ZFHX3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">11</td>
+        <td style="text-align:left;padding-left: 1em;">ATTAATAATTA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ZFX_f1</td>
+        <td style="text-align:right;padding-left: 1em;">19</td>
+        <td style="text-align:left;padding-left: 1em;">GGGGGCCCCAGGCCTCGGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ZIC1_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">GGGGTGGTC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ZIC2_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">GGGGTGGTC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ZIC3_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">TGGGTGGTC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ZN143_si</td>
+        <td style="text-align:right;padding-left: 1em;">22</td>
+        <td style="text-align:left;padding-left: 1em;">GCAAGGCATTCTGGGAATTGTA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ZN148_si</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">GGGGTGGGGGAGGGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ZN219_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">GAGGGGGGCGGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ZN238_f1</td>
+        <td style="text-align:right;padding-left: 1em;">14</td>
+        <td style="text-align:left;padding-left: 1em;">TCCAGATGTTTCGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ZN333_f1</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">CGATAATGA</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ZN350_f1</td>
+        <td style="text-align:right;padding-left: 1em;">24</td>
+        <td style="text-align:left;padding-left: 1em;">ACGGGACGCAGGGATTTGTTGCCC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ZN384_f1</td>
+        <td style="text-align:right;padding-left: 1em;">12</td>
+        <td style="text-align:left;padding-left: 1em;">GGAAAAAATCGG</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ZN423_f1</td>
+        <td style="text-align:right;padding-left: 1em;">15</td>
+        <td style="text-align:left;padding-left: 1em;">GGCACCCAAGGGTGC</td>
+       </tr>
+      <tr>
+        <td style="text-align:right;">ZN589_f1</td>
+        <td style="text-align:right;padding-left: 1em;">16</td>
+        <td style="text-align:left;padding-left: 1em;">GGGCTGTAACCGTGGG</td>
+       </tr>
+    </tbody>
+  </table>
+</p>
+<p>
+Random model letter frequencies (--nrdb--):
+<br/>
+
+A 0.275 C 0.225 G 0.225 T 0.275 </p>
+</div>
+<hr>
+<center><big><b><a name="sec_i">SECTION I: HIGH-SCORING MOTIF OCCURENCES</a></b></big></center>
+<hr>
+<ul>
+<li>
+There were 47 motif occurences with a p-value less than 0.0001.
+
+The full set of motif occurences can be seen in the
+TSV (tab-delimited values) output file
+<a href="fimo.tsv">fimo.tsv</a>, 
+the GFF3 file 
+<a href="fimo.gff">fimo.gff</a> 
+which may be suitable for uploading to the 
+<a href="http://genome.ucsc.edu/cgi-bin/hgTables">UCSC Genome Table Browser</a>
+(assuming the FASTA input sequences included genomic coordinates in UCSC or Galaxy format),
+or the XML file 
+<a href="fimo.xml">fimo.xml</a>.
+</li>
+<li>
+The <i>p</i>-value of a motif occurrence is defined as the
+probability of a random sequence of the same length as the motif
+matching that position of the sequence with as good or better a score.
+</li>
+<li>
+The score for the match of a position in a sequence to a motif
+is computed by summing the appropriate entries from each column of
+the position-dependent scoring matrix that represents the motif.
+</li>
+<li>
+The q-value of a motif occurrence is defined as the
+false discovery rate if the occurrence is accepted as significant.
+</li>
+<li>The table is sorted by increasing <i>p</i>-value.</li>
+</ul>
+<table border="1">
+<thead>
+<tr>
+<th>Motif ID</th>
+<th>Alt ID</th>
+<th>Sequence Name</th>
+<th>Strand</th>
+<th>Start</th>
+<th>End</th>
+<th>p-value</th>
+<th>q-value</th>
+<th>Matched Sequence</th>
+</tr>
+</thead>
+<tbody>
+    <tr>
+      <td style="text-align:left;">PDX1_do</td>
+      <td style="text-align:left;">PDX1</td>
+      <td style="text-align:left;">sequence_variation|rs356168|4|A|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">25</td>
+      <td style="text-align:left;">33</td>
+      <td style="text-align:left;">4.91e-06</td>
+      <td style="text-align:left;">0.00206</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">GGTAATTAG</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">KLF15_f1</td>
+      <td style="text-align:left;">KLF15</td>
+      <td style="text-align:left;">sequence_variation|rs356168|4|A|32</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">43</td>
+      <td style="text-align:left;">59</td>
+      <td style="text-align:left;">9.29e-06</td>
+      <td style="text-align:left;">0.00175</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">ACCTTGCAGTTTGTGCC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">KLF15_f1</td>
+      <td style="text-align:left;">KLF15</td>
+      <td style="text-align:left;">sequence_wild_type|rs356168|4|G|32</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">43</td>
+      <td style="text-align:left;">59</td>
+      <td style="text-align:left;">9.29e-06</td>
+      <td style="text-align:left;">0.00175</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">ACCTTGCAGTTTGTGCC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">NR4A1_f1</td>
+      <td style="text-align:left;">NR4A1</td>
+      <td style="text-align:left;">sequence_variation|rs356168|4|A|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">54</td>
+      <td style="text-align:left;">62</td>
+      <td style="text-align:left;">1.06e-05</td>
+      <td style="text-align:left;">0.00222</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">CAAGGTCAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">NR4A1_f1</td>
+      <td style="text-align:left;">NR4A1</td>
+      <td style="text-align:left;">sequence_wild_type|rs356168|4|G|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">54</td>
+      <td style="text-align:left;">62</td>
+      <td style="text-align:left;">1.06e-05</td>
+      <td style="text-align:left;">0.00222</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">CAAGGTCAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">ERR3_f1</td>
+      <td style="text-align:left;">ERR3</td>
+      <td style="text-align:left;">sequence_variation|rs356168|4|A|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">53</td>
+      <td style="text-align:left;">61</td>
+      <td style="text-align:left;">1.06e-05</td>
+      <td style="text-align:left;">0.00222</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">GCAAGGTCA</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">ERR3_f1</td>
+      <td style="text-align:left;">ERR3</td>
+      <td style="text-align:left;">sequence_wild_type|rs356168|4|G|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">53</td>
+      <td style="text-align:left;">61</td>
+      <td style="text-align:left;">1.06e-05</td>
+      <td style="text-align:left;">0.00222</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">GCAAGGTCA</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">ERR2_f1</td>
+      <td style="text-align:left;">ERR2</td>
+      <td style="text-align:left;">sequence_variation|rs356168|4|A|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">53</td>
+      <td style="text-align:left;">61</td>
+      <td style="text-align:left;">1.06e-05</td>
+      <td style="text-align:left;">0.0023</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">GCAAGGTCA</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">ERR2_f1</td>
+      <td style="text-align:left;">ERR2</td>
+      <td style="text-align:left;">sequence_wild_type|rs356168|4|G|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">53</td>
+      <td style="text-align:left;">61</td>
+      <td style="text-align:left;">1.06e-05</td>
+      <td style="text-align:left;">0.0023</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">GCAAGGTCA</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">GFI1B_f1</td>
+      <td style="text-align:left;">GFI1B</td>
+      <td style="text-align:left;">sequence_variation|rs356168|4|A|32</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">36</td>
+      <td style="text-align:left;">46</td>
+      <td style="text-align:left;">1.15e-05</td>
+      <td style="text-align:left;">0.00236</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TGCCCTGATTG</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">GFI1B_f1</td>
+      <td style="text-align:left;">GFI1B</td>
+      <td style="text-align:left;">sequence_wild_type|rs356168|4|G|32</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">36</td>
+      <td style="text-align:left;">46</td>
+      <td style="text-align:left;">1.15e-05</td>
+      <td style="text-align:left;">0.00236</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TGCCCTGATTG</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">HXD10_f1</td>
+      <td style="text-align:left;">HXD10</td>
+      <td style="text-align:left;">sequence_variation|rs356168|4|A|32</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">28</td>
+      <td style="text-align:left;">37</td>
+      <td style="text-align:left;">1.54e-05</td>
+      <td style="text-align:left;">0.0061</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TGTTCTAATT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">HXC6_f1</td>
+      <td style="text-align:left;">HXC6</td>
+      <td style="text-align:left;">sequence_variation|rs3333|5|A|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">46</td>
+      <td style="text-align:left;">60</td>
+      <td style="text-align:left;">1.74e-05</td>
+      <td style="text-align:left;">0.0029</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGAATTATTATATG</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">HXC6_f1</td>
+      <td style="text-align:left;">HXC6</td>
+      <td style="text-align:left;">sequence_wild_type|rs3333|5|G|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">46</td>
+      <td style="text-align:left;">60</td>
+      <td style="text-align:left;">1.74e-05</td>
+      <td style="text-align:left;">0.0029</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGAATTATTATATG</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">ERR1_f1</td>
+      <td style="text-align:left;">ERR1</td>
+      <td style="text-align:left;">sequence_variation|rs356168|4|A|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">53</td>
+      <td style="text-align:left;">61</td>
+      <td style="text-align:left;">3.1e-05</td>
+      <td style="text-align:left;">0.00668</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">GCAAGGTCA</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">ERR1_f1</td>
+      <td style="text-align:left;">ERR1</td>
+      <td style="text-align:left;">sequence_wild_type|rs356168|4|G|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">53</td>
+      <td style="text-align:left;">61</td>
+      <td style="text-align:left;">3.1e-05</td>
+      <td style="text-align:left;">0.00668</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">GCAAGGTCA</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">DLX3_do</td>
+      <td style="text-align:left;">DLX3</td>
+      <td style="text-align:left;">sequence_variation|rs356168|4|A|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">25</td>
+      <td style="text-align:left;">34</td>
+      <td style="text-align:left;">4.02e-05</td>
+      <td style="text-align:left;">0.011</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">GGTAATTAGA</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">STF1_f1</td>
+      <td style="text-align:left;">STF1</td>
+      <td style="text-align:left;">sequence_variation|rs356168|4|A|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">53</td>
+      <td style="text-align:left;">61</td>
+      <td style="text-align:left;">4.03e-05</td>
+      <td style="text-align:left;">0.00873</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">GCAAGGTCA</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">STF1_f1</td>
+      <td style="text-align:left;">STF1</td>
+      <td style="text-align:left;">sequence_wild_type|rs356168|4|G|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">53</td>
+      <td style="text-align:left;">61</td>
+      <td style="text-align:left;">4.03e-05</td>
+      <td style="text-align:left;">0.00873</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">GCAAGGTCA</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">NR4A2_si</td>
+      <td style="text-align:left;">NR4A2</td>
+      <td style="text-align:left;">sequence_variation|rs356168|4|A|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">54</td>
+      <td style="text-align:left;">62</td>
+      <td style="text-align:left;">4.18e-05</td>
+      <td style="text-align:left;">0.00876</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">CAAGGTCAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">NR4A2_si</td>
+      <td style="text-align:left;">NR4A2</td>
+      <td style="text-align:left;">sequence_wild_type|rs356168|4|G|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">54</td>
+      <td style="text-align:left;">62</td>
+      <td style="text-align:left;">4.18e-05</td>
+      <td style="text-align:left;">0.00876</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">CAAGGTCAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">FOXO1_si</td>
+      <td style="text-align:left;">FOXO1</td>
+      <td style="text-align:left;">sequence_variation|rs356168|4|A|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">9</td>
+      <td style="text-align:left;">24</td>
+      <td style="text-align:left;">4.35e-05</td>
+      <td style="text-align:left;">0.00761</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">CTTCTGTTTTGATTGT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">FOXO1_si</td>
+      <td style="text-align:left;">FOXO1</td>
+      <td style="text-align:left;">sequence_wild_type|rs356168|4|G|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">9</td>
+      <td style="text-align:left;">24</td>
+      <td style="text-align:left;">4.35e-05</td>
+      <td style="text-align:left;">0.00761</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">CTTCTGTTTTGATTGT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">RUNX3_si</td>
+      <td style="text-align:left;">RUNX3</td>
+      <td style="text-align:left;">sequence_variation|rs356168|4|A|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">15</td>
+      <td style="text-align:left;">28</td>
+      <td style="text-align:left;">4.85e-05</td>
+      <td style="text-align:left;">0.0095</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTTGATTGTGGTA</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">RUNX3_si</td>
+      <td style="text-align:left;">RUNX3</td>
+      <td style="text-align:left;">sequence_wild_type|rs356168|4|G|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">15</td>
+      <td style="text-align:left;">28</td>
+      <td style="text-align:left;">4.85e-05</td>
+      <td style="text-align:left;">0.0095</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTTGATTGTGGTA</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">DLX3_do</td>
+      <td style="text-align:left;">DLX3</td>
+      <td style="text-align:left;">sequence_wild_type|rs356168|4|G|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">25</td>
+      <td style="text-align:left;">34</td>
+      <td style="text-align:left;">5.16e-05</td>
+      <td style="text-align:left;">0.011</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">GGTAATTGGA</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">THB_do</td>
+      <td style="text-align:left;">THB</td>
+      <td style="text-align:left;">sequence_variation|rs3333|5|A|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">26</td>
+      <td style="text-align:left;">42</td>
+      <td style="text-align:left;">5.34e-05</td>
+      <td style="text-align:left;">0.02</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">GACCTCACTGGAGTTCA</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">ESR2_si</td>
+      <td style="text-align:left;">ESR2</td>
+      <td style="text-align:left;">sequence_variation|rs356168|4|A|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">56</td>
+      <td style="text-align:left;">62</td>
+      <td style="text-align:left;">5.35e-05</td>
+      <td style="text-align:left;">0.012</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">AGGTCAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">ESR2_si</td>
+      <td style="text-align:left;">ESR2</td>
+      <td style="text-align:left;">sequence_wild_type|rs356168|4|G|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">56</td>
+      <td style="text-align:left;">62</td>
+      <td style="text-align:left;">5.35e-05</td>
+      <td style="text-align:left;">0.012</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">AGGTCAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">SOX13_f1</td>
+      <td style="text-align:left;">SOX13</td>
+      <td style="text-align:left;">sequence_variation|rs356168|4|A|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">33</td>
+      <td style="text-align:left;">40</td>
+      <td style="text-align:left;">5.36e-05</td>
+      <td style="text-align:left;">0.0114</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">GAACAATC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">SOX13_f1</td>
+      <td style="text-align:left;">SOX13</td>
+      <td style="text-align:left;">sequence_wild_type|rs356168|4|G|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">33</td>
+      <td style="text-align:left;">40</td>
+      <td style="text-align:left;">5.36e-05</td>
+      <td style="text-align:left;">0.0114</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">GAACAATC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">RUNX1_f1</td>
+      <td style="text-align:left;">RUNX1</td>
+      <td style="text-align:left;">sequence_variation|rs356168|4|A|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">20</td>
+      <td style="text-align:left;">29</td>
+      <td style="text-align:left;">5.62e-05</td>
+      <td style="text-align:left;">0.0117</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">ATTGTGGTAA</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">RUNX1_f1</td>
+      <td style="text-align:left;">RUNX1</td>
+      <td style="text-align:left;">sequence_wild_type|rs356168|4|G|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">20</td>
+      <td style="text-align:left;">29</td>
+      <td style="text-align:left;">5.62e-05</td>
+      <td style="text-align:left;">0.0117</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">ATTGTGGTAA</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">HXD10_f1</td>
+      <td style="text-align:left;">HXD10</td>
+      <td style="text-align:left;">sequence_variation|rs356168|4|A|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">13</td>
+      <td style="text-align:left;">22</td>
+      <td style="text-align:left;">5.91e-05</td>
+      <td style="text-align:left;">0.00782</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TGTTTTGATT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">HXD10_f1</td>
+      <td style="text-align:left;">HXD10</td>
+      <td style="text-align:left;">sequence_wild_type|rs356168|4|G|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">13</td>
+      <td style="text-align:left;">22</td>
+      <td style="text-align:left;">5.91e-05</td>
+      <td style="text-align:left;">0.00782</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TGTTTTGATT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">ZFHX3_f1</td>
+      <td style="text-align:left;">ZFHX3</td>
+      <td style="text-align:left;">sequence_variation|rs3333|5|A|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">46</td>
+      <td style="text-align:left;">56</td>
+      <td style="text-align:left;">6.47e-05</td>
+      <td style="text-align:left;">0.0116</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGAATTATTA</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">ZFHX3_f1</td>
+      <td style="text-align:left;">ZFHX3</td>
+      <td style="text-align:left;">sequence_wild_type|rs3333|5|G|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">46</td>
+      <td style="text-align:left;">56</td>
+      <td style="text-align:left;">6.47e-05</td>
+      <td style="text-align:left;">0.0116</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGAATTATTA</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">PPARA_f1</td>
+      <td style="text-align:left;">PPARA</td>
+      <td style="text-align:left;">sequence_variation|rs356168|4|A|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">55</td>
+      <td style="text-align:left;">61</td>
+      <td style="text-align:left;">6.51e-05</td>
+      <td style="text-align:left;">0.0147</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">AAGGTCA</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">PPARA_f1</td>
+      <td style="text-align:left;">PPARA</td>
+      <td style="text-align:left;">sequence_wild_type|rs356168|4|G|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">55</td>
+      <td style="text-align:left;">61</td>
+      <td style="text-align:left;">6.51e-05</td>
+      <td style="text-align:left;">0.0147</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">AAGGTCA</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">NR5A2_f1</td>
+      <td style="text-align:left;">NR5A2</td>
+      <td style="text-align:left;">sequence_variation|rs356168|4|A|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">52</td>
+      <td style="text-align:left;">61</td>
+      <td style="text-align:left;">6.65e-05</td>
+      <td style="text-align:left;">0.0139</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TGCAAGGTCA</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">NR5A2_f1</td>
+      <td style="text-align:left;">NR5A2</td>
+      <td style="text-align:left;">sequence_wild_type|rs356168|4|G|32</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">52</td>
+      <td style="text-align:left;">61</td>
+      <td style="text-align:left;">6.65e-05</td>
+      <td style="text-align:left;">0.0139</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TGCAAGGTCA</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">PO3F2_si</td>
+      <td style="text-align:left;">PO3F2</td>
+      <td style="text-align:left;">sequence_variation|rs3333|5|A|32</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">45</td>
+      <td style="text-align:left;">54</td>
+      <td style="text-align:left;">8.52e-05</td>
+      <td style="text-align:left;">0.016</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">ATAATTCAAG</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">PO3F2_si</td>
+      <td style="text-align:left;">PO3F2</td>
+      <td style="text-align:left;">sequence_wild_type|rs3333|5|G|32</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">45</td>
+      <td style="text-align:left;">54</td>
+      <td style="text-align:left;">8.52e-05</td>
+      <td style="text-align:left;">0.016</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">ATAATTCAAG</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">SMAD1_si</td>
+      <td style="text-align:left;">SMAD1</td>
+      <td style="text-align:left;">sequence_variation|rs3333|5|A|32</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">2</td>
+      <td style="text-align:left;">13</td>
+      <td style="text-align:left;">8.75e-05</td>
+      <td style="text-align:left;">0.0178</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">ACTCTGTCTGAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">SMAD1_si</td>
+      <td style="text-align:left;">SMAD1</td>
+      <td style="text-align:left;">sequence_wild_type|rs3333|5|G|32</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">2</td>
+      <td style="text-align:left;">13</td>
+      <td style="text-align:left;">8.75e-05</td>
+      <td style="text-align:left;">0.0178</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">ACTCTGTCTGAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">GFI1_f1</td>
+      <td style="text-align:left;">GFI1</td>
+      <td style="text-align:left;">sequence_variation|rs356168|4|A|32</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">36</td>
+      <td style="text-align:left;">45</td>
+      <td style="text-align:left;">9.88e-05</td>
+      <td style="text-align:left;">0.0202</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">GCCCTGATTG</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">GFI1_f1</td>
+      <td style="text-align:left;">GFI1</td>
+      <td style="text-align:left;">sequence_wild_type|rs356168|4|G|32</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">36</td>
+      <td style="text-align:left;">45</td>
+      <td style="text-align:left;">9.88e-05</td>
+      <td style="text-align:left;">0.0202</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">GCCCTGATTG</td>
+   </tr>
+</tbody>
+</table>
+
+<hr>
+<center><big><b><a name="debugging_information">DEBUGGING INFORMATION</a></b></big></center>
+<hr>
+<p>
+Command line:
+</p>
+<pre>
+fimo ./TFs/HOCOMOCOv9.meme ./seq.fna
+</pre>
+<p>
+Settings:
+</p>
+<pre>
+<table>
+  <tr>
+    <td style="padding-right: 2em">output_directory = fimo_out</td>
+    <td style="padding-left: 5em; padding-right: 2em">MEME file name = ./TFs/HOCOMOCOv9.meme</td>
+    <td style="padding-left: 5em; padding-right: 2em">sequence file name = ./seq.fna</td>
+  </tr>  <tr>
+    <td style="padding-right: 2em">background file name = --nrdb--</td>
+    <td style="padding-left: 5em; padding-right: 2em">alphabet = DNA</td>
+    <td style="padding-left: 5em; padding-right: 2em">max stored scores = 100000</td>
+  </tr>  <tr>
+    <td style="padding-right: 2em">allow clobber = true</td>
+    <td style="padding-left: 5em; padding-right: 2em">compute q-values = true</td>
+    <td style="padding-left: 5em; padding-right: 2em">parse genomic coord. = false</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 2em">text only = false</td>
+    <td style="padding-left: 5em; padding-right: 2em">scan both strands = true</td>
+    <td style="padding-left: 5em; padding-right: 2em">max strand = false</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 2em">threshold type = p-value</td>
+    <td style="padding-left: 5em; padding-right: 2em">output theshold = 0.0001</td>
+    <td style="padding-left: 5em; padding-right: 2em">pseudocount = 0.1</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 2em">alpha = 1</td>
+    <td style="padding-left: 5em; padding-right: 2em">verbosity = 2</td>
+    <td style="padding-left: 5em; padding-right: 2em"></td>
+  </tr>
+
+</table>
+</pre>
+<p>
+This information can be useful in the event you wish to report a
+problem with the FIMO software.
+</p>
+<hr>
+<span style="background-color: #DDDDFF"><a href="#top_buttons"><b>Go to top</b></a></span>
+</body>
+</html>

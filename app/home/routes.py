@@ -19,6 +19,10 @@ from os import path
 import time
 import json
 import app.home.sequence_gen as sg
+from app.base.models import User
+from app.base.models import Workflow
+from app import db
+from datetime import datetime, timedelta
 
 #step_1---------function
 def get_snp_info(snp_id):
@@ -1322,6 +1326,15 @@ def epi_function(snps,tissues):
             result3 = result3[['SNP', 'Location', 'Gene ID', 'Gene', 'Gene Location', 'Score', 'Tissue', 'File_Type']]
     result3 = result3.reset_index().drop(columns=['index'])
     # result3 = result3.to_json()
+    user_id = request.form['user_id']
+    file_name = str(user_id)+'_step5.txt'
+    save = result3.to_json()
+    with open('app/users_workflow/'+user_id+'_step5.txt', 'w') as out:  
+            json.dump(save, out)
+    workflow = Workflow()
+    user_work = Workflow.query.filter_by(user_id_user=user_id).first()
+    user_work.step5 = 'app/users_workflow/'+file_name
+    db.session.commit()
     return result3
 
 
@@ -1390,8 +1403,29 @@ def verify_snps():
                     chrom = snp_info[2]
 
                 dict_snps.append(apply_state_model(tissue, snp_info, snp_info[0], chrom))
-    with open('app/users_workflow/data2.txt', 'w') as out:  
+    #Add to workflow in database
+    user_id = request.form['user_id']
+    file_name = str(user_id)+'_step2.txt'
+    with open('app/users_workflow/'+user_id+'_step2.txt', 'w') as out:  
             json.dump(dict_snps, out)
+    workflow = Workflow()
+    user_work = Workflow.query.filter_by(user_id_user=user_id).first()
+    user_work.step2 = 'app/users_workflow/'+file_name
+
+    #delete other steps forward
+    user_work.step3 = None
+    user_work.step4 = None
+    user_work.step5 = None
+    if os.path.exists("app/users_workflow/"+user_id+"_step3.txt"):
+        os.remove("app/users_workflow/"+user_id+"_step3.txt")
+    if os.path.exists("app/users_workflow/"+user_id+"_step3_dictionary.txt"):
+        os.remove("app/users_workflow/"+user_id+"_step3_dictionary.txt")
+    if os.path.exists("app/users_workflow/"+user_id+"_step4.txt"):
+        os.remove("app/users_workflow/"+user_id+"_step4.txt")
+    if os.path.exists("app/users_workflow/"+user_id+"_step5.txt"):
+        os.remove("app/users_workflow/"+user_id+"_step5.txt")
+    
+    db.session.commit()
     return jsonify(dict_snps)
 #step 3
 @blueprint.route('/gen_sequence',methods=['GET','POST'])
@@ -1483,6 +1517,31 @@ def gen_sequence():
         # meme= "./TFs/" + tf_selected + ".meme"
         os.system("export PATH=$HOME/meme/bin:$PATH ")
         os.system("~/meme/bin/fimo "+meme+" "+fna_filename )
+
+        #save in file
+        #sequences and dictionary
+        user_id = request.form['user_id']
+        step_filename = 'app/users_workflow/'+str(user_id)+'_step3.txt'
+        with open(step_filename, 'w') as g:
+            json.dump(res,g)
+        #save sequences
+        with open('app/users_workflow/'+user_id+'_step3_dictionary.txt', 'w') as out:  
+            json.dump(dictionary_snp_allele, out)
+        #save to database
+        file_name = str(user_id)+'_step3.txt'
+        workflow = Workflow()
+        user_work = Workflow.query.filter_by(user_id_user=user_id).first()
+        user_work.step3 = 'app/users_workflow/'+file_name
+
+        #delete the other work
+        user_work.step4 = None
+        user_work.step5 = None
+
+        if os.path.exists("app/users_workflow/"+user_id+"_step4.txt"):
+            os.remove("app/users_workflow/"+user_id+"_step4.txt")
+        if os.path.exists("app/users_workflow/"+user_id+"_step5.txt"):
+            os.remove("app/users_workflow/"+user_id+"_step5.txt")
+        db.session.commit()
     
     return jsonify(res,dictionary_snp_allele)
 
@@ -1710,7 +1769,22 @@ def dif_tf():
         dataframe_out = f_dataframe.to_dict(orient='records')
         print("DATA FRAME DICT")
         # print(dataframe_out)
+    #save file
+    user_id = request.form['user_id']
+    file_name = str(user_id)+'_step4.txt'
+    with open('app/users_workflow/'+user_id+'_step4.txt', 'w') as out:  
+            json.dump(dataframe_out, out)
+    workflow = Workflow()
+    user_work = Workflow.query.filter_by(user_id_user=user_id).first()
+    user_work.step4 = 'app/users_workflow/'+file_name
 
+    #Delete step 5
+    user_work.step5 = None
+
+    if os.path.exists("app/users_workflow/"+user_id+"_step5.txt"):
+            os.remove("app/users_workflow/"+user_id+"_step5.txt")
+    db.session.commit()
+    #save in database
     return jsonify(dataframe_out)
 
 @blueprint.route('/epi',methods=['GET','POST'])
@@ -1737,19 +1811,132 @@ def epi():
 @blueprint.route('/data_retrive',methods=['GET','POST'])
 @login_required
 def data_retriever():
-    if not os.path.getsize('app/users_workflow/data.txt') == 0:
-        with open('app/users_workflow/data.txt') as json_file:  
+    id_user = request.form['data_user']
+    find_user_work = Workflow.query.filter_by(user_id_user=id_user).first()
+    if not find_user_work.step1 == None:
+        with open('app/users_workflow/'+str(find_user_work.user_id_user)+'_step1.txt') as json_file:  
             data = json.load(json_file)
             return jsonify(data)
     else:
         return None
+
+@blueprint.route('/data_retrive1',methods=['GET','POST'])
+@login_required
+def data_retriever1():
+    id_user = request.form['data_user']
+    find_user_work = Workflow.query.filter_by(user_id_user=id_user).first()
+    if not find_user_work.step2 == None:
+        with open('app/users_workflow/'+str(find_user_work.user_id_user)+'_step2.txt') as json_file:  
+            data = json.load(json_file)
+            return jsonify(data)
+    else:
+        return None
+
+@blueprint.route('/data_retrive2',methods=['GET','POST'])
+@login_required
+def data_retriever2():
+    id_user = request.form['data_user']
+    find_user_work = Workflow.query.filter_by(user_id_user=id_user).first()
+    if not find_user_work.step3 == None:
+        file1 = 'app/users_workflow/'+str(find_user_work.user_id_user)+'_step3.txt'
+        file2 = 'app/users_workflow/'+str(find_user_work.user_id_user)+'_step3_dictionary.txt'
+        with open(file1) as json_file, open(file2) as b:  
+            data = json.load(json_file)
+            dictio = json.load(b)
+            return jsonify(data,dictio)
+    else:
+        return None
+
+@blueprint.route('/data_retrive3',methods=['GET','POST'])
+@login_required
+def data_retriever3():
+    id_user = request.form['data_user']
+    find_user_work = Workflow.query.filter_by(user_id_user=id_user).first()
+    if not find_user_work.step4 == None:
+        file1 = 'app/users_workflow/'+str(find_user_work.user_id_user)+'_step4.txt'
+        with open(file1) as json_file:  
+            data = json.load(json_file)
+            return jsonify(data)
+    else:
+        return None
+
+@blueprint.route('/data_retrive4',methods=['GET','POST'])
+@login_required
+def data_retriever4():
+    id_user = request.form['data_user']
+    find_user_work = Workflow.query.filter_by(user_id_user=id_user).first()
+    if not find_user_work.step4 == None:
+        file1 = 'app/users_workflow/'+str(find_user_work.user_id_user)+'_step5.txt'
+        with open(file1) as json_file:  
+            data = json.load(json_file)
+            return jsonify(data)
+    else:
+        return None
+
+@blueprint.route('/next_step1',methods=['GET','POST'])
+@login_required
+def next_step1():
+    if request.method == 'POST':
+        #TODO better data retrieve function
+        print("Testando")
+        #commit to database the file changed
+        user_id = request.form['user']
+        data_table = request.form['data']
+        data_real = json.loads(data_table)
+        #save to file
+        file_name = str(user_id)+'_step1.txt'
+        print(file_name)
+        with open('app/users_workflow/'+file_name, 'w') as outfile:  
+            json.dump(data_real, outfile)
+        # set variables
+        today = datetime.now()
+        expire_date = today + timedelta(days=8)
+        workflow = Workflow()
+        user_work = Workflow.query.filter_by(user_id_user=user_id).first()
+        if(user_work == None):
+            print("ENTROU NA PRIMEIRA ADD")
+            workflow.user_id_user = user_id
+            workflow.created = datetime.now()
+            workflow.step1 = 'app/users_workflow/'+file_name
+            workflow.expire = expire_date
+            db.session.add(workflow)
+        else:
+            #update workflow
+            user_work.created = datetime.now()
+            user_work.expire = expire_date
+        # commit the record the database
+        db.session.commit()
+        #sqlalchemy insert
+        return 'DONE'
+
+@blueprint.route('/next_step2',methods=['GET','POST'])
+@login_required
+def next_step2():
+    if request.method == 'POST':
+        #commit tables one and two
+        data_table1 = request.form['data']
+        data_table2 = request.form['data2']
+        dados1 = json.loads(data_table1)
+        dados2 = json.loads(data_table2)
+        user_id = request.form['user']
+        #update both files
+        file_name1 = 'app/users_workflow/'+user_id+'_step1.txt'
+        file_name2 = 'app/users_workflow/'+user_id+'_step2.txt'
+        with open(file_name1, 'w') as outfile:  
+            json.dump(dados1, outfile)
+        with open(file_name2, 'w') as f:  
+            json.dump(dados2, f)
+
+        return 'DONE'
 
 @blueprint.route('/uploader',methods=['GET','POST'])
 @login_required
 def uploader():
     if request.method == 'POST':
         print("REQUEST")
-        print(request.files) 
+        print(request.files)
+        print("REQUEST FORM")
+        user_id = request.form['user_id']
         f = request.files['file']
         file_path = "app/home/drscan.xlsx"
         #save xlsx file
@@ -1767,9 +1954,50 @@ def uploader():
 
         #saving json file
         teste = process(snp_ids)
-        with open('app/users_workflow/data.txt', 'w') as outfile:  
+        file_name = str(user_id)+'_step1.txt'
+        print(file_name)
+        with open('app/users_workflow/'+file_name, 'w') as outfile:  
             json.dump(teste, outfile)
-        # return jsonify(process(snp_ids))
+        
+        #insert into db (timestamp,id_user,step 1)
+        today = datetime.now()
+        expire_date = today + timedelta(days=8)
+        workflow = Workflow()
+
+        #select workflow to see if file slready exists
+        user_work = Workflow.query.filter_by(user_id_user=user_id).first()
+        if(user_work == None):
+            print("ENTROU NA PRIMEIRA ADD")
+            workflow.user_id_user = user_id
+            workflow.created = datetime.now()
+            workflow.step1 = 'app/users_workflow/'+file_name
+            workflow.expire = expire_date
+            db.session.add(workflow)
+        else:
+            #update workflow
+            user_work.created = datetime.now()
+            user_work.expire = expire_date
+        
+        #delete previous workflow
+        #TODO second delete data from the database
+        user_work.step2 = None
+        user_work.step3 = None
+        user_work.step4 = None
+        user_work.step5 = None
+        #Delete from directory
+        if os.path.exists("app/users_workflow/"+user_id+"_step2.txt"):
+            os.remove("app/users_workflow/"+user_id+"_step2.txt")
+        if os.path.exists("app/users_workflow/"+user_id+"_step3.txt"):
+            os.remove("app/users_workflow/"+user_id+"_step3.txt")
+        if os.path.exists("app/users_workflow/"+user_id+"_step3_dictionary.txt"):
+            os.remove("app/users_workflow/"+user_id+"_step3_dictionary.txt")
+        if os.path.exists("app/users_workflow/"+user_id+"_step4.txt"):
+            os.remove("app/users_workflow/"+user_id+"_step4.txt")
+        if os.path.exists("app/users_workflow/"+user_id+"_step5.txt"):
+            os.remove("app/users_workflow/"+user_id+"_step5.txt")
+        # commit the record the database
+        db.session.commit()
+        #sqlalchemy inserts
         return jsonify(teste)
 
 @blueprint.route('/upload_matrix',methods=['GET','POST'])

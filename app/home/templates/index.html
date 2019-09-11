@@ -132,7 +132,7 @@
                         <div class="x_content">
                           <p class="text-muted font-13 m-b-30">
                             First step is to insert snps id into its respective field. Click run to get snp information by its id. 
-                            Or you can insert an .xlsx file with your SNPs, create one column named SNP, and write down all SNPs IDs
+                            Or you can insert an .xlsx file with your SNPs, create one column named SNPS, and write down all SNPs IDs
                           </p>
                           
                           <div style="padding-bottom: 12px;">
@@ -192,18 +192,116 @@
                         $(document).ready(function() {
                           $('.load').hide();
                         });
-                        
+                        $(document).ready(function(){
+                          $('#wizard').smartWizard({
+                            onLeaveStep:leaveAStepCallback,
+                          });
+                          
+                          function leaveAStepCallback(obj, context){
+                            console.log("ENTROU AQUI");
+                            var user_id = '{{ current_user.id }}';
+                            if (context.fromStep == 1){
+                              console.log("PASSO 1")
+                              var table_one = $('#datatable-buttons').DataTable();
+                              var data = table_one.rows().data();
+                              var rows2 = table_one.rows().data().length;
+                              var row_list = []
+                              for(i=0;i<rows2;i++){
+                                row_list.push(table_one.rows().data()[i])
+                              };
+                            }
+                            if (context.fromStep == 2){
+                              console.log("PASSO 2")
+                              var table_one = $('#datatable-buttons').DataTable();
+                              var data = table_one.rows().data();
+                              var rows2 = table_one.rows().data().length;
+                              var row_list = []
+                              for(i=0;i<rows2;i++){
+                                row_list.push(table_one.rows().data()[i])
+                              };
+                              var table_two = $('#datatable-buttons-x').DataTable();
+                              var data = table_two.rows().data();
+                              var rows = table_two.rows().data().length;
+                              var row_list1 = []
+                              for(i=0;i<rows;i++){
+                                row_list1.push(table_two.rows().data()[i])
+                              };
+                            }
+                            if (context.fromStep < 3 && context.fromStep < context.toStep){
+                              if (context.fromStep == 1){
+                                $.ajax({
+                                  url: 'http://127.0.0.1:5000/home/next_step'+ context.fromStep,
+                                  type: 'POST',
+                                  // dataType: 'json',
+                                  data: { 
+                                    step: context.fromStep,
+                                    user: user_id,
+                                    data: JSON.stringify(row_list),
+                                  },
+                                  async: false,
+                                  success:function(response) {
+                                    console.log(response)
+                                  },error: function(){
+                                    console.log('error---')
+                                  }
+                                });
+                              }else{
+                                if (context.fromStep == 2){
+                                  console.log(row_list);
+                                  $.ajax({
+                                  url: 'http://127.0.0.1:5000/home/next_step'+ context.fromStep,
+                                  type: 'POST',
+                                  // dataType: 'json',
+                                  data: { 
+                                    step: context.fromStep,
+                                    user: user_id,
+                                    //add table 2 in data to commit 1 and 2
+                                    data: JSON.stringify(row_list),
+                                    data2: JSON.stringify(row_list1),
+                                  },
+                                  async: false,
+                                  success:function(response) {
+                                    console.log(response)
+                                  },error: function(){
+                                    console.log('error---')
+                                  }
+                                });
+                                }
+                              }
+                              
+                            }
+                            
+                            // alert("Leaving step " + context.fromStep + " to go to step " + context.toStep);
+                            return true; // return false to stay on step and true to continue navigation 
+                          }
+                        });
                         $(document).ready(function() {
+                          //get user id
+                          var user_id = '{{ current_user.id }}';
                           $.ajax({
                             url: 'http://127.0.0.1:5000/home/data_retrive',
-                              type: 'POST',
-                              // dataType: 'json',
-                              success:function(response) {
-                                //TODO implement retrival
-                                console.log(response)
+                            type: 'POST',
+                            data: { data_user: user_id },
+                            // dataType: 'json',
+                            success:function(response) {
                                 var t = $('#datatable-buttons').DataTable();
-                                for(i=0;i<response.length;i++){
-                                  // var t = $('#datatable-buttons').DataTable();
+                                if (response[0][0].includes("rs")){
+                                  //different method for retrieving
+                                  for(i=0;i<response.length;i++){
+                                    t.row.add( [
+                                      response[i][0],
+                                      response[i][1],
+                                      response[i][2],
+                                      response[i][3],
+                                      response[i][4],
+                                      '<a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-pencil"></i> Edit </a>'+
+                                      '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
+                                    ] );
+                                  }
+                                  t.draw();
+
+                                }else{
+                                  for(i=0;i<response.length;i++){
                                     t.row.add( [
                                       response[i][1],
                                       response[i][0][0].location,
@@ -213,11 +311,151 @@
                                       '<a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-pencil"></i> Edit </a>'+
                                       '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
                                     ] );
-                                    // t.draw();
+                                  }
+                                  t.draw();
                                 }
-                                t.draw();
                               }
                           });
+                          $.ajax({
+                            url: 'http://127.0.0.1:5000/home/data_retrive1',
+                            type: 'POST',
+                            data: { data_user: user_id },
+                            // dataType: 'json',
+                            success:function(response) {
+                                console.log(response)
+                                var table_2 = $('#datatable-buttons-x').DataTable();
+                                //different method for retrieving
+                                if (response[0]['reg_elemnt']){
+                                  console.log('TRUE -- reg_elemnt tag')
+                                  for (let i = 0; i < response.length; i++) {
+                                    if (response[i]['reg_elemnt'].split("|")[0] != "DO NOT EXIST "){
+                                      table_2.row.add( [
+                                        response[i]['snp_name'],
+                                        response[i]['state_model'],
+                                        response[i]['tissue'],
+                                        response[i]['reg_elemnt'],
+                                      ] );
+                                      table_2.draw();
+                                    }else{
+                                      if (x_boolean){
+                                        alert("One of the tissues does not exist")
+                                        x_boolean = false
+                                      }
+                                    }
+                                  }
+                                }else{
+                                  // When commit is done
+                                  console.log('HERE --- debugging new list')
+                                  console.log(response[0])
+                                  console.log(response[1])
+                                  for (let i = 0; i < response.length; i++) {
+                                    if (response[i][3].split("|")[0] != "DO NOT EXIST "){
+                                      table_2.row.add( [
+                                        response[i][0],
+                                        response[i][1],
+                                        response[i][2],
+                                        response[i][3],
+                                      ] );
+                                      table_2.draw();
+                                    }else{
+                                      if (x_boolean){
+                                        alert("One of the tissues does not exist")
+                                        x_boolean = false
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            });
+                            $.ajax({
+                              url: 'http://127.0.0.1:5000/home/data_retrive2',
+                              type: 'POST',
+                              data: { data_user: user_id },
+                              // dataType: 'json',
+                              success:function(response) {
+                                //implement the data retrieve for step 3
+                                uploaded = 0
+                                //reset disable
+                                $('#tfs').removeAttr('disabled');
+                                //some debbugging
+                                console.log("SIZE: " + response[0].length)
+                                console.log(response[0])
+                                //insert alleles dictionary in variable
+                                allele_dict = response[1]
+                                //insert text into 'p' element
+                                for(i=0;i<response[0][0].length;i++){
+                                  $('#sequences').append( document.createTextNode( response[0][0][i]) );
+                                  $('#sequences').append( document.createElement( "br") );
+                                  console.log(response[0][0][i])
+                                }
+                              }
+                            });
+                            $.ajax({
+                              url: 'http://127.0.0.1:5000/home/data_retrive3',
+                              type: 'POST',
+                              data: { data_user: user_id },
+                              // dataType: 'json',
+                              success:function(response) {
+                                // step 4 retrieve
+                                //some debbugging
+                                // if (response.length == 0){
+                                //   alert("Differential Transciption Factors not found")
+                                // }else{
+                                //   alert("DONE");
+                                // }
+                                // //insert into table
+                                //declare datatable
+      
+                                var t = $('#datatable-buttons-ft').DataTable();
+      
+                                //iterate through response to add rows in the table
+                                for(i=0;i<response.length;i++){
+                                  t.row.add( [
+                                    response[i]['motif_id'],
+                                    response[i]['motif_alt_id'],
+                                    response[i]['sequence_name'],
+                                    response[i]['strand'],
+                                    response[i]['start'],
+                                    response[i]['stop'],
+                                    response[i]['p-value'],
+                                    response[i]['q-value'],
+                                    response[i]['matched_sequence'],
+                                  ] );
+                                }; 
+                                t.draw(); 
+                              }
+                            });
+                            $.ajax({
+                              url: 'http://127.0.0.1:5000/home/data_retrive4',
+                              type: 'POST',
+                              data: { data_user: user_id },
+                              // dataType: 'json',
+                              success:function(response) {
+                                // step 5 retrieve
+                                //declare datatable
+                                var t = $('#datatable-buttons-epi').DataTable();
+                                //iterate through response to add rows in the table
+                                
+                                if( response[0]['SNP']== undefined ) {
+                                  console.log("EMPTY")
+                                } else {
+                                  for(i=0;i<response.length;i++){
+                                    t.row.add( [
+                                      response[i]['SNP'],
+                                      response[i]['Location'],
+                                      response[i]['Gene ID'],
+                                      response[i]['Gene'],
+                                      response[i]['Gene Location'],
+                                      response[i]['Score'],
+                                      response[i]['Tissue'],
+                                      response[i]['File_Type'],
+                                    ] )
+                                  };
+                                t.draw();  
+                                }
+                               
+                              }
+                            });
                         });
                         $(function () {
                           $('[data-toggle="tooltip"]').tooltip()
@@ -230,6 +468,10 @@
                             // event.preventDefault()
                             //send file excel file
                             var formData = new FormData(this);
+                            formData.append('user_id', {{current_user.id}});
+                            
+                            var table_delete_all = $('#datatable-buttons').DataTable();
+                            table_delete_all.clear().draw();
 
                             if ($('input[type="file"]').val().trim() == false){
                               alert("Insert .xlxs file with SNP ids in rows")
@@ -242,6 +484,7 @@
                               type: 'POST',
                               // dataType: 'json',
                               data: formData,
+                              // formData,
                               success:function(response) {
 
                                 //hide gif after success
@@ -263,6 +506,20 @@
                                     // t.draw();
                                 }
                                 t.draw();
+                                //delete all the tables and data from other steps
+                                var table_delete = $('#datatable-buttons-x').DataTable();
+                                table_delete.clear().draw();
+                                var table_delete1 = $('#datatable-buttons-ft').DataTable();
+                                table_delete1.clear().draw();
+                                var table_delete2 = $('#datatable-buttons-epi').DataTable();
+                                table_delete2.clear().draw();
+                                //delete text and dictionary variable
+                                allele_dict = undefined
+                                var element;
+                                element = document.getElementById("sequences");
+                                if (element) {
+                                  element.innerHTML = "";
+                                }
                               },error:function(){
                                   alert("SNP not found. Try to verify if each snp is corrected in your file")
                                   // $('.load').hide();
@@ -293,8 +550,7 @@
                                 dataType: 'json',
                                 success:function(response) {
                                   //if SNP couldnt be found send alert to user
-                                  
-                                    var t = $('#datatable-buttons').DataTable();
+                                  var t = $('#datatable-buttons').DataTable();
                                     t.row.add( [
                                       response[1],
                                       response[0][0].location,
@@ -313,14 +569,14 @@
                             });
                           });
                         </script>
-                        <script>
+                        <!-- <script>
                           $(function() {
                             $('.buttonNext.btn.btn-success').bind('click', function() {
                               console.log('BUTTON CLICKED');
                             });
                           });
                         </script>
-               
+                -->
                             <script type="text/javascript">
                               //JQuery to delete rows.Working and using the datatables API
                               $(document).ready(function() {
@@ -995,6 +1251,7 @@
                       //delete data from table 2
                       table_re.rows().remove().draw();
 
+                      var user_id = '{{ current_user.id}}';
                       $.ajax({
 
                         url: 'http://127.0.0.1:5000/home/verify_snps',
@@ -1002,6 +1259,7 @@
                         dataType: 'json',
                         data: { snp_list:JSON.stringify(row_list), 
                               tissue_field: tissue,
+                              user_id : user_id
                         },
                         // async: false,
                         success:function(response) {
@@ -1012,31 +1270,39 @@
                               alert("Insert snp first")
                           }else{
                             console.log("LOG: " + response[0]['state_model'])
-                          //declare datatable
-                          var t = $('#datatable-buttons-x').DataTable();
-                          //iterate through response to add rows in the table
-                          var x_boolean = true
-                          for(i=0;i<response.length;i++){
-                            console.log("HERE - Debug")
-                            console.log(response[i]['reg_elemnt'].split("|")[0])
-                            if (response[i]['reg_elemnt'].split("|")[0] != "DO NOT EXIST "){
-                              t.row.add( [
-                                response[i]['snp_name'],
-                                response[i]['state_model'],
-                                response[i]['tissue'],
-                                response[i]['reg_elemnt'],
-                              ] );
-                              t.draw();
-                            }else{
-                              if (x_boolean){
-                                alert("One of the tissues does not exist")
-                                x_boolean = false
+                            //declare datatable
+                            var t = $('#datatable-buttons-x').DataTable();
+                            //iterate through response to add rows in the table
+                            var x_boolean = true
+                            for(i=0;i<response.length;i++){
+                              if (response[i]['reg_elemnt'].split("|")[0] != "DO NOT EXIST "){
+                                t.row.add( [
+                                  response[i]['snp_name'],
+                                  response[i]['state_model'],
+                                  response[i]['tissue'],
+                                  response[i]['reg_elemnt'],
+                                ] );
+                                t.draw();
+                              }else{
+                                if (x_boolean){
+                                  alert("One of the tissues does not exist")
+                                  x_boolean = false
+                                }
                               }
-                            }
-                            
-                          };
+                            };
                           }
-
+                          //delete all the tables and data from other steps
+                          var table_delete1 = $('#datatable-buttons-ft').DataTable();
+                          table_delete1.clear().draw();
+                          var table_delete2 = $('#datatable-buttons-epi').DataTable();
+                          table_delete2.clear().draw();
+                          //delete text and dictionary variable
+                          allele_dict = undefined
+                          var element;
+                          element = document.getElementById("sequences");
+                          if (element) {
+                            element.innerHTML = "";
+                          }
                         }
                       });
                     });
@@ -1334,14 +1600,15 @@
                       for(i=0;i<rows2;i++){
                         row_list.push(table.rows().data()[i])
                       };
-
+                      var id_user = '{{ current_user.id }}'
                       $.ajax({
                         url: 'http://127.0.0.1:5000/home/gen_sequence',
                         type: 'POST',
                         dataType: 'json',
                         data: { snp_list: JSON.stringify(row_list),
                                 tf:$('#tfs').val(),
-                                upload:uploaded
+                                upload:uploaded,
+                                user_id: id_user,
                               },
                         // async: false,
                         success:function(response) {
@@ -1445,23 +1712,18 @@
                         alert('Click generate button on step 3');
                         return false;
                       }
+                      var user_id = '{{ current_user.id }}'
                       $.ajax({
                         url: 'http://127.0.0.1:5000/home/dif_tf',
                         type: 'POST',
                         dataType: 'json',
                         data: { fimo_tsv: "fimo_out/fimo.tsv",
                                 al_dict: JSON.stringify(allele_dict),
+                                user_id : user_id,
                                 },
                         success:function(response) {
-                          //some debbugging
-                          if (response.length == 0){
-                            alert("Differential Transciption Factors not found")
-                          }else{
-                            alert("DONE");
-                          }
                           //insert into table
                           //declare datatable
-
                           var t = $('#datatable-buttons-ft').DataTable();
 
                           //iterate through response to add rows in the table
@@ -1573,12 +1835,14 @@
                             console.log(row_list);
                             console.log(row_list[0]);
                             var tissue = $('#tissue_field_epi').val();
+                            var user_id = '{{ current_user.id }}';
                           $.ajax({
                             url: 'http://127.0.0.1:5000/home/epi',
                             type: 'POST',
                             dataType: 'json',
                             data: { snp_list: JSON.stringify(row_list), 
                                     tissue_field_epi: tissue,
+                                    user_id: user_id,
                             },
                             async: false,
                             success:function(response) {
@@ -1591,18 +1855,19 @@
                               //declare datatable
                               var t = $('#datatable-buttons-epi').DataTable();
                               //iterate through response to add rows in the table
-                                for(i=0;i<response.length;i++){
-                                  t.row.add( [
-                                    response[i]['SNP'],
-                                    response[i]['Location'],
-                                    response[i]['Gene ID'],
-                                    response[i]['Gene'],
-                                    response[i]['Gene Location'],
-                                    response[i]['Score'],
-                                    response[i]['Tissue'],
-                                    response[i]['File_Type'],
-                                  ] ).draw();
-                                };  
+                              for(i=0;i<response.length;i++){
+                                t.row.add( [
+                                  response[i]['SNP'],
+                                  response[i]['Location'],
+                                  response[i]['Gene ID'],
+                                  response[i]['Gene'],
+                                  response[i]['Gene Location'],
+                                  response[i]['Score'],
+                                  response[i]['Tissue'],
+                                  response[i]['File_Type'],
+                                ] )
+                              };
+                              t.draw();  
                             },error: function(){
                               alert("Tissue do not exist")
                             }

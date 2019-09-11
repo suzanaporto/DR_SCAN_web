@@ -58,7 +58,30 @@ function SmartWizard(target, options) {
         $this.target.append(elmActionBar);
         this.contentWidth = $this.elmStepContainer.width();
 
+        //commit button
         $($this.buttons.next).click(function() {
+            // console.log("AAAAA");
+            // console.log("NOVO TESTE");
+            // var control_step = $this.curStepIdx + 1;
+            // console.log(user_id)
+            // console.log(control_step);
+            // $.ajax({
+            //     url: 'http://127.0.0.1:5000/home/next_step'+control_step.toString(),
+            //     type: 'POST',
+            //     dataType: 'json',
+            //     data: { 
+            //         step: control_step,
+            //         user: 1,
+            //     },
+            //     async: false,
+            //     success:function(response) {
+            //       console.log('testando')
+                     
+            //     },error: function(){
+            //       console.log('error---')
+            //     }
+
+            //   });
             $this.goForward();
             return false;
         });
