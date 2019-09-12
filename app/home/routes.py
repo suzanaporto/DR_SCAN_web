@@ -23,6 +23,7 @@ from app.base.models import User
 from app.base.models import Workflow
 from app import db
 from datetime import datetime, timedelta
+import smtplib
 
 #step_1---------function
 def get_snp_info(snp_id):
@@ -1808,6 +1809,44 @@ def epi():
 
     return jsonify(dataframe_new)
 
+@blueprint.route('/delete_old',methods=['GET','POST'])
+@login_required
+def delete_old():
+    workflow = Workflow.query.all()
+    today = datetime.now()
+    #loop entries in db
+    for work in workflow:
+        #delete if it already expired
+        print(work.expire)
+        print(today)
+        if (work.expire < today):
+            #delete files and entries
+            work.step1 = None
+            work.step2 = None
+            work.step3 = None
+            work.step4 = None
+            work.step5 = None
+
+            work_id = str(work.user_id_user)
+            print(work_id)
+            #Delete from directory
+            if os.path.exists("app/users_workflow/"+work_id+"_step1.txt"):
+                os.remove("app/users_workflow/"+work_id+"_step1.txt")
+            if os.path.exists("app/users_workflow/"+work_id+"_step2.txt"):
+                os.remove("app/users_workflow/"+work_id+"_step2.txt")
+            if os.path.exists("app/users_workflow/"+work_id+"_step3.txt"):
+                os.remove("app/users_workflow/"+work_id+"_step3.txt")
+            if os.path.exists("app/users_workflow/"+work_id+"_step3_dictionary.txt"):
+                os.remove("app/users_workflow/"+work_id+"_step3_dictionary.txt")
+            if os.path.exists("app/users_workflow/"+work_id+"_step4.txt"):
+                os.remove("app/users_workflow/"+work_id+"_step4.txt")
+            if os.path.exists("app/users_workflow/"+work_id+"_step5.txt"):
+                os.remove("app/users_workflow/"+work_id+"_step5.txt")
+            # commit the record the database
+            db.session.commit()
+            # Workflow.query.filter(Workflow.id_workflow == work.id_workflow).delete()
+    return "Done delete function"
+
 @blueprint.route('/data_retrive',methods=['GET','POST'])
 @login_required
 def data_retriever():
@@ -1818,7 +1857,7 @@ def data_retriever():
             data = json.load(json_file)
             return jsonify(data)
     else:
-        return None
+        return 'No File'
 
 @blueprint.route('/data_retrive1',methods=['GET','POST'])
 @login_required
@@ -1830,7 +1869,7 @@ def data_retriever1():
             data = json.load(json_file)
             return jsonify(data)
     else:
-        return None
+        return 'No File'
 
 @blueprint.route('/data_retrive2',methods=['GET','POST'])
 @login_required
@@ -1845,7 +1884,7 @@ def data_retriever2():
             dictio = json.load(b)
             return jsonify(data,dictio)
     else:
-        return None
+        return 'No File'
 
 @blueprint.route('/data_retrive3',methods=['GET','POST'])
 @login_required
@@ -1858,7 +1897,7 @@ def data_retriever3():
             data = json.load(json_file)
             return jsonify(data)
     else:
-        return None
+        return 'No File'
 
 @blueprint.route('/data_retrive4',methods=['GET','POST'])
 @login_required
@@ -1871,14 +1910,13 @@ def data_retriever4():
             data = json.load(json_file)
             return jsonify(data)
     else:
-        return None
+        return 'No File'
 
 @blueprint.route('/next_step1',methods=['GET','POST'])
 @login_required
 def next_step1():
     if request.method == 'POST':
         #TODO better data retrieve function
-        print("Testando")
         #commit to database the file changed
         user_id = request.form['user']
         data_table = request.form['data']
@@ -1889,8 +1927,8 @@ def next_step1():
         with open('app/users_workflow/'+file_name, 'w') as outfile:  
             json.dump(data_real, outfile)
         # set variables
-        today = datetime.now()
-        expire_date = today + timedelta(days=8)
+        # today = datetime.now()
+        # expire_date = today + timedelta(days=8)
         workflow = Workflow()
         user_work = Workflow.query.filter_by(user_id_user=user_id).first()
         if(user_work == None):
@@ -1900,10 +1938,10 @@ def next_step1():
             workflow.step1 = 'app/users_workflow/'+file_name
             workflow.expire = expire_date
             db.session.add(workflow)
-        else:
-            #update workflow
-            user_work.created = datetime.now()
-            user_work.expire = expire_date
+        # else:
+        #     #update workflow
+        #     user_work.created = datetime.now()
+        #     user_work.expire = expire_date
         # commit the record the database
         db.session.commit()
         #sqlalchemy insert
@@ -1937,6 +1975,7 @@ def uploader():
         print(request.files)
         print("REQUEST FORM")
         user_id = request.form['user_id']
+        user_email = request.form['user_email']
         f = request.files['file']
         file_path = "app/home/drscan.xlsx"
         #save xlsx file
@@ -1976,7 +2015,10 @@ def uploader():
         else:
             #update workflow
             user_work.created = datetime.now()
+            user_work.step1 = 'app/users_workflow/'+file_name
             user_work.expire = expire_date
+        
+        db.session.commit()
         
         #delete previous workflow
         #TODO second delete data from the database
@@ -1997,6 +2039,21 @@ def uploader():
             os.remove("app/users_workflow/"+user_id+"_step5.txt")
         # commit the record the database
         db.session.commit()
+        #try to send email
+        try:
+            server = smtplib.SMTP_SSL('smtp.gmail.com',465)
+            server.login("regulomix.temp@gmail.com","regulomix123")
+            subject = "Regulomix: Step1"
+            body = "Step1 work is done, login to regulomix to continue."
+            message = "Subject:{}\n\n{}".format(subject, body)
+            server.sendmail("suzanaporto02@gmail.com",user_email,message)
+            server.quit()
+            print("Email sent")
+        except e:
+            server.quit()
+            print(e)
+            print("Email failed to send")
+
         #sqlalchemy inserts
         return jsonify(teste)
 

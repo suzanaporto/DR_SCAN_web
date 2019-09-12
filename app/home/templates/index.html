@@ -279,11 +279,20 @@
                           //get user id
                           var user_id = '{{ current_user.id }}';
                           $.ajax({
+                              url: 'http://127.0.0.1:5000/home/delete_old',
+                              type: 'POST',
+                              // dataType: 'json',
+                              success:function(response) {
+                                console.log(response)
+                              }
+                          });
+                          $.ajax({
                             url: 'http://127.0.0.1:5000/home/data_retrive',
                             type: 'POST',
                             data: { data_user: user_id },
                             // dataType: 'json',
                             success:function(response) {
+                              if (response != 'No File'){
                                 var t = $('#datatable-buttons').DataTable();
                                 if (response[0][0].includes("rs")){
                                   //different method for retrieving
@@ -299,7 +308,6 @@
                                     ] );
                                   }
                                   t.draw();
-
                                 }else{
                                   for(i=0;i<response.length;i++){
                                     t.row.add( [
@@ -315,6 +323,10 @@
                                   t.draw();
                                 }
                               }
+                            },
+                            error:function(result){
+                              console.log("No file found")
+                            }
                           });
                           $.ajax({
                             url: 'http://127.0.0.1:5000/home/data_retrive1',
@@ -322,7 +334,7 @@
                             data: { data_user: user_id },
                             // dataType: 'json',
                             success:function(response) {
-                                console.log(response)
+                              if (response != 'No File'){
                                 var table_2 = $('#datatable-buttons-x').DataTable();
                                 //different method for retrieving
                                 if (response[0]['reg_elemnt']){
@@ -366,28 +378,37 @@
                                   }
                                 }
                               }
-                            });
+                            },
+                            error:function(result){
+                                console.log("No file found")
+                            }
+                          });
                             $.ajax({
                               url: 'http://127.0.0.1:5000/home/data_retrive2',
                               type: 'POST',
                               data: { data_user: user_id },
                               // dataType: 'json',
                               success:function(response) {
-                                //implement the data retrieve for step 3
-                                uploaded = 0
-                                //reset disable
-                                $('#tfs').removeAttr('disabled');
-                                //some debbugging
-                                console.log("SIZE: " + response[0].length)
-                                console.log(response[0])
-                                //insert alleles dictionary in variable
-                                allele_dict = response[1]
-                                //insert text into 'p' element
-                                for(i=0;i<response[0][0].length;i++){
-                                  $('#sequences').append( document.createTextNode( response[0][0][i]) );
-                                  $('#sequences').append( document.createElement( "br") );
-                                  console.log(response[0][0][i])
+                                if (response != 'No File'){
+                                  //implement the data retrieve for step 3
+                                  uploaded = 0
+                                  //reset disable
+                                  $('#tfs').removeAttr('disabled');
+                                  //some debbugging
+                                  console.log("SIZE: " + response[0].length)
+                                  console.log(response[0])
+                                  //insert alleles dictionary in variable
+                                  allele_dict = response[1]
+                                  //insert text into 'p' element
+                                  for(i=0;i<response[0][0].length;i++){
+                                    $('#sequences').append( document.createTextNode( response[0][0][i]) );
+                                    $('#sequences').append( document.createElement( "br") );
+                                    console.log(response[0][0][i])
+                                  }
                                 }
+                              },
+                              error:function(result){
+                                console.log("No file found")
                               }
                             });
                             $.ajax({
@@ -396,33 +417,30 @@
                               data: { data_user: user_id },
                               // dataType: 'json',
                               success:function(response) {
-                                // step 4 retrieve
-                                //some debbugging
-                                // if (response.length == 0){
-                                //   alert("Differential Transciption Factors not found")
-                                // }else{
-                                //   alert("DONE");
-                                // }
-                                // //insert into table
-                                //declare datatable
+                                if (response != 'No File'){
+                                  // step 4 retrieve
       
-                                var t = $('#datatable-buttons-ft').DataTable();
+                                  var t = $('#datatable-buttons-ft').DataTable();
       
-                                //iterate through response to add rows in the table
-                                for(i=0;i<response.length;i++){
-                                  t.row.add( [
-                                    response[i]['motif_id'],
-                                    response[i]['motif_alt_id'],
-                                    response[i]['sequence_name'],
-                                    response[i]['strand'],
-                                    response[i]['start'],
-                                    response[i]['stop'],
-                                    response[i]['p-value'],
-                                    response[i]['q-value'],
-                                    response[i]['matched_sequence'],
-                                  ] );
-                                }; 
-                                t.draw(); 
+                                  //iterate through response to add rows in the table
+                                  for(i=0;i<response.length;i++){
+                                    t.row.add( [
+                                      response[i]['motif_id'],
+                                      response[i]['motif_alt_id'],
+                                      response[i]['sequence_name'],
+                                      response[i]['strand'],
+                                      response[i]['start'],
+                                      response[i]['stop'],
+                                      response[i]['p-value'],
+                                      response[i]['q-value'],
+                                      response[i]['matched_sequence'],
+                                    ] );
+                                  }; 
+                                  t.draw(); 
+                                }
+                              },
+                              error:function(result){
+                                console.log("No file found")
                               }
                             });
                             $.ajax({
@@ -431,31 +449,36 @@
                               data: { data_user: user_id },
                               // dataType: 'json',
                               success:function(response) {
-                                // step 5 retrieve
-                                //declare datatable
-                                var t = $('#datatable-buttons-epi').DataTable();
-                                //iterate through response to add rows in the table
+                                if (response != 'No File'){
+                                  // step 5 retrieve
+                                  //declare datatable
+                                  var t = $('#datatable-buttons-epi').DataTable();
+                                  //iterate through response to add rows in the table
                                 
-                                if( response[0]['SNP']== undefined ) {
-                                  console.log("EMPTY")
-                                } else {
-                                  for(i=0;i<response.length;i++){
-                                    t.row.add( [
-                                      response[i]['SNP'],
-                                      response[i]['Location'],
-                                      response[i]['Gene ID'],
-                                      response[i]['Gene'],
-                                      response[i]['Gene Location'],
-                                      response[i]['Score'],
-                                      response[i]['Tissue'],
-                                      response[i]['File_Type'],
-                                    ] )
-                                  };
-                                t.draw();  
+                                  if( response[0]['SNP']== undefined ) {
+                                    console.log("EMPTY")
+                                  } else {
+                                    for(i=0;i<response.length;i++){
+                                      t.row.add( [
+                                        response[i]['SNP'],
+                                        response[i]['Location'],
+                                        response[i]['Gene ID'],
+                                        response[i]['Gene'],
+                                        response[i]['Gene Location'],
+                                        response[i]['Score'],
+                                        response[i]['Tissue'],
+                                        response[i]['File_Type'],
+                                      ] )
+                                    };
+                                    t.draw();  
+                                  }
                                 }
-                               
+                              },
+                              error:function(result){
+                                console.log("No file found")
                               }
                             });
+                            
                         });
                         $(function () {
                           $('[data-toggle="tooltip"]').tooltip()
@@ -469,6 +492,7 @@
                             //send file excel file
                             var formData = new FormData(this);
                             formData.append('user_id', {{current_user.id}});
+                            formData.append('user_email', "{{current_user.email}}");
                             
                             var table_delete_all = $('#datatable-buttons').DataTable();
                             table_delete_all.clear().draw();
@@ -1722,10 +1746,10 @@
                                 user_id : user_id,
                                 },
                         success:function(response) {
+                          alert('DONE')
                           //insert into table
                           //declare datatable
                           var t = $('#datatable-buttons-ft').DataTable();
-
                           //iterate through response to add rows in the table
                           for(i=0;i<response.length;i++){
                             t.row.add( [

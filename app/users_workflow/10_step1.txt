@@ -1,1 +1,0 @@
-[[[{"chrom": "19", "location": "45242107", "allele_wt": "", "allele_v": ""}], "rs2927438", ""], [[{"chrom": "19", "location": "45131984", "allele_wt": "", "allele_v": ""}], "rs11670070", ""]]

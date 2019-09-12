@@ -1,1 +1,1 @@
-[["rs3333", "25 | 18 | 15", "E074", "Transcription 3' | Strong transcription | Strong transcription"], ["rs356168", "25 | 18 | 15", "E074", "Active Enhancer 2 | Active Enhancer 1 | Enhancers"]]
+[["rs3333", "25 | 18 | 15", "E074", "Transcription 3' | Strong transcription | Strong transcription"]]

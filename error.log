@@ -2421,3 +2421,646 @@ INFO:werkzeug:127.0.0.1 - - [10/Sep/2019 13:53:02] "POST /home/verify_snps HTTP/
 INFO:werkzeug:127.0.0.1 - - [10/Sep/2019 13:53:04] "POST /home/next_step2 HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 14:08:17] "POST /home/next_step1 HTTP/1.1" 403 -
 INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 14:08:18] "POST /home/next_step2 HTTP/1.1" 403 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:15] "GET / HTTP/1.1" 302 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:15] "GET /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:15] "GET /static/vendors/bootstrap/dist/css/bootstrap.min.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:15] "GET /static/vendors/font-awesome/css/font-awesome.min.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:15] "GET /static/vendors/bootstrap-daterangepicker/daterangepicker.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:15] "GET /static/vendors/nprogress/nprogress.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:15] "GET /static/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:15] "GET /static/vendors/iCheck/skins/flat/green.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:15] "GET /static/vendors/animate.css/animate.min.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:15] "GET /static/vendors/jqvmap/dist/jqvmap.min.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:15] "GET /static/vendors/alertifyjs/css/alertify.min.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:15] "GET /static/vendors/alertifyjs/css/custom.alertify.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:15] "GET /static/build/css/custom.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:15] "GET /static/vendors/jquery/dist/jquery.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:15] "GET /static/vendors/alertifyjs/alertify.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:15] "GET /static/vendors/parsleyjs/dist/parsley.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:15] "GET /static/build/js/login.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:15] "GET /static/images/regulomix-cor.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:16] "GET /static/images/regulomix-icone-cor.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "POST /login HTTP/1.1" 302 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET / HTTP/1.1" 302 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /login HTTP/1.1" 302 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/images/regulomix-branco.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/bootstrap/dist/js/bootstrap.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/fastclick/lib/fastclick.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/nprogress/nprogress.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/iCheck/icheck.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/moment/min/moment.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/bootstrap-daterangepicker/daterangepicker.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/jquery.hotkeys/jquery.hotkeys.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/google-code-prettify/src/prettify.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/jquery.tagsinput/src/jquery.tagsinput.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/switchery/dist/switchery.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/select2/dist/js/select2.full.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/autosize/dist/autosize.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/Chart.js/dist/Chart.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/starrr/dist/starrr.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/gauge.js/dist/gauge.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/skycons/skycons.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/Flot/jquery.flot.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/Flot/jquery.flot.pie.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/Flot/jquery.flot.time.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/Flot/jquery.flot.stack.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/Flot/jquery.flot.resize.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/flot.orderbars/js/jquery.flot.orderBars.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/flot-spline/js/jquery.flot.spline.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/flot.curvedlines/curvedLines.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/font-awesome/fonts/fontawesome-webfont.woff2?v=4.6.3 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/DateJS/build/date.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/jqvmap/dist/jquery.vmap.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:20] "GET /static/vendors/jqvmap/dist/maps/jquery.vmap.world.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:21] "GET /static/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:21] "GET /static/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:21] "GET /static/vendors/datatables.net/js/jquery.dataTables.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:21] "GET /static/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:21] "GET /static/vendors/datatables.net-buttons/js/dataTables.buttons.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:21] "GET /static/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:21] "GET /static/vendors/datatables.net-buttons/js/buttons.flash.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:21] "GET /static/vendors/datatables.net-buttons/js/buttons.html5.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:21] "GET /static/vendors/datatables.net-buttons/js/buttons.print.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:21] "GET /static/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:21] "GET /static/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:21] "GET /static/vendors/datatables.net-responsive/js/dataTables.responsive.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:21] "GET /static/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:21] "GET /static/vendors/datatables.net-scroller/js/dataTables.scroller.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:21] "GET /static/vendors/jszip/dist/jszip.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:21] "GET /static/vendors/pdfmake/build/pdfmake.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:21] "GET /static/vendors/pdfmake/build/vfs_fonts.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:21] "GET /static/build/js/custom.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:21] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:21] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:22] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:22] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:22] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:22] "POST /home/delete_old HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:22] "GET /static/vendors/iCheck/skins/flat/green@2x.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:39:33] "POST /home/next_step1 HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:43:04] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:43:05] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:43:05] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:43:05] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:43:05] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:43:05] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:43:05] "POST /home/delete_old HTTP/1.1" 500 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:43:48] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:43:49] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:43:49] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:43:49] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:43:49] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:43:49] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:43:49] "POST /home/delete_old HTTP/1.1" 500 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:44:44] "GET /static/vendors/pdfmake/build/pdfmake.min.js.map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:44:44] "GET /static/vendors/bootstrap/dist/css/bootstrap.min.css.map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:44:47] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:44:47] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:44:47] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:44:47] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:44:47] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:44:47] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:44:47] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:46:23] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:46:24] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:46:24] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:46:24] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:46:24] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:46:24] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:46:24] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:51:05] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:51:06] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:51:06] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:51:06] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:51:06] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:51:06] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:51:06] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:51:41] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:51:42] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:51:42] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:51:43] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:51:43] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:51:43] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:51:43] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:53:40] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:53:41] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:53:41] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:53:41] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:53:41] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:53:41] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:53:41] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:55:55] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:55:56] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:55:56] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:55:56] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:55:56] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:55:56] "POST /home/data_retrive3 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:55:56] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:56:06] "POST /home/next_step1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:56:07] "POST /home/next_step2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:56:12] "POST /home/next_step1 HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:56:49] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:56:50] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:56:50] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:56:50] "POST /home/data_retrive2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:56:50] "POST /home/data_retrive3 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:56:50] "POST /home/data_retrive4 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:56:50] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:57:08] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:57:09] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:57:09] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:57:09] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:57:09] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:57:09] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2019 16:57:09] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET / HTTP/1.1" 302 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /login HTTP/1.1" 302 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/nprogress/nprogress.css HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/bootstrap/dist/css/bootstrap.min.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/font-awesome/css/font-awesome.min.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/build/css/custom.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/bootstrap-daterangepicker/daterangepicker.css HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/iCheck/skins/flat/green.css HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/jqvmap/dist/jqvmap.min.css HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/jquery/dist/jquery.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/fastclick/lib/fastclick.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/bootstrap/dist/js/bootstrap.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/nprogress/nprogress.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/iCheck/icheck.min.js HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/moment/min/moment.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/bootstrap-daterangepicker/daterangepicker.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/jquery.hotkeys/jquery.hotkeys.js HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/google-code-prettify/src/prettify.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/jquery.tagsinput/src/jquery.tagsinput.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/switchery/dist/switchery.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/select2/dist/js/select2.full.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/Chart.js/dist/Chart.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/autosize/dist/autosize.min.js HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/starrr/dist/starrr.js HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/gauge.js/dist/gauge.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/skycons/skycons.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/Flot/jquery.flot.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/Flot/jquery.flot.pie.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/Flot/jquery.flot.time.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/Flot/jquery.flot.stack.js HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:13] "GET /static/vendors/Flot/jquery.flot.resize.js HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/flot.orderbars/js/jquery.flot.orderBars.js HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/flot.curvedlines/curvedLines.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/DateJS/build/date.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/jqvmap/dist/jquery.vmap.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/flot-spline/js/jquery.flot.spline.min.js HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/jqvmap/dist/maps/jquery.vmap.world.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/datatables.net/js/jquery.dataTables.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/datatables.net-buttons/js/buttons.flash.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/datatables.net-buttons/js/dataTables.buttons.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/datatables.net-buttons/js/buttons.html5.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/datatables.net-responsive/js/dataTables.responsive.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/datatables.net-buttons/js/buttons.print.min.js HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/datatables.net-scroller/js/dataTables.scroller.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/pdfmake/build/pdfmake.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/jszip/dist/jszip.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/pdfmake/build/vfs_fonts.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/build/js/custom.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/images/regulomix-branco.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:14] "GET /static/vendors/font-awesome/fonts/fontawesome-webfont.woff2?v=4.6.3 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:19] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:19] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:19] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:19] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:19] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:19] "POST /home/delete_old HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:46:19] "GET /static/vendors/iCheck/skins/flat/green@2x.png HTTP/1.1" 304 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:48:54] "GET / HTTP/1.1" 302 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:48:54] "GET /login HTTP/1.1" 302 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:48:54] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:48:55] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:48:55] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:48:55] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:48:55] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:48:55] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:48:55] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:18] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:18] "POST /home/data_retrive HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:18] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:18] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:18] "POST /home/data_retrive1 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:18] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:19] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:22] "GET /logout HTTP/1.1" 302 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:22] "GET /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:22] "GET /static/vendors/alertifyjs/css/alertify.min.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:22] "GET /static/vendors/animate.css/animate.min.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:22] "GET /static/vendors/alertifyjs/alertify.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:22] "GET /static/images/regulomix-cor.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:22] "GET /static/build/js/login.js HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:22] "GET /static/vendors/parsleyjs/dist/parsley.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:22] "GET /static/vendors/alertifyjs/css/custom.alertify.css HTTP/1.1" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:56] "POST /login HTTP/1.1" 302 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:56] "GET / HTTP/1.1" 302 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:56] "GET /login HTTP/1.1" 302 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:56] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:56] "POST /home/data_retrive1 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:56] "POST /home/data_retrive HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:56] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:56] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:56] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:49:56] "POST /home/delete_old HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.ncbi.nlm.nih.gov:443
+DEBUG:urllib3.connectionpool:https://api.ncbi.nlm.nih.gov:443 "GET /variation/v0/beta/refsnp/3333 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.ncbi.nlm.nih.gov:443
+DEBUG:urllib3.connectionpool:https://api.ncbi.nlm.nih.gov:443 "GET /variation/v0/beta/refsnp/356168 HTTP/1.1" 200 None
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:51:06] "POST /home/uploader HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:51:27] "POST /home/next_step1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:51:44] "POST /home/verify_snps HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:52:10] "POST /home/next_step2 HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): rest.ensembl.org:80
+DEBUG:urllib3.connectionpool:http://rest.ensembl.org:80 "GET /sequence/region/human/4:90674400..90674462:1?coord_system_version=GRCh37 HTTP/1.1" 200 63
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:52:15] "POST /home/gen_sequence HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:52:30] "POST /home/next_step1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:52:31] "POST /home/next_step2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:52:37] "POST /home/dif_tf HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:52:46] "POST /home/epi HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:52:52] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:52:53] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:52:53] "POST /home/data_retrive HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:52:53] "POST /home/data_retrive3 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:52:53] "POST /home/data_retrive2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:52:53] "POST /home/data_retrive4 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 13:52:53] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:03:50] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:03:50] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:03:50] "POST /home/data_retrive2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:03:50] "POST /home/data_retrive HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:03:50] "POST /home/data_retrive4 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:03:50] "POST /home/data_retrive3 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:03:50] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:03:55] "GET /logout HTTP/1.1" 302 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:03:55] "GET /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:03:59] "POST /login HTTP/1.1" 302 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:03:59] "GET / HTTP/1.1" 302 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:03:59] "GET /login HTTP/1.1" 302 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:03:59] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:03:59] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:03:59] "POST /home/data_retrive3 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:03:59] "POST /home/data_retrive2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:03:59] "POST /home/data_retrive4 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:03:59] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:03:59] "POST /home/data_retrive HTTP/1.1" 500 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.ncbi.nlm.nih.gov:443
+DEBUG:urllib3.connectionpool:https://api.ncbi.nlm.nih.gov:443 "GET /variation/v0/beta/refsnp/3333 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.ncbi.nlm.nih.gov:443
+DEBUG:urllib3.connectionpool:https://api.ncbi.nlm.nih.gov:443 "GET /variation/v0/beta/refsnp/356168 HTTP/1.1" 200 None
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:04:18] "POST /home/uploader HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:05:49] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:05:50] "POST /home/data_retrive HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:05:50] "POST /home/data_retrive1 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:05:50] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:05:50] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:05:50] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:05:50] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:06:05] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:06:06] "POST /home/data_retrive HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:06:06] "POST /home/data_retrive1 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:06:06] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:06:06] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:06:06] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:06:06] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:06:21] "GET /static/vendors/pdfmake/build/pdfmake.min.js.map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:06:21] "GET /static/vendors/bootstrap/dist/css/bootstrap.min.css.map HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:08:22] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:08:23] "POST /home/data_retrive HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:08:23] "POST /home/data_retrive1 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:08:23] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:08:23] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:08:23] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:08:23] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:09:03] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:09:04] "POST /home/data_retrive HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:09:04] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:09:04] "POST /home/data_retrive1 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:09:04] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:09:04] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:09:04] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:10:18] "GET /home/index3 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:10:25] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:10:26] "POST /home/data_retrive1 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:10:26] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:10:26] "POST /home/data_retrive HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:10:26] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:10:26] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:10:26] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:11:23] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:11:23] "POST /home/data_retrive HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:11:23] "POST /home/data_retrive1 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:11:23] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:11:23] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:11:23] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:11:23] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:13:23] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:13:24] "POST /home/data_retrive HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:13:24] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:13:24] "POST /home/data_retrive1 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:13:24] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:13:24] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:13:24] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:14:37] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:14:38] "POST /home/data_retrive HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:14:38] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:14:38] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:14:38] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:14:38] "POST /home/data_retrive1 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:14:38] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:15:35] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:15:36] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:15:36] "POST /home/data_retrive HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:15:36] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:15:36] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:15:36] "POST /home/data_retrive1 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:15:36] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.ncbi.nlm.nih.gov:443
+DEBUG:urllib3.connectionpool:https://api.ncbi.nlm.nih.gov:443 "GET /variation/v0/beta/refsnp/3333 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.ncbi.nlm.nih.gov:443
+DEBUG:urllib3.connectionpool:https://api.ncbi.nlm.nih.gov:443 "GET /variation/v0/beta/refsnp/356168 HTTP/1.1" 200 None
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:17:23] "POST /home/uploader HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:20:57] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:20:57] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:20:57] "POST /home/data_retrive HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:20:57] "POST /home/data_retrive1 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:20:57] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:20:57] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:20:57] "POST /home/data_retrive4 HTTP/1.1" 500 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.ncbi.nlm.nih.gov:443
+DEBUG:urllib3.connectionpool:https://api.ncbi.nlm.nih.gov:443 "GET /variation/v0/beta/refsnp/3333 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.ncbi.nlm.nih.gov:443
+DEBUG:urllib3.connectionpool:https://api.ncbi.nlm.nih.gov:443 "GET /variation/v0/beta/refsnp/356168 HTTP/1.1" 200 None
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:21:32] "POST /home/uploader HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:22:48] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:22:48] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:22:48] "POST /home/data_retrive1 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:22:48] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:22:48] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:22:48] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:22:48] "POST /home/data_retrive HTTP/1.1" 500 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.ncbi.nlm.nih.gov:443
+DEBUG:urllib3.connectionpool:https://api.ncbi.nlm.nih.gov:443 "GET /variation/v0/beta/refsnp/3333 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.ncbi.nlm.nih.gov:443
+DEBUG:urllib3.connectionpool:https://api.ncbi.nlm.nih.gov:443 "GET /variation/v0/beta/refsnp/356168 HTTP/1.1" 200 None
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:23:05] "POST /home/uploader HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:24:38] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:24:39] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:24:39] "POST /home/data_retrive1 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:24:39] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:24:39] "POST /home/data_retrive HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:24:39] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:24:39] "POST /home/data_retrive4 HTTP/1.1" 500 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.ncbi.nlm.nih.gov:443
+DEBUG:urllib3.connectionpool:https://api.ncbi.nlm.nih.gov:443 "GET /variation/v0/beta/refsnp/3333 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.ncbi.nlm.nih.gov:443
+DEBUG:urllib3.connectionpool:https://api.ncbi.nlm.nih.gov:443 "GET /variation/v0/beta/refsnp/356168 HTTP/1.1" 200 None
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:24:53] "POST /home/uploader HTTP/1.1" 500 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:25:26] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:25:26] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:25:26] "POST /home/data_retrive HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:25:26] "POST /home/data_retrive1 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:25:26] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:25:26] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:25:26] "POST /home/data_retrive3 HTTP/1.1" 500 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.ncbi.nlm.nih.gov:443
+DEBUG:urllib3.connectionpool:https://api.ncbi.nlm.nih.gov:443 "GET /variation/v0/beta/refsnp/3333 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.ncbi.nlm.nih.gov:443
+DEBUG:urllib3.connectionpool:https://api.ncbi.nlm.nih.gov:443 "GET /variation/v0/beta/refsnp/356168 HTTP/1.1" 200 None
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:25:44] "POST /home/uploader HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:27:46] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:27:47] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:27:47] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:27:47] "POST /home/data_retrive1 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:27:47] "POST /home/data_retrive HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:27:47] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:27:47] "POST /home/data_retrive3 HTTP/1.1" 500 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.ncbi.nlm.nih.gov:443
+DEBUG:urllib3.connectionpool:https://api.ncbi.nlm.nih.gov:443 "GET /variation/v0/beta/refsnp/3333 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.ncbi.nlm.nih.gov:443
+DEBUG:urllib3.connectionpool:https://api.ncbi.nlm.nih.gov:443 "GET /variation/v0/beta/refsnp/356168 HTTP/1.1" 200 None
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:28:02] "POST /home/uploader HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:29:06] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:29:07] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:29:07] "POST /home/data_retrive HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:29:07] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:29:07] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:29:07] "POST /home/data_retrive1 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:29:07] "POST /home/data_retrive4 HTTP/1.1" 500 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.ncbi.nlm.nih.gov:443
+DEBUG:urllib3.connectionpool:https://api.ncbi.nlm.nih.gov:443 "GET /variation/v0/beta/refsnp/3333 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.ncbi.nlm.nih.gov:443
+DEBUG:urllib3.connectionpool:https://api.ncbi.nlm.nih.gov:443 "GET /variation/v0/beta/refsnp/356168 HTTP/1.1" 200 None
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:29:25] "POST /home/uploader HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:30:44] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:30:44] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:30:44] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:30:44] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:30:44] "POST /home/data_retrive1 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:30:45] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:30:45] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:36:11] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:36:12] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:36:12] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:36:12] "POST /home/data_retrive1 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:36:12] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:36:12] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:36:12] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:38:47] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:38:48] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:38:48] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:38:48] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:38:48] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:38:48] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:38:48] "POST /home/data_retrive2 HTTP/1.1" 500 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:39:13] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:39:13] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:39:13] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:39:13] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:39:13] "POST /home/data_retrive3 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:39:13] "POST /home/data_retrive2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:39:13] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:40:15] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:40:16] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:40:16] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:40:16] "POST /home/data_retrive3 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:40:16] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:40:16] "POST /home/data_retrive2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:40:16] "POST /home/data_retrive4 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:41:42] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:41:42] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:41:42] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:41:42] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:41:42] "POST /home/data_retrive2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:41:42] "POST /home/data_retrive4 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:41:42] "POST /home/data_retrive3 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:41:52] "POST /home/next_step1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:42:09] "POST /home/verify_snps HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:42:16] "POST /home/next_step2 HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): rest.ensembl.org:80
+DEBUG:urllib3.connectionpool:http://rest.ensembl.org:80 "GET /sequence/region/human/5:96115080..96115142:1?coord_system_version=GRCh37 HTTP/1.1" 200 63
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:42:41] "POST /home/gen_sequence HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:44:19] "POST /home/dif_tf HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:44:45] "POST /home/epi HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:45:29] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:45:30] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:45:30] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:45:30] "POST /home/data_retrive2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:45:30] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:45:30] "POST /home/data_retrive3 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:45:30] "POST /home/data_retrive4 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:45:32] "POST /home/next_step1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:45:34] "POST /home/next_step2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:45:41] "POST /home/dif_tf HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:46:06] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:46:07] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:46:07] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:46:07] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:46:07] "POST /home/data_retrive2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:46:07] "POST /home/data_retrive3 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:46:07] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:46:09] "POST /home/next_step1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:46:09] "POST /home/next_step2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:46:11] "POST /home/dif_tf HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:47:10] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:47:11] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:47:11] "POST /home/data_retrive2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:47:11] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:47:11] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:47:11] "POST /home/data_retrive3 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:47:11] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:47:13] "POST /home/next_step1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:47:15] "POST /home/next_step2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:47:17] "POST /home/dif_tf HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:48:11] "POST /home/epi HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:48:21] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:48:22] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:48:22] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:48:22] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:48:22] "POST /home/data_retrive3 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:48:22] "POST /home/data_retrive2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:48:22] "POST /home/data_retrive4 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:48:29] "POST /home/next_step1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:48:31] "POST /home/next_step2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:48:39] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:48:40] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:48:40] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:48:40] "POST /home/data_retrive2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:48:40] "POST /home/data_retrive3 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:48:40] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:48:40] "POST /home/data_retrive4 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:48:41] "POST /home/next_step1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:48:41] "POST /home/next_step2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:48:45] "POST /home/next_step1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:48:46] "POST /home/next_step2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:48:49] "POST /home/dif_tf HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:55:27] "POST /home/dif_tf HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.ncbi.nlm.nih.gov:443
+DEBUG:urllib3.connectionpool:https://api.ncbi.nlm.nih.gov:443 "GET /variation/v0/beta/refsnp/356168 HTTP/1.1" 200 None
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:55:43] "POST /home/get_snp_info HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:55:44] "POST /home/next_step1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:55:46] "POST /home/next_step2 HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): rest.ensembl.org:80
+DEBUG:urllib3.connectionpool:http://rest.ensembl.org:80 "GET /sequence/region/human/4:90674400..90674462:1?coord_system_version=GRCh37 HTTP/1.1" 200 63
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): rest.ensembl.org:80
+DEBUG:urllib3.connectionpool:http://rest.ensembl.org:80 "GET /sequence/region/human/5:96115080..96115142:1?coord_system_version=GRCh37 HTTP/1.1" 200 63
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:55:51] "POST /home/gen_sequence HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:55:56] "POST /home/dif_tf HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): rest.ensembl.org:80
+DEBUG:urllib3.connectionpool:http://rest.ensembl.org:80 "GET /sequence/region/human/4:90674400..90674462:1?coord_system_version=GRCh37 HTTP/1.1" 200 63
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): rest.ensembl.org:80
+DEBUG:urllib3.connectionpool:http://rest.ensembl.org:80 "GET /sequence/region/human/5:96115080..96115142:1?coord_system_version=GRCh37 HTTP/1.1" 200 63
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:56:13] "POST /home/gen_sequence HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:56:16] "POST /home/dif_tf HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:56:22] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:56:23] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:56:23] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:56:23] "POST /home/data_retrive3 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:56:23] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:56:23] "POST /home/data_retrive2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:56:23] "POST /home/data_retrive4 HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:56:24] "POST /home/next_step1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:56:44] "POST /home/next_step2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:56:50] "POST /home/epi HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:57:52] "GET /home/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:57:52] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:57:52] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:57:52] "POST /home/data_retrive3 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:57:52] "POST /home/data_retrive2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:57:52] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 14:57:52] "POST /home/data_retrive4 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 15:00:41] "POST /home/next_step1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 15:00:43] "POST /home/next_step2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2019 15:00:52] "POST /home/next_step1 HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/suzanaporto/Documents/Códigos/Python/DR_SCAN_web/app/home/routes.py', reloading
+INFO:werkzeug: * Restarting with stat
