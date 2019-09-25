@@ -67,7 +67,25 @@
             <div class="x_content">
 
               <!-- Smart Wizard -->
-              <p>This project is made by University of Fortaleza researches</p>
+              <p>REGULOMIX is a user-friendly web service prepared to suggest valuable potential candidates of cis or trans-regulatory elements from an SNP-panel of interest in a regulomics fashion. It is a powerful tool for investigating the role of non-coding DNA in regulatory mechanisms related to complex traits.  The integrated pipeline of REGULOMIX consists of 5 steps. <br>
+                <br>
+                <b>Step 1- Enter the SNPs.</b> You will provide SNPs related a complex trait of your interest into the software. To enter the SNPs you can put dbSNP id into the first text field and click on the submit button beside or make an excel file (.xlsx) with only one column with header named SNPs and write in each row one SNP ID, upload the file and then click on the submit button. The software will process each SNP and show the user a table below the inserted SNP form containing each SNP and its information of location (GRCh37), chromosome, wild-type allele and variation allele. Sometimes there can be more than one variation allele so they are separated with a vertical bar. Each row is provided with one edit button and one delete button. Delete button will remove the row and edit button can be used if some info is missing from the table, the user can click once to edit and click again to save the modifications.<br>
+                <b>Step 2 – Scan for Cis-Regulatory Elements.</b> Insert the id of the tissues (see link) they want to analyze. You can write more than one separated with a vertical bar. In the end, a table will be shown with the results. You can delete SNPs in this step, choosing the labels it wants to keep, or by providing a list of SNP IDs into the text field separated by comma. The generated analysis from this step can be downloaded in .csv format before next step.<br>
+                <b>Step 3 – Choose Transcription Factor Matrix.</b>  Choose one of the provided matrixes or uploads one to use. This step also shows the sequences made with all remaining SNPs in FASTA format.<br>
+                <b>Step 4 – Differential Transcription Factors.</b> A table is showed to the user with all the differential transcription factors identified by the software. The results from this step can be downloaded in .csv format before next step.<br> 
+                <b> Step 5 – Detection of Enhancer-Promoter Interactions.</b> The user will provide tissues IDs separated by a vertical bar and it will show a table with all the enhancer-promoter interactions. All resulted tables from each step can be downloaded in .csv format with a button on the top of the table.<br>
+                REGULOMIX also contains a database to keep the current processing of each one of the steps, so it can store results if the processing is longer and keep it available for 7 days, unless the user starts a new process.<br>
+                <br>
+                <b>The Noisy Neighbors Algorithm</b><br>
+                  If the SNP is too close to other SNP (< 31 bp), they will be put together to generate sequences with the combination of their alleles. This is based on the fact that more than one SNP can be inherited together and the recent work that showed that haplotypes can explain better genetic inheritance in complex diseases like multiple sclerosis (KHANKANIAN et al., 2015). In this context, we have created an original algorithm to construct these combinatory sequences and it was implemented in REGULOMIX. Therefore, some outputs of our tool may have results with a sequence that has more than one SNP. It is important to highlight that the results obtained through the application of Noisy Neighbors Algorithm are based uniquely on the distances between two regulatory SNPs, being necessary to verify the occurrence of linkage disequilibrium in population genomic data.<br>
+                  <br>
+                <b>The Team</b><br>
+                  REGULOMIX was developed between 2018-2019 by a multidisciplinary team of University of Fortaleza (UNIFOR) and Federal Institute of Ceará (IFCE), both located in Fortaleza, Ceará, Brazil.<br> 
+                  <br>
+                <b>How can you cite this tool?</b><br>
+                Waiting for paper publication. <br>
+                
+                </p>
               
               <!-- End SmartWizard Content -->
             </div>

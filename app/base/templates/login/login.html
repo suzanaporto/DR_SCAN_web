@@ -38,7 +38,7 @@
     <div class="login_wrapper" style="margin-top: 20px;">
       <img src="static/images/regulomix-cor.png" alt="Regulomix Logo" width="210" height="80" style="margin-left: 50px">
       <!-- <h1><i class="fa fa-user-md"></i> REGULOMIX </h1> -->
-      <div class="animate form login_form" style="margin-top: 50px">
+      <div class="animate form login_form" style="margin-top:50px;">
         <section class="login_content">
           <form data-parsley-validate method="post">
             <h1>Login</h1>
@@ -54,12 +54,15 @@
             <div class="separator">
               <p class="change_link">New to site?
                 <a href="#signup" class="to_register"> Create Account </a>
+                <a href="{{url_for('base_blueprint.about')}}" class="#"> About </a>
               </p>
               <div class="clearfix"></div>
               <br/>
+              
               <div>
                 <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
               </div>
+              
             </div>
           </form>
         </section>
@@ -83,9 +86,11 @@
               </p>
               <div class="clearfix"></div>
               <br/>
+              
               <div>
                 <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
               </div>
+              
             </div>
           </form>
         </section>

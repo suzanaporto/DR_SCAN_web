@@ -395,15 +395,15 @@
                                   //reset disable
                                   $('#tfs').removeAttr('disabled');
                                   //some debbugging
-                                  console.log("SIZE: " + response[0].length)
-                                  console.log(response[0])
+                                  // console.log("SIZE: " + response[0].length)
+                                  // console.log(response[0])
                                   //insert alleles dictionary in variable
                                   allele_dict = response[1]
                                   //insert text into 'p' element
                                   for(i=0;i<response[0][0].length;i++){
                                     $('#sequences').append( document.createTextNode( response[0][0][i]) );
                                     $('#sequences').append( document.createElement( "br") );
-                                    console.log(response[0][0][i])
+                                    // console.log(response[0][0][i])
                                   }
                                 }
                               },
@@ -449,13 +449,16 @@
                               data: { data_user: user_id },
                               // dataType: 'json',
                               success:function(response) {
+                                console.log(response)
+                                console.log("Tamanho da resposta")
+                                console.log(response.length)
                                 if (response != 'No File'){
                                   // step 5 retrieve
                                   //declare datatable
                                   var t = $('#datatable-buttons-epi').DataTable();
                                   //iterate through response to add rows in the table
                                 
-                                  if( response[0]['SNP']== undefined ) {
+                                  if( response == undefined ) {
                                     console.log("EMPTY")
                                   } else {
                                     for(i=0;i<response.length;i++){
@@ -1283,7 +1286,8 @@
                         dataType: 'json',
                         data: { snp_list:JSON.stringify(row_list), 
                               tissue_field: tissue,
-                              user_id : user_id
+                              user_id : user_id,
+                              user_email : '{{current_user.email}}'
                         },
                         // async: false,
                         success:function(response) {
@@ -1788,7 +1792,9 @@
                         <div>
                           <form class="form-inline">
                               <input type="text" name="tissue_field_epi" id="tissue_field_epi" class="form-control"></input>
-                              <a href="#" class="btn btn-success btn-xs epi"><i class="fa fa-play"></i> Run </a>
+                              <a href="#" class="btn btn-success btn-xs epi" onclick="$('.load5').show();"><i class="fa fa-play"></i> Run </a>
+                              <div class="load5" style="display:inline-block"> <i class="fa fa-cog fa-spin fa-5x fa-fw"style="font-size: 25px;"></i> </div>
+                              <span class="load5">Processing...</span>
                           </form>
 
                         </div>
@@ -1824,6 +1830,11 @@
                   <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
                   <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
                   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                  <script>
+                    $(document).ready(function() {
+                      $('.load5').hide();
+                    });
+                  </script>
                   <script type="text/javascript">
                     $(document).ready(function() {
                       $('#datatable-buttons-epi').DataTable( {
@@ -1834,8 +1845,8 @@
                           { extend: 'csv', className: 'btn-sm' },
                           { extend: 'print', className: 'btn-sm' }
                         ]
-                      }
-                        } );
+                        }
+                      } );
                     } );
                         $(function() {
                           //Getting information from snp_datatable first step
@@ -1870,6 +1881,7 @@
                             },
                             async: false,
                             success:function(response) {
+                              $('.load5').hide();
                               //some debbugging
                               if (response.length == 0){
                                 alert("Interaction Not Found")

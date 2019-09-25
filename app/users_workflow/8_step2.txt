@@ -1,1 +1,1 @@
-[["rs3333", "25 | 18 | 15", "E074", "Transcription 3' | Strong transcription | Strong transcription"]]
+[{"snp_name": "rs3333", "state_model": "25 | 18 | 15", "tissue": "E073", "reg_elemnt": "Transcription 3' | Strong transcription | Strong transcription"}, {"snp_name": "rs356168", "state_model": "25 | 18 | 15", "tissue": "E073", "reg_elemnt": "Active Enhancer 2 | Active Enhancer 1 | Enhancers"}]

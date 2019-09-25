@@ -1,1 +1,0 @@
-"{\"SNP\":{},\"Location\":{},\"Gene\":{},\"Score\":{},\"Tissue\":{},\"File_Type\":{}}"

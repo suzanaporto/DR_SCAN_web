@@ -97,7 +97,6 @@ def get_snp_info(snp_id):
   def snp_info_input(snp_id):
     base = re.compile("[^(\d)\w+]").split(snp_id)[3]
     base_chrom = re.compile("[^(\d)\w+]").split(snp_id)[0]
-    #  print (base)
     dict = {
         "chrom" : re.compile(".0{2,}").split(base_chrom)[1],
         "location" : re.compile("[^(\d)]").split(base)[0],
@@ -303,7 +302,6 @@ def epi_search(snp_location,snp_chrom,snp_name,tissue,tissue_name,tissue_id):
             same_chrom = list_chrom == 'chr'+str(snp_chrom)
             bigger_start = int(list_enh_start) <= int(snp_location) 
             smaller_end = int(list_enh_end) >= int(snp_location)
-             #print("index: ",idx)
             if same_chrom and (bigger_start and smaller_end):
                 idx_list.append(idx)
                 if i == 0:
@@ -318,7 +316,6 @@ def epi_search(snp_location,snp_chrom,snp_name,tissue,tissue_name,tissue_id):
         df2['SNP'] = snp_name
         df2.insert(loc=5, column='File_Type', value=file_type)
         df2 = df2[['SNP', 'Location', 'Gene', 'Score', 'Tissue','File_Type']]
-#       print("TAMANHO DA LISTA FILE TYPE:",len(file_type))
         result.append(df2)
 #       display(df2)
         file_type = []
@@ -1330,12 +1327,13 @@ def epi_function(snps,tissues):
     user_id = request.form['user_id']
     file_name = str(user_id)+'_step5.txt'
     save = result3.to_json()
-    with open('app/users_workflow/'+user_id+'_step5.txt', 'w') as out:  
-            json.dump(save, out)
-    workflow = Workflow()
-    user_work = Workflow.query.filter_by(user_id_user=user_id).first()
-    user_work.step5 = 'app/users_workflow/'+file_name
-    db.session.commit()
+    # save = result3
+    # with open('app/users_workflow/'+user_id+'_step5.txt', 'w') as out:  
+    #         json.dump(save, out)
+    # workflow = Workflow()
+    # user_work = Workflow.query.filter_by(user_id_user=user_id).first()
+    # user_work.step5 = 'app/users_workflow/'+file_name
+    # db.session.commit()
     return result3
 
 
@@ -1361,7 +1359,6 @@ def teste():
         snp_input_form = str(request.form['snp_name'])
         genome_input = "GRCh37.19"
         snp = snp_input_form[2:]
-        #print(snp)
         a = get_snp_info(snp)
 
         #dictionary with information based on genome version
@@ -1387,14 +1384,12 @@ def verify_snps():
     snp_list_rows = request.form['snp_list']
     #transform it in a json file(dictionary?)
     snp_list_rows = json.loads(snp_list_rows)
-    print(snp_list_rows) 
     if request.method == 'POST':
         tissue_list = request.form['tissue_field'].split("|")
         #iterate through tissues in tissues list
         for tissue in tissue_list:
             #iterate through every snp
             for snp_info in snp_list_rows:
-                print(snp_info)
                 #change chromossome type from number to 'X' or 'Y' string
                 if str(snp_info[2]) == '23':
                     chrom = 'X'
@@ -1427,6 +1422,22 @@ def verify_snps():
         os.remove("app/users_workflow/"+user_id+"_step5.txt")
     
     db.session.commit()
+
+    user_email = request.form['user_email']
+
+    try:
+        server = smtplib.SMTP_SSL('smtp.gmail.com',465)
+        server.login("regulomix.temp@gmail.com","regulomix123")
+        subject = "Regulomix: Step2"
+        body = "Step2 work is done, login to regulomix to continue."
+        message = "Subject:{}\n\n{}".format(subject, body)
+        server.sendmail("suzanaporto02@gmail.com",user_email,message)
+        server.quit()
+        print("Email sent")
+    except:
+        server.quit()
+        print("Email failed to send")
+
     return jsonify(dict_snps)
 #step 3
 @blueprint.route('/gen_sequence',methods=['GET','POST'])
@@ -1451,8 +1462,6 @@ def gen_sequence():
 
             list_minor=[]
 
-            print (tuple_al)
-
             dict_snp_allele[snp_name] = tuple_al 
             tuple_al = []
 
@@ -1466,12 +1475,9 @@ def gen_sequence():
         gnenome_version = 'GRCh37.p13'
         #user selected transcription factor matrix
         tf_selected = request.form['tf']
-        print(tf_selected)
         #get snps ids from filtered list (stage 2)
         snp_ids_list = []
         for x in filtered_snp:
-            print("SNP ROW:" + str(x[0]))
-            # snp_ids_list.append(x['Snp Name'])
             snp_ids_list.append(x[0])
         
         #only unique values
@@ -1487,8 +1493,6 @@ def gen_sequence():
         
             snp_name = snp_info[0]
             sample_dict = snp_info
-
-            print(sample_dict)
 
             snp_names.append(snp_name)
             snp_dicts.append(sample_dict)
@@ -1506,8 +1510,6 @@ def gen_sequence():
                 for element in line:
                     f.write("%s\n" % element)
         #FIMO
-        print("UPLOADED")
-        print(request.form['upload'])
         upload_value = request.form['upload']
         if (int(upload_value) == 0):
             meme= "./TFs/" + tf_selected + ".meme"
@@ -1572,15 +1574,12 @@ def dif_tf():
         #count how many snps there are in the sequence
         for element in seq_name_list:
             if element[0:2] == 'rs':
-                #print ( "Elemento: ",element )
                 count += 1
         
         #starting position of relative positions in seq_name
         start_relative_list = (count*2) + 2
   
         relative_list = seq_name.split('|')[start_relative_list:]
-  
-        #print ("Relative list",relative_list)
   
         for position in relative_list:
     
@@ -1595,7 +1594,6 @@ def dif_tf():
             return idx
 
     def filter_range(table_output):
-        print("Tamanho:",len(table_output))
         #table into data frame
         df_fimo_output = pd.read_csv(table_output, sep='\t')
         df_fimo_output = df_fimo_output.dropna()
@@ -1627,9 +1625,6 @@ def dif_tf():
                 if (not(index == None)):
                     index_list.append(index)
 
-        #print (str(index_list))
-        print ("Tamanho da lista: " + str(len(index_list)))
-        #print ("-------------------------Testando----------------------------")
         #filter by id
         #new_df = df_fimo_output.drop(df_fimo_output.index[index_list],axis=0)
         idx_list_selected = [ i for i in range(len(df_fimo_output)) if not i in index_list ]
@@ -1641,8 +1636,6 @@ def dif_tf():
     def filter_dataframe(table_output,dictionary_snp_allele, log=False):
 
         new_df = filter_range(table_output)
-
-        print ("DataFrame with range filter size: ", len(new_df))  
 
         new_df.sort_values(['motif_alt_id','start'],inplace = True)
 
@@ -1700,10 +1693,8 @@ def dif_tf():
                         snp_name_list.append(i)
                         #print ("SNP NAME IN THE CURRENT SEQUENCE: ",i)
                         count = count + 1
-                #print("COUNT",count)
                 #transfer count to total ?
                 total = count
-                #print (total)
                 multi_snps = 1
                 count_al = 0
                 #iterate through dictionary of snp and alleles
@@ -1739,15 +1730,15 @@ def dif_tf():
                     condition_csto = current_stop == seq_stop
 
                     if condition_m and condition_sn2 and condition_csta and condition_csto:
-                        print(motif)
-                        print(count_comb)
+                        # print(motif)
+                        # print(count_comb)
                         count_comb+=1
                         #new data frame droping all occurences of specified TF-snps pair
                         #new_df = new_df.drop(new_df[(new_df.motif_alt_id == motif) & (new_df.sequence_name.str.contains(snp_list))].index)
                 #print("COMBINATIONS",count_comb)
                 if multi_snps <= count_comb:
-                    print("COMBINATIONS",count_comb)
-                    print("MOTIF",current_motif)
+                    # print("COMBINATIONS",count_comb)
+                    # print("MOTIF",current_motif)
                     #only the first snp
                     new_df = new_df.drop(new_df[ (new_df.motif_alt_id == current_motif) & (new_df.sequence_name.str.contains(snp_name_list[0]))].index)
           
@@ -1805,6 +1796,15 @@ def epi():
 
         dataframe_epi = epi_function(snp_list_rows,tissue_list)
         dataframe_new = dataframe_epi.to_dict(orient='records')
+        #save to database
+        user_id = request.form['user_id']
+        with open('app/users_workflow/'+user_id+'_step5.txt', 'w') as out:  
+            json.dump(dataframe_new, out)
+        workflow = Workflow()
+        user_work = Workflow.query.filter_by(user_id_user=user_id).first()
+        file_name = str(user_id)+'_step5.txt'
+        user_work.step5 = 'app/users_workflow/'+file_name
+        db.session.commit()
         print(dataframe_new)
 
     return jsonify(dataframe_new)
@@ -1817,8 +1817,6 @@ def delete_old():
     #loop entries in db
     for work in workflow:
         #delete if it already expired
-        print(work.expire)
-        print(today)
         if (work.expire < today):
             #delete files and entries
             work.step1 = None
@@ -1828,7 +1826,6 @@ def delete_old():
             work.step5 = None
 
             work_id = str(work.user_id_user)
-            print(work_id)
             #Delete from directory
             if os.path.exists("app/users_workflow/"+work_id+"_step1.txt"):
                 os.remove("app/users_workflow/"+work_id+"_step1.txt")
@@ -1904,7 +1901,7 @@ def data_retriever3():
 def data_retriever4():
     id_user = request.form['data_user']
     find_user_work = Workflow.query.filter_by(user_id_user=id_user).first()
-    if not find_user_work.step4 == None:
+    if not find_user_work.step5 == None:
         file1 = 'app/users_workflow/'+str(find_user_work.user_id_user)+'_step5.txt'
         with open(file1) as json_file:  
             data = json.load(json_file)
@@ -1923,16 +1920,15 @@ def next_step1():
         data_real = json.loads(data_table)
         #save to file
         file_name = str(user_id)+'_step1.txt'
-        print(file_name)
         with open('app/users_workflow/'+file_name, 'w') as outfile:  
             json.dump(data_real, outfile)
         # set variables
-        # today = datetime.now()
-        # expire_date = today + timedelta(days=8)
+        today = datetime.now()
+        expire_date = today + timedelta(days=8)
         workflow = Workflow()
         user_work = Workflow.query.filter_by(user_id_user=user_id).first()
         if(user_work == None):
-            print("ENTROU NA PRIMEIRA ADD")
+            # print("ENTROU NA PRIMEIRA ADD")
             workflow.user_id_user = user_id
             workflow.created = datetime.now()
             workflow.step1 = 'app/users_workflow/'+file_name
@@ -1971,9 +1967,9 @@ def next_step2():
 @login_required
 def uploader():
     if request.method == 'POST':
-        print("REQUEST")
-        print(request.files)
-        print("REQUEST FORM")
+        # print("REQUEST")
+        # print(request.files)
+        # print("REQUEST FORM")
         user_id = request.form['user_id']
         user_email = request.form['user_email']
         f = request.files['file']
@@ -1994,7 +1990,7 @@ def uploader():
         #saving json file
         teste = process(snp_ids)
         file_name = str(user_id)+'_step1.txt'
-        print(file_name)
+        # print(file_name)
         with open('app/users_workflow/'+file_name, 'w') as outfile:  
             json.dump(teste, outfile)
         
@@ -2006,7 +2002,7 @@ def uploader():
         #select workflow to see if file slready exists
         user_work = Workflow.query.filter_by(user_id_user=user_id).first()
         if(user_work == None):
-            print("ENTROU NA PRIMEIRA ADD")
+            # print("ENTROU NA PRIMEIRA ADD")
             workflow.user_id_user = user_id
             workflow.created = datetime.now()
             workflow.step1 = 'app/users_workflow/'+file_name
@@ -2049,9 +2045,8 @@ def uploader():
             server.sendmail("suzanaporto02@gmail.com",user_email,message)
             server.quit()
             print("Email sent")
-        except e:
+        except:
             server.quit()
-            print(e)
             print("Email failed to send")
 
         #sqlalchemy inserts
@@ -2061,8 +2056,8 @@ def uploader():
 @login_required
 def upload_matrix():
     if request.method == 'POST':
-        print("REQUEST")
-        print(request.files) 
+        # print("REQUEST")
+        # print(request.files) 
         f = request.files['file_matrix']
         file_path = "app/home/meme.meme"
         #save xlsx file
@@ -2078,8 +2073,8 @@ def process(snp_ids):
         a = get_snp_info(snp)
         #verify if its an empty dataframe
         if a.empty:
-            print("NOT SNV")
-            print("rs"+snp)
+            # print("NOT SNV")
+            # print("rs"+snp)
             continue
         #dictionary with information based on genome version
         sample_dict = a[a["gnenome_versions"].str.contains("GRCh37")]['snp_info_dict'].values[0]
