@@ -4,19 +4,25 @@ services:
     restart: always
     image: postgres:10
     env_file: .env
+    volumes:
+      - /Users/suzanaporto/Documents/Códigos/Python/postgres:/var/lib/postgresql/data # trocar o caminho /home/regulomix/postgres
     expose:
       - 5432
-    networks:
-      - db_network
+    ports:
+      - 5435:5432
+    network_mode: bridge
+#    networks:
+#      - db_network
   gentelella:
     restart: always
     env_file: .env
     build: .
     ports:
       - "5000:5000"
-    networks:
-      - db_network
-      - web_network
+    network_mode: bridge
+#    networks:
+#      - db_network
+#      - web_network
     depends_on:
       - db
   nginx:
@@ -26,12 +32,13 @@ services:
       - "80:80"
     volumes:
       - ./nginx:/etc/nginx/conf.d
-    networks:
-      - web_network
-    depends_on: 
+    network_mode: bridge
+#    networks:
+#      - web_network
+    depends_on:
       - gentelella
-networks:
-  db_network:
-    driver: bridge
-  web_network:
-    driver: bridge
+#networks:
+#  db_network:
+#    driver: bridge
+#  web_network:
+#    driver: bridge

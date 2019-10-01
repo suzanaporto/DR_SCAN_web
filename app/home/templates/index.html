@@ -230,7 +230,7 @@
                             if (context.fromStep < 3 && context.fromStep < context.toStep){
                               if (context.fromStep == 1){
                                 $.ajax({
-                                  url: 'http://127.0.0.1:5000/home/next_step'+ context.fromStep,
+                                  url: 'http://192.168.0.15:5000/home/next_step'+ context.fromStep,
                                   type: 'POST',
                                   // dataType: 'json',
                                   data: { 
@@ -249,7 +249,7 @@
                                 if (context.fromStep == 2){
                                   console.log(row_list);
                                   $.ajax({
-                                  url: 'http://127.0.0.1:5000/home/next_step'+ context.fromStep,
+                                  url: 'http://192.168.0.15:5000/home/next_step'+ context.fromStep,
                                   type: 'POST',
                                   // dataType: 'json',
                                   data: { 
@@ -279,7 +279,7 @@
                           //get user id
                           var user_id = '{{ current_user.id }}';
                           $.ajax({
-                              url: 'http://127.0.0.1:5000/home/delete_old',
+                              url: 'http://192.168.0.15:5000/home/delete_old',
                               type: 'POST',
                               // dataType: 'json',
                               success:function(response) {
@@ -287,7 +287,7 @@
                               }
                           });
                           $.ajax({
-                            url: 'http://127.0.0.1:5000/home/data_retrive',
+                            url: 'http://192.168.0.15:5000/home/data_retrive',
                             type: 'POST',
                             data: { data_user: user_id },
                             // dataType: 'json',
@@ -329,7 +329,7 @@
                             }
                           });
                           $.ajax({
-                            url: 'http://127.0.0.1:5000/home/data_retrive1',
+                            url: 'http://192.168.0.15:5000/home/data_retrive1',
                             type: 'POST',
                             data: { data_user: user_id },
                             // dataType: 'json',
@@ -384,7 +384,7 @@
                             }
                           });
                             $.ajax({
-                              url: 'http://127.0.0.1:5000/home/data_retrive2',
+                              url: 'http://192.168.0.15:5000/home/data_retrive2',
                               type: 'POST',
                               data: { data_user: user_id },
                               // dataType: 'json',
@@ -412,7 +412,7 @@
                               }
                             });
                             $.ajax({
-                              url: 'http://127.0.0.1:5000/home/data_retrive3',
+                              url: 'http://192.168.0.15:5000/home/data_retrive3',
                               type: 'POST',
                               data: { data_user: user_id },
                               // dataType: 'json',
@@ -444,7 +444,7 @@
                               }
                             });
                             $.ajax({
-                              url: 'http://127.0.0.1:5000/home/data_retrive4',
+                              url: 'http://192.168.0.15:5000/home/data_retrive4',
                               type: 'POST',
                               data: { data_user: user_id },
                               // dataType: 'json',
@@ -507,7 +507,7 @@
                             }
                             $.ajax({
 
-                              url: 'http://127.0.0.1:5000/home/uploader',
+                              url: 'http://192.168.0.15:5000/home/uploader',
                               type: 'POST',
                               // dataType: 'json',
                               data: formData,
@@ -571,7 +571,7 @@
                                 return false
                               }
                               $.ajax({
-                                url: 'http://127.0.0.1:5000/home/get_snp_info',
+                                url: 'http://192.168.0.15:5000/home/get_snp_info',
                                 data: {snp_name: snp},
                                 type: 'POST',
                                 dataType: 'json',
@@ -1281,7 +1281,7 @@
                       var user_id = '{{ current_user.id}}';
                       $.ajax({
 
-                        url: 'http://127.0.0.1:5000/home/verify_snps',
+                        url: 'http://192.168.0.15:5000/home/verify_snps',
                         type: 'POST',
                         dataType: 'json',
                         data: { snp_list:JSON.stringify(row_list), 
@@ -1571,7 +1571,7 @@
                             }
                             $.ajax({
 
-                              url: 'http://127.0.0.1:5000/home/upload_matrix',
+                              url: 'http://192.168.0.15:5000/home/upload_matrix',
                               type: 'POST',
                               // dataType: 'json',
                               data: formData,
@@ -1630,7 +1630,7 @@
                       };
                       var id_user = '{{ current_user.id }}'
                       $.ajax({
-                        url: 'http://127.0.0.1:5000/home/gen_sequence',
+                        url: 'http://192.168.0.15:5000/home/gen_sequence',
                         type: 'POST',
                         dataType: 'json',
                         data: { snp_list: JSON.stringify(row_list),
@@ -1742,7 +1742,7 @@
                       }
                       var user_id = '{{ current_user.id }}'
                       $.ajax({
-                        url: 'http://127.0.0.1:5000/home/dif_tf',
+                        url: 'http://192.168.0.15:5000/home/dif_tf',
                         type: 'POST',
                         dataType: 'json',
                         data: { fimo_tsv: "fimo_out/fimo.tsv",
@@ -1872,7 +1872,7 @@
                             var tissue = $('#tissue_field_epi').val();
                             var user_id = '{{ current_user.id }}';
                           $.ajax({
-                            url: 'http://127.0.0.1:5000/home/epi',
+                            url: 'http://192.168.0.15:5000/home/epi',
                             type: 'POST',
                             dataType: 'json',
                             data: { snp_list: JSON.stringify(row_list), 

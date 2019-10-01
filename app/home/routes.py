@@ -24,6 +24,7 @@ from app.base.models import Workflow
 from app import db
 from datetime import datetime, timedelta
 import smtplib
+from flask_cors import CORS, cross_origin
 
 #step_1---------function
 def get_snp_info(snp_id):
@@ -1338,17 +1339,20 @@ def epi_function(snps,tissues):
 
 
 @blueprint.route('/index',methods=['GET','POST'])
+@cross_origin(origin='*')
 @login_required
 def index():
     return render_template('index.html')
 
 @blueprint.route('/<template>')
+@cross_origin(origin='*')
 @login_required
 def route_template(template):
     return render_template(template + '.html')
 
 #get only one snp
 @blueprint.route('/get_snp_info',methods=['GET','POST'])
+@cross_origin(origin='*')
 @login_required
 def teste():
     #if request method is post execute
@@ -1377,6 +1381,7 @@ def teste():
         return jsonify(sample_dict,snp_input_form,str_minor)
 #step 2        
 @blueprint.route('/verify_snps',methods=['GET','POST'])
+@cross_origin(origin='*')
 @login_required
 def verify_snps():
     dict_snps = []
@@ -1431,7 +1436,7 @@ def verify_snps():
         subject = "Regulomix: Step2"
         body = "Step2 work is done, login to regulomix to continue."
         message = "Subject:{}\n\n{}".format(subject, body)
-        server.sendmail("suzanaporto02@gmail.com",user_email,message)
+        server.sendmail("regulomix.temp@gmail.com",user_email,message)
         server.quit()
         print("Email sent")
     except:
@@ -1441,6 +1446,7 @@ def verify_snps():
     return jsonify(dict_snps)
 #step 3
 @blueprint.route('/gen_sequence',methods=['GET','POST'])
+@cross_origin(origin='*')
 @login_required
 def gen_sequence():
 
@@ -1549,6 +1555,7 @@ def gen_sequence():
     return jsonify(res,dictionary_snp_allele)
 
 @blueprint.route('/dif_tf',methods=['GET','POST'])
+@cross_origin(origin='*')
 @login_required
 def dif_tf():
 
@@ -1780,6 +1787,7 @@ def dif_tf():
     return jsonify(dataframe_out)
 
 @blueprint.route('/epi',methods=['GET','POST'])
+@cross_origin(origin='*')
 @login_required
 def epi():
     if request.method == 'POST':
@@ -1810,6 +1818,7 @@ def epi():
     return jsonify(dataframe_new)
 
 @blueprint.route('/delete_old',methods=['GET','POST'])
+@cross_origin(origin='*')
 @login_required
 def delete_old():
     workflow = Workflow.query.all()
@@ -1845,6 +1854,7 @@ def delete_old():
     return "Done delete function"
 
 @blueprint.route('/data_retrive',methods=['GET','POST'])
+@cross_origin(origin='*')
 @login_required
 def data_retriever():
     id_user = request.form['data_user']
@@ -1857,6 +1867,7 @@ def data_retriever():
         return 'No File'
 
 @blueprint.route('/data_retrive1',methods=['GET','POST'])
+@cross_origin(origin='*')
 @login_required
 def data_retriever1():
     id_user = request.form['data_user']
@@ -1869,6 +1880,7 @@ def data_retriever1():
         return 'No File'
 
 @blueprint.route('/data_retrive2',methods=['GET','POST'])
+@cross_origin(origin='*')
 @login_required
 def data_retriever2():
     id_user = request.form['data_user']
@@ -1884,6 +1896,7 @@ def data_retriever2():
         return 'No File'
 
 @blueprint.route('/data_retrive3',methods=['GET','POST'])
+@cross_origin(origin='*')
 @login_required
 def data_retriever3():
     id_user = request.form['data_user']
@@ -1897,6 +1910,7 @@ def data_retriever3():
         return 'No File'
 
 @blueprint.route('/data_retrive4',methods=['GET','POST'])
+@cross_origin(origin='*')
 @login_required
 def data_retriever4():
     id_user = request.form['data_user']
@@ -1910,6 +1924,7 @@ def data_retriever4():
         return 'No File'
 
 @blueprint.route('/next_step1',methods=['GET','POST'])
+@cross_origin(origin='*')
 @login_required
 def next_step1():
     if request.method == 'POST':
@@ -1944,6 +1959,7 @@ def next_step1():
         return 'DONE'
 
 @blueprint.route('/next_step2',methods=['GET','POST'])
+@cross_origin(origin='*')
 @login_required
 def next_step2():
     if request.method == 'POST':
@@ -1964,6 +1980,7 @@ def next_step2():
         return 'DONE'
 
 @blueprint.route('/uploader',methods=['GET','POST'])
+@cross_origin(origin='*')
 @login_required
 def uploader():
     if request.method == 'POST':
@@ -2042,7 +2059,7 @@ def uploader():
             subject = "Regulomix: Step1"
             body = "Step1 work is done, login to regulomix to continue."
             message = "Subject:{}\n\n{}".format(subject, body)
-            server.sendmail("suzanaporto02@gmail.com",user_email,message)
+            server.sendmail("regulomix.temp@gmail.com",user_email,message)
             server.quit()
             print("Email sent")
         except:
@@ -2053,6 +2070,7 @@ def uploader():
         return jsonify(teste)
 
 @blueprint.route('/upload_matrix',methods=['GET','POST'])
+@cross_origin(origin='*')
 @login_required
 def upload_matrix():
     if request.method == 'POST':
@@ -2094,6 +2112,7 @@ def process(snp_ids):
         #return dataframe
 
 @blueprint.route('index2/get_table',methods=['GET','POST'])
+@cross_origin(origin='*')
 @login_required
 def get_info_dictionary():
     ##dictionary roadmap epigenomics
