@@ -113,7 +113,7 @@
                               //important method so that ajax doesn't refresh the page
                               event.preventDefault()
                               $.ajax({
-                                url: 'http://127.0.0.1:5000/home/index2/get_table',
+                                url: '/home/index2/get_table',
                                 type: 'POST',
                                 async: false,
                               }).done(function(response){
