@@ -5,10 +5,10 @@ ENV FLASK_APP gentelella.py
 COPY gentelella.py gunicorn.py requirements.txt config.py .env ./
 COPY app app
 COPY migrations migrations
+COPY TFs TFs
 
 RUN pip install -r requirements.txt
 
-COPY TFs
 
 EXPOSE 5000
 CMD ["gunicorn", "--config", "gunicorn.py", "gentelella:app"]
