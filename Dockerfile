@@ -7,6 +7,17 @@ COPY app app
 COPY migrations migrations
 COPY TFs TFs
 
+RUN wget -c http://meme-suite.org/meme-software/5.0.5/meme-5.0.5.tar.gz
+RUN tar -xvf meme-5.0.5.tar.gz
+RUN pwd
+# WORKDIR meme-5.0.5
+RUN pwd
+RUN ./meme-5.0.5/configure --prefix=$HOME/meme --with-url=http://meme-suite.org/ --enable-build-libxml2 --enable-build-libxslt
+
+RUN make
+# RUN make test
+RUN make install
+
 RUN pip install -r requirements.txt
 
 
