@@ -20,13 +20,3 @@ services:
     network_mode: bridge
     depends_on:
       - db
-  nginx:
-    restart: always
-    image: "nginx:latest"
-    ports:
-      - "80:80"
-    volumes:
-      - ./nginx:/etc/nginx/conf.d
-    network_mode: bridge
-    depends_on:
-      - gentelella
