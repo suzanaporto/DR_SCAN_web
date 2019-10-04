@@ -5,7 +5,7 @@ services:
     image: postgres:10
     env_file: .env_production
     volumes:
-      - /Users/suzanaporto/Documents/Códigos/Python/postgres:/var/lib/postgresql/data # trocar o caminho /home/regulomix/postgres
+      - /home/regulomix/postgres:/var/lib/postgresql/data
     expose:
       - 5432
     ports:
@@ -20,13 +20,3 @@ services:
     network_mode: bridge
     depends_on:
       - db
-  nginx:
-    restart: always
-    image: "nginx:latest"
-    ports:
-      - "80:80"
-    volumes:
-      - ./nginx:/etc/nginx/conf.d
-    network_mode: bridge
-    depends_on:
-      - gentelella
