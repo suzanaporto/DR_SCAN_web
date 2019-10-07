@@ -29252,3 +29252,40 @@ WARNING:flask_cors.core:Unknown option passed to Flask-CORS: origin
 INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 15:37:46] "POST /home/next_step2 HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 15:37:50] "GET /logout HTTP/1.1" 302 -
 INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 15:37:50] "GET /login HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 16:20:47] "GET / HTTP/1.1" 302 -
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 16:20:47] "GET /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 16:20:51] "POST /login HTTP/1.1" 302 -
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 16:20:51] "GET / HTTP/1.1" 302 -
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 16:20:51] "GET /login HTTP/1.1" 302 -
+WARNING:flask_cors.core:Unknown option passed to Flask-CORS: origin
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 16:20:52] "GET /home/index HTTP/1.1" 200 -
+WARNING:flask_cors.core:Unknown option passed to Flask-CORS: origin
+WARNING:flask_cors.core:Unknown option passed to Flask-CORS: origin
+WARNING:flask_cors.core:Unknown option passed to Flask-CORS: origin
+WARNING:flask_cors.core:Unknown option passed to Flask-CORS: origin
+WARNING:flask_cors.core:Unknown option passed to Flask-CORS: origin
+WARNING:flask_cors.core:Unknown option passed to Flask-CORS: origin
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 16:20:52] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 16:20:52] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 16:20:52] "POST /home/data_retrive2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 16:20:52] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 16:20:52] "POST /home/data_retrive4 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 16:20:52] "POST /home/data_retrive3 HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 16:21:22] "GET / HTTP/1.1" 302 -
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 16:21:22] "GET /login HTTP/1.1" 302 -
+WARNING:flask_cors.core:Unknown option passed to Flask-CORS: origin
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 16:21:22] "GET /home/index HTTP/1.1" 200 -
+WARNING:flask_cors.core:Unknown option passed to Flask-CORS: origin
+WARNING:flask_cors.core:Unknown option passed to Flask-CORS: origin
+WARNING:flask_cors.core:Unknown option passed to Flask-CORS: origin
+WARNING:flask_cors.core:Unknown option passed to Flask-CORS: origin
+WARNING:flask_cors.core:Unknown option passed to Flask-CORS: origin
+WARNING:flask_cors.core:Unknown option passed to Flask-CORS: origin
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 16:21:23] "POST /home/delete_old HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 16:21:23] "POST /home/data_retrive1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 16:21:23] "POST /home/data_retrive3 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 16:21:23] "POST /home/data_retrive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 16:21:23] "POST /home/data_retrive2 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2019 16:21:23] "POST /home/data_retrive4 HTTP/1.1" 200 -
