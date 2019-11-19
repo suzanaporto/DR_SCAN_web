@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 services:
   db:
     restart: always
@@ -10,16 +10,22 @@ services:
       - 5432
     ports:
       - 5435:5432
-    network_mode: bridge
+    networks:
+      - regulomix
+    # network_mode: bridge
   gentelella:
     restart: always
     env_file: .env
     build: .
     ports:
       - "5000:5000"
-    network_mode: bridge
+    # network_mode: bridge
     depends_on:
       - db
+    networks:
+      - regulomix
+    # volumes:
+    #   - .:.
   nginx:
     restart: always
     image: "nginx:latest"
@@ -27,6 +33,12 @@ services:
       - "80:80"
     volumes:
       - ./nginx:/etc/nginx/conf.d
-    network_mode: bridge
+    # network_mode: bridge
+    networks:
+      - regulomix
     depends_on:
       - gentelella
+
+networks:
+  regulomix:
+    driver: bridge

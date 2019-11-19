@@ -301,10 +301,14 @@ def logout():
     logout_user()
     return redirect(url_for('base_blueprint.login'))
 
-# #Not Working
+
 @blueprint.route('/about')
 def about():
     return render_template('login/about.html'),200
+
+@blueprint.route('/privacy')
+def privacy():
+    return render_template('login/privacy.html'),200
 
 
 @blueprint.route('/shutdown')

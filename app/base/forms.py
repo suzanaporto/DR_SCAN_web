@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import TextField, PasswordField, SelectField
+from wtforms import TextField, PasswordField, SelectField, BooleanField,validators
+from wtforms.validators import Required
 
 ## login and registration
 
@@ -242,3 +243,4 @@ class CreateAccountForm(FlaskForm):
     email = TextField('Email')
     password = PasswordField('Password', id='pwd_create')
     country = SelectField(label='Country', choices=COUNTRY,description='country')
+    terms_check = BooleanField(label='checkbox', id='checkbox', default=False)

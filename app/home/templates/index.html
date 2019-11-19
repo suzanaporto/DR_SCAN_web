@@ -512,45 +512,115 @@
                               data: formData,
                               // formData,
                               success:function(response) {
+                                console.log("Response do uploader")
+                                console.log(response)
+                                console.log(response.status)
+                                if (response.status == 202) {
+                                  //call verify function
+                                  //chamadas periódicas para o data_retrieve
+                                  //buscar funcao de repetir do javascript
+                                  //se o arquivo nao existir mostrar mensagem de aguardando
+                                  // funcao igual ao retrieve 1 e só acrescentar o else para mostrar a mendagem de aguardando
+                                  // e colocar o gif 
+                                  var intervalo_nome = setInterval(  function(){ 
+                                    
+                                    //get user id
+                                    var user_id = '{{ current_user.id }}';
+                                    $.ajax({
+                                      url: '/home/data_retrive_thread',
+                                      type: 'POST',
+                                      data: { 
+                                            data_user: user_id 
+                                      },
+                                      success:function(response) {    
+                                      if (response != 'No File' && response != 'Thread Error'){
+                                        $('.load').hide();
+                                        clearInterval(intervalo_nome);
+                                        var t = $('#datatable-buttons').DataTable();
+                                        if (response[0][0].includes("rs")){
+                                          //different method for retrieving
+                                          for(i=0;i<response.length;i++){
+                                            t.row.add( [
+                                              response[i][0],
+                                              response[i][1],
+                                              response[i][2],
+                                              response[i][3],
+                                              response[i][4],
+                                              '<a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-pencil"></i> Edit </a>'+
+                                              '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
+                                            ] );
+                                          }
+                                          t.draw();
+                                        }else{
+                                          for(i=0;i<response.length;i++){
+                                          t.row.add( [
+                                            response[i][1],
+                                            response[i][0][0].location,
+                                            response[i][0][0].chrom,
+                                            response[i][0][0].allele_wt,
+                                            response[i][2],
+                                            '<a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-pencil"></i> Edit </a>'+
+                                            '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
+                                          ] );
+                                          }
+                                          t.draw();
+                                        }
+                                      }else{
+                                        if (response == 'No File') {
+                                          console.log("Aguardando")
+                                        }else{
+                                          if (response == 'Thread Error') {
+                                            $('.load').hide();
+                                            clearInterval(intervalo_nome);
+                                            alert('Error processing try again, or verify SNPS data')
+                                          }
+                                        }
+                                      }
+                                    },
+                                    error:function(result){
+                                      console.log("No file found")
+                                      $('.load').hide();
+                                    },
+                                    
+                                  });
+                                 }, 
+                                 20000);
+                                }
 
                                 //hide gif after success
-                                $('.load').hide();
-                                console.log("Success form")
-                                console.log(response)
-                                var t = $('#datatable-buttons').DataTable();
-                                for(i=0;i<response.length;i++){
-                                  // var t = $('#datatable-buttons').DataTable();
-                                    t.row.add( [
-                                      response[i][1],
-                                      response[i][0][0].location,
-                                      response[i][0][0].chrom,
-                                      response[i][0][0].allele_wt,
-                                      response[i][2],
-                                      '<a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-pencil"></i> Edit </a>'+
-                                      '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
-                                    ] );
-                                    // t.draw();
-                                }
-                                t.draw();
-                                //delete all the tables and data from other steps
-                                var table_delete = $('#datatable-buttons-x').DataTable();
-                                table_delete.clear().draw();
-                                var table_delete1 = $('#datatable-buttons-ft').DataTable();
-                                table_delete1.clear().draw();
-                                var table_delete2 = $('#datatable-buttons-epi').DataTable();
-                                table_delete2.clear().draw();
-                                //delete text and dictionary variable
-                                allele_dict = undefined
-                                var element;
-                                element = document.getElementById("sequences");
-                                if (element) {
-                                  element.innerHTML = "";
-                                }
+                                // $('.load').hide();
+                                // console.log("Success form")
+                                // console.log(response)
+                                // var t = $('#datatable-buttons').DataTable();
+                                // for(i=0;i<response.length;i++){
+                                //     t.row.add( [
+                                //       response[i][1],
+                                //       response[i][0][0].location,
+                                //       response[i][0][0].chrom,
+                                //       response[i][0][0].allele_wt,
+                                //       response[i][2],
+                                //       '<a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-pencil"></i> Edit </a>'+
+                                //       '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
+                                //     ] );
+                                // }
+                                // t.draw();
+                                // //delete all the tables and data from other steps
+                                // var table_delete = $('#datatable-buttons-x').DataTable();
+                                // table_delete.clear().draw();
+                                // var table_delete1 = $('#datatable-buttons-ft').DataTable();
+                                // table_delete1.clear().draw();
+                                // var table_delete2 = $('#datatable-buttons-epi').DataTable();
+                                // table_delete2.clear().draw();
+                                // //delete text and dictionary variable
+                                // allele_dict = undefined
+                                // var element;
+                                // element = document.getElementById("sequences");
+                                // if (element) {
+                                //   element.innerHTML = "";
+                                // }
                               },error:function(){
                                   alert("SNP not found. Try to verify if each snp is corrected in your file")
                                   // $('.load').hide();
-                                },complete: function () {
-                                  $('.load').hide();
                                 },
                               cache: false,
                               contentType: false,
@@ -559,6 +629,51 @@
                               return false;
                             });
                           });
+                        </script>
+                        <script>
+                          //javascript function
+                          function verify(response) {
+                            
+                            //pass
+                            if (response.status == 202) {
+                              console.log("Aguardando...")
+                            }else{
+                              if(response.status != 202) {
+                                
+                                //hide gif after success
+                                // $('.load').hide();
+                                // console.log("Success form")
+                                // console.log(response)
+                                // var t = $('#datatable-buttons').DataTable();
+                                // for(i=0;i<response.length;i++){
+                                //     t.row.add( [
+                                //       response[i][1],
+                                //       response[i][0][0].location,
+                                //       response[i][0][0].chrom,
+                                //       response[i][0][0].allele_wt,
+                                //       response[i][2],
+                                //       '<a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-pencil"></i> Edit </a>'+
+                                //       '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
+                                //     ] );
+                                // }
+                                // t.draw();
+                                // //delete all the tables and data from other steps
+                                // var table_delete = $('#datatable-buttons-x').DataTable();
+                                // table_delete.clear().draw();
+                                // var table_delete1 = $('#datatable-buttons-ft').DataTable();
+                                // table_delete1.clear().draw();
+                                // var table_delete2 = $('#datatable-buttons-epi').DataTable();
+                                // table_delete2.clear().draw();
+                                // //delete text and dictionary variable
+                                // allele_dict = undefined
+                                // var element;
+                                // element = document.getElementById("sequences");
+                                // if (element) {
+                                //   element.innerHTML = "";
+                                // }
+                              }
+                            }
+                          }
                         </script>
                         <script type=text/javascript>
                           $(function() {
@@ -571,7 +686,9 @@
                               }
                               $.ajax({
                                 url: '/home/get_snp_info',
-                                data: {snp_name: snp},
+                                data: {
+                                  snp_name: snp
+                                },
                                 type: 'POST',
                                 dataType: 'json',
                                 success:function(response) {
@@ -1494,10 +1611,6 @@
                         <div  style="display: inline-flex">
                           
                           <select class="form-control" id="tfs">
-                            <option>HOCOMOCOv9</option>
-                            <option>HOCOMOCOv10_HUMAN_mono_meme_format</option>
-                            <option>HOCOMOCOv11_core_HUMAN_mono_meme_format</option>
-                            <option>HOCOMOCOv11_full_HUMAN_mono_meme_format</option>
                             <option>JASPAR_CNE_2008</option>
                             <option>JASPAR_CORE_2014_vertebrates</option>
                             <option>JASPAR_CORE_2014</option>
@@ -1633,6 +1746,7 @@
                                 tf:$('#tfs').val(),
                                 upload:uploaded,
                                 user_id: id_user,
+                                user_email : '{{current_user.email}}'
                               },
                         // async: false,
                         success:function(response) {
@@ -1744,6 +1858,7 @@
                         data: { fimo_tsv: "fimo_out/fimo.tsv",
                                 al_dict: JSON.stringify(allele_dict),
                                 user_id : user_id,
+                                user_email : '{{current_user.email}}',
                                 },
                         success:function(response) {
                           alert('DONE')
@@ -1873,6 +1988,7 @@
                             data: { snp_list: JSON.stringify(row_list), 
                                     tissue_field_epi: tissue,
                                     user_id: user_id,
+                                    user_email : '{{current_user.email}}',
                             },
                             async: false,
                             success:function(response) {

@@ -25,6 +25,8 @@ from app import db
 from datetime import datetime, timedelta
 import smtplib
 from flask_cors import CORS, cross_origin
+import threading
+from flask import copy_current_request_context
 
 #step_1---------function
 def get_snp_info(snp_id):
@@ -110,7 +112,9 @@ def get_snp_info(snp_id):
   ### Download Snp Info based on its id
   
   res_json = request_info_by_id(snp_id)
-
+  
+  # sleep for 1 second
+  time.sleep(3)
   # TODO When request is 404
 
   ##verify if snp has another name
@@ -1551,6 +1555,21 @@ def gen_sequence():
         if os.path.exists("app/users_workflow/"+user_id+"_step5.txt"):
             os.remove("app/users_workflow/"+user_id+"_step5.txt")
         db.session.commit()
+
+        user_email = request.form['user_email']
+
+        try:
+            server = smtplib.SMTP_SSL('smtp.gmail.com',465)
+            server.login("regulomix.temp@gmail.com","regulomix123")
+            subject = "Regulomix: Step3"
+            body = "Step3 work is done, login to regulomix to continue."
+            message = "Subject:{}\n\n{}".format(subject, body)
+            server.sendmail("regulomix.temp@gmail.com",user_email,message)
+            server.quit()
+            print("Email sent")
+        except:
+            server.quit()
+            print("Email failed to send")
     
     return jsonify(res,dictionary_snp_allele)
 
@@ -1783,6 +1802,21 @@ def dif_tf():
     if os.path.exists("app/users_workflow/"+user_id+"_step5.txt"):
             os.remove("app/users_workflow/"+user_id+"_step5.txt")
     db.session.commit()
+
+    user_email = request.form['user_email']
+
+    try:
+        server = smtplib.SMTP_SSL('smtp.gmail.com',465)
+        server.login("regulomix.temp@gmail.com","regulomix123")
+        subject = "Regulomix: Step4"
+        body = "Step4 work is done, login to regulomix to continue."
+        message = "Subject:{}\n\n{}".format(subject, body)
+        server.sendmail("regulomix.temp@gmail.com",user_email,message)
+        server.quit()
+        print("Email sent")
+    except:
+        server.quit()
+        print("Email failed to send")
     #save in database
     return jsonify(dataframe_out)
 
@@ -1814,6 +1848,21 @@ def epi():
         user_work.step5 = 'app/users_workflow/'+file_name
         db.session.commit()
         print(dataframe_new)
+
+        user_email = request.form['user_email']
+        
+        try:
+            server = smtplib.SMTP_SSL('smtp.gmail.com',465)
+            server.login("regulomix.temp@gmail.com","regulomix123")
+            subject = "Regulomix: Step5"
+            body = "Step5 work is done, login to regulomix to continue."
+            message = "Subject:{}\n\n{}".format(subject, body)
+            server.sendmail("regulomix.temp@gmail.com",user_email,message)
+            server.quit()
+            print("Email sent")
+        except:
+            server.quit()
+            print("Email failed to send")
 
     return jsonify(dataframe_new)
 
@@ -1979,95 +2028,149 @@ def next_step2():
 
         return 'DONE'
 
+@blueprint.route('/data_retrive_thread',methods=['GET','POST'])
+@cross_origin(origin='*')
+@login_required
+def data_retriever_thread():
+    
+    id_user = request.form['data_user']
+    # see if user_thread has ended
+    # get user thread
+    check_thread = False
+    print(threading.enumerate())
+    for thread in threading.enumerate():
+        print(thread.getName())
+        if(thread.getName() == "user_"+id_user):
+            check_thread = True
+    
+    file_exists = os.path.exists("app/users_workflow/"+id_user+"_step1.txt")
+    if((check_thread == False) and (file_exists == False)):
+        return 'Thread Error'
+
+
+    find_user_work = Workflow.query.filter_by(user_id_user=id_user).first()
+    if not find_user_work.step1 == None:
+        with open('app/users_workflow/'+str(find_user_work.user_id_user)+'_step1.txt') as json_file:  
+            data = json.load(json_file)
+            return jsonify(data)
+    else:
+        return 'No File'
+
 @blueprint.route('/uploader',methods=['GET','POST'])
 @cross_origin(origin='*')
 @login_required
 def uploader():
     if request.method == 'POST':
-        # print("REQUEST")
-        # print(request.files)
-        # print("REQUEST FORM")
+
         user_id = request.form['user_id']
         user_email = request.form['user_email']
         f = request.files['file']
         file_path = "app/home/drscan.xlsx"
-        #save xlsx file
         f.save(file_path)
-        #xlsx file into pandas dataframe
-        input = pd.read_excel(file_path)
-        #drop duplicates
-        input.drop_duplicates(subset=['SNPS'], keep='first',inplace=True)
-        #create snp list
-        snp_list = input['SNPS']
-        #only snp ids/ without rs
-        snp_ids = []
-        for snp in snp_list:
-            snp_ids.append(snp.strip()[2:])
 
-        #saving json file
-        teste = process(snp_ids)
-        file_name = str(user_id)+'_step1.txt'
-        # print(file_name)
-        with open('app/users_workflow/'+file_name, 'w') as outfile:  
-            json.dump(teste, outfile)
+        @copy_current_request_context
+        def execute_snp_task(user_id, user_email, file_path):
+            funcao_teste_snp(user_id, user_email, file_path)
         
-        #insert into db (timestamp,id_user,step 1)
-        today = datetime.now()
-        expire_date = today + timedelta(days=8)
-        workflow = Workflow()
+        thread_name = "user_"+user_id
+        threading.Thread(name = thread_name,target=execute_snp_task,
+                            args=(user_id, user_email, file_path)).start()
+        # funcao_teste_snp(request)
+        return jsonify(resultado = {}, status=202)
 
-        #select workflow to see if file slready exists
-        user_work = Workflow.query.filter_by(user_id_user=user_id).first()
-        if(user_work == None):
-            # print("ENTROU NA PRIMEIRA ADD")
-            workflow.user_id_user = user_id
-            workflow.created = datetime.now()
-            workflow.step1 = 'app/users_workflow/'+file_name
-            workflow.expire = expire_date
-            db.session.add(workflow)
-        else:
-            #update workflow
-            user_work.created = datetime.now()
-            user_work.step1 = 'app/users_workflow/'+file_name
-            user_work.expire = expire_date
-        
-        db.session.commit()
-        
-        #delete previous workflow
-        #TODO second delete data from the database
-        user_work.step2 = None
-        user_work.step3 = None
-        user_work.step4 = None
-        user_work.step5 = None
-        #Delete from directory
-        if os.path.exists("app/users_workflow/"+user_id+"_step2.txt"):
-            os.remove("app/users_workflow/"+user_id+"_step2.txt")
-        if os.path.exists("app/users_workflow/"+user_id+"_step3.txt"):
-            os.remove("app/users_workflow/"+user_id+"_step3.txt")
-        if os.path.exists("app/users_workflow/"+user_id+"_step3_dictionary.txt"):
-            os.remove("app/users_workflow/"+user_id+"_step3_dictionary.txt")
-        if os.path.exists("app/users_workflow/"+user_id+"_step4.txt"):
-            os.remove("app/users_workflow/"+user_id+"_step4.txt")
-        if os.path.exists("app/users_workflow/"+user_id+"_step5.txt"):
-            os.remove("app/users_workflow/"+user_id+"_step5.txt")
-        # commit the record the database
-        db.session.commit()
-        #try to send email
-        try:
-            server = smtplib.SMTP_SSL('smtp.gmail.com',465)
-            server.login("regulomix.temp@gmail.com","regulomix123")
-            subject = "Regulomix: Step1"
-            body = "Step1 work is done, login to regulomix to continue."
-            message = "Subject:{}\n\n{}".format(subject, body)
-            server.sendmail("regulomix.temp@gmail.com",user_email,message)
-            server.quit()
-            print("Email sent")
-        except:
-            server.quit()
-            print("Email failed to send")
+def funcao_teste_snp(user_id, user_email, file_path):
+    print("Funcao Teste SNP Thread")
+    # delete archive from users_workflow and db if exists
+    # # Removing from directory
+    user_work = Workflow.query.filter_by(user_id_user=user_id).first()
+    if os.path.exists("app/users_workflow/"+user_id+"_step1.txt"):
+        os.remove("app/users_workflow/"+user_id+"_step1.txt")
 
-        #sqlalchemy inserts
-        return jsonify(teste)
+    # # Removing from database
+    user_work.step1 = None
+    db.session.commit()
+    
+    # save xlsx file
+    # xlsx file into pandas dataframe
+    input = pd.read_excel(file_path)
+    # drop duplicates
+    input.drop_duplicates(subset=['SNPS'], keep='first',inplace=True)
+    # create snp list
+    snp_list = input['SNPS']
+    # only snp ids/ without rs
+    snp_ids = []
+    for snp in snp_list:
+        snp_ids.append(snp.strip()[2:])
+ 
+    #saving json file
+    teste = process(snp_ids)
+    file_name = str(user_id)+'_step1.txt'
+    # print(file_name)
+    with open('app/users_workflow/'+file_name, 'w') as outfile:  
+        json.dump(teste, outfile)
+         
+    #insert into db (timestamp,id_user,step 1)
+    today = datetime.now()
+    expire_date = today + timedelta(days=8)
+    workflow = Workflow()
+ 
+    #select workflow to see if file slready exists
+    user_work = Workflow.query.filter_by(user_id_user=user_id).first()
+    if(user_work == None):
+        # print("ENTROU NA PRIMEIRA ADD")
+        workflow.user_id_user = user_id
+        workflow.created = datetime.now()
+        workflow.step1 = 'app/users_workflow/'+file_name
+        workflow.expire = expire_date
+        db.session.add(workflow)
+    else:
+        #update workflow
+        user_work.created = datetime.now()
+        user_work.step1 = 'app/users_workflow/'+file_name
+        user_work.expire = expire_date
+         
+    db.session.commit()
+         
+    #delete previous workflow
+    #TODO second delete data from the database
+    user_work.step2 = None
+    user_work.step3 = None
+    user_work.step4 = None
+    user_work.step5 = None
+    #Delete from directory
+    if os.path.exists("app/users_workflow/"+user_id+"_step2.txt"):
+        os.remove("app/users_workflow/"+user_id+"_step2.txt")
+    if os.path.exists("app/users_workflow/"+user_id+"_step3.txt"):
+        os.remove("app/users_workflow/"+user_id+"_step3.txt")
+    if os.path.exists("app/users_workflow/"+user_id+"_step3_dictionary.txt"):
+        os.remove("app/users_workflow/"+user_id+"_step3_dictionary.txt")
+    if os.path.exists("app/users_workflow/"+user_id+"_step4.txt"):
+        os.remove("app/users_workflow/"+user_id+"_step4.txt")
+    if os.path.exists("app/users_workflow/"+user_id+"_step5.txt"):
+        os.remove("app/users_workflow/"+user_id+"_step5.txt")
+    # commit the record the database
+    db.session.commit()
+    #try to send email
+    try:
+        server = smtplib.SMTP_SSL('smtp.gmail.com',465)
+        server.login("regulomix.temp@gmail.com","regulomix123")
+        subject = "Regulomix: Step1"
+        body = "Step1 work is done, login to regulomix to continue."
+        message = "Subject:{}\n\n{}".format(subject, body)
+        server.sendmail("regulomix.temp@gmail.com",user_email,message)
+        server.quit()
+        print("Email sent")
+    except:
+        server.quit()
+        print("Email failed to send")
+ 
+    #sqlalchemy inserts
+    # return jsonify(teste)
+
+#Asynchronous function
+async def async_process_snp_upload(snp_ids):
+    data_frame_snps = process(snp_ids)
+    return data_frame_snps
 
 @blueprint.route('/upload_matrix',methods=['GET','POST'])
 @cross_origin(origin='*')

@@ -14,6 +14,8 @@ RUN ./meme-5.0.5/configure --prefix=$HOME/meme --with-url=http://meme-suite.org/
 RUN make
 RUN make install
 
+RUN pip install --default-timeout=1000 future
+
 RUN pip install -r requirements.txt
 
 
