@@ -195,7 +195,6 @@
                           $('#wizard').smartWizard({
                             onLeaveStep:leaveAStepCallback,
                           });
-                          
                           function leaveAStepCallback(obj, context){
                             console.log("ENTROU AQUI");
                             var user_id = '{{ current_user.id }}';
@@ -228,6 +227,7 @@
                             }
                             if (context.fromStep < 3 && context.fromStep < context.toStep){
                               if (context.fromStep == 1){
+                                console.log("Step1")
                                 $.ajax({
                                   url: '/home/next_step'+ context.fromStep,
                                   type: 'POST',
@@ -335,6 +335,7 @@
                             success:function(response) {
                               if (response != 'No File'){
                                 var table_2 = $('#datatable-buttons-x').DataTable();
+                                var x_boolean = true;
                                 //different method for retrieving
                                 if (response[0]['reg_elemnt']){
                                   console.log('TRUE -- reg_elemnt tag')
@@ -448,9 +449,6 @@
                               data: { data_user: user_id },
                               // dataType: 'json',
                               success:function(response) {
-                                console.log(response)
-                                console.log("Tamanho da resposta")
-                                console.log(response.length)
                                 if (response != 'No File'){
                                   // step 5 retrieve
                                   //declare datatable
@@ -498,30 +496,33 @@
                             
                             var table_delete_all = $('#datatable-buttons').DataTable();
                             table_delete_all.clear().draw();
-
+                            //clear all steps
+                            var table_delete = $('#datatable-buttons-x').DataTable();
+                            table_delete.clear().draw();
+                            var table_delete1 = $('#datatable-buttons-ft').DataTable();
+                            table_delete1.clear().draw();
+                            var table_delete2 = $('#datatable-buttons-epi').DataTable();
+                            table_delete2.clear().draw();
+                            //delete text and dictionary variable
+                            allele_dict = undefined
+                            var element;
+                            element = document.getElementById("sequences");
+                            if (element) {
+                              element.innerHTML = "";
+                            }
                             if ($('input[type="file"]').val().trim() == false){
                               alert("Insert .xlxs file with SNP ids in rows")
                               $('.load').hide();
                               return false;
                             }
                             $.ajax({
-
                               url: '/home/uploader',
                               type: 'POST',
                               // dataType: 'json',
                               data: formData,
                               // formData,
                               success:function(response) {
-                                console.log("Response do uploader")
-                                console.log(response)
-                                console.log(response.status)
                                 if (response.status == 202) {
-                                  //call verify function
-                                  //chamadas periódicas para o data_retrieve
-                                  //buscar funcao de repetir do javascript
-                                  //se o arquivo nao existir mostrar mensagem de aguardando
-                                  // funcao igual ao retrieve 1 e só acrescentar o else para mostrar a mendagem de aguardando
-                                  // e colocar o gif 
                                   var intervalo_nome = setInterval(  function(){ 
                                     
                                     //get user id
@@ -752,7 +753,10 @@
                                 var $row = $(this).closest("tr")
                                 var $tds = $row.find("td").not(':first').not(':last');
 
+                                //add selected class
+                                $row.addClass('selected');
                                 $.each($tds, function(i, el) {
+                                  //testing function
                                   var txt = $(this).text();
                                   $(this).html("").append("<input type='text' value=\""+txt+"\">");
                                 });
@@ -770,17 +774,26 @@
                                 $(this).removeClass("save").addClass("edit");
                                 this.childNodes[1].nodeValue = " Edit "
                                 var $row = $(this).closest("tr");
-                                var row_idx = $(this).index();
+                                var row_idx = $row.index();
                                 var $tds = $row.find("td").not(':first').not(':last');
 
+                                var key_name = $row.find("td:first").text();
+                                console.log(key_name);
+
                                 $.each($tds, function(i, el) {
-                                  var txt = $(this).find("input").val()
+                                  var txt = $(this).find('input:text').val();
                                   var td_index = $(this).index();
+                                  //remove select class
+                                  $row.removeClass('selected');
                                   // $(this).html(txt);
-                                  $("#datatable-buttons").DataTable().cell(row_idx,td_index).data(txt).draw(false);
+                                  // $("#datatable-buttons").DataTable().cell(row_idx,td_index).data(txt).draw(false);
+                                  var rowData = $("#datatable-buttons").DataTable().row( $row ).data();
+                                  rowData[td_index] = txt;
                                   $(this).html(txt);
+                                  // $(this).html(txt);
                                 });
                                 
+                                //update data table
                               });
                             });
                             </script>
@@ -1405,46 +1418,138 @@
                         },
                         // async: false,
                         success:function(response) {
-                          //hide load button
-                          $('.load2').hide();
-                          //some debbugging
-                          if (response[0] == undefined){
-                              alert("Insert snp first")
-                          }else{
-                            console.log("LOG: " + response[0]['state_model'])
-                            //declare datatable
-                            var t = $('#datatable-buttons-x').DataTable();
-                            //iterate through response to add rows in the table
-                            var x_boolean = true
-                            for(i=0;i<response.length;i++){
-                              if (response[i]['reg_elemnt'].split("|")[0] != "DO NOT EXIST "){
-                                t.row.add( [
-                                  response[i]['snp_name'],
-                                  response[i]['state_model'],
-                                  response[i]['tissue'],
-                                  response[i]['reg_elemnt'],
-                                ] );
-                                t.draw();
-                              }else{
-                                if (x_boolean){
-                                  alert("One of the tissues does not exist")
-                                  x_boolean = false
+
+                          if(response.status == 202){
+                            var intervalo2_nome = setInterval(function(){
+                              // Ajax to keep findind the file
+                              // get user id
+                              var user_id = '{{ current_user.id }}'
+                              $.ajax({
+                                url: '/home/data_retrive2_thread',
+                                type: 'POST',
+                                data: { 
+                                  data_user: user_id 
+                                },
+                                success:function(response){
+                                  if(response != 'No File' && response != 'Thread Error'){
+                                    $('.load2').hide();
+                                    clearInterval(intervalo2_nome);
+                                    if (response != 'No File'){
+                                        var table_2 = $('#datatable-buttons-x').DataTable();
+                                        var x_boolean = true;
+                                        //different method for retrieving
+                                        if (response[0]['reg_elemnt']){
+                                          console.log('TRUE -- reg_elemnt tag')
+                                          for (let i = 0; i < response.length; i++) {
+                                            if (response[i]['reg_elemnt'].split("|")[0] != "DO NOT EXIST "){
+                                              table_2.row.add( [
+                                                response[i]['snp_name'],
+                                                response[i]['state_model'],
+                                                response[i]['tissue'],
+                                                response[i]['reg_elemnt'],
+                                              ] );
+                                              table_2.draw();
+                                            }else{
+                                              if (x_boolean){
+                                                alert("One of the tissues does not exist")
+                                                x_boolean = false
+                                              }
+                                            }
+                                          }
+                                        }else{
+                                          // When commit is done
+                                          console.log('HERE --- debugging new list')
+                                          console.log(response[0])
+                                          console.log(response[1])
+                                          for (let i = 0; i < response.length; i++) {
+                                            if (response[i][3].split("|")[0] != "DO NOT EXIST "){
+                                              table_2.row.add( [
+                                                response[i][0],
+                                                response[i][1],
+                                                response[i][2],
+                                                response[i][3],
+                                              ] );
+                                              table_2.draw();
+                                            }else{
+                                              if (x_boolean){
+                                                alert("One of the tissues does not exist")
+                                                x_boolean = false
+                                              }
+                                            }
+                                          }
+                                        }
+                                        //Delete from other steps
+                                        var table_delete1 = $('#datatable-buttons-ft').DataTable();
+                                        table_delete1.clear().draw();
+                                        var table_delete2 = $('#datatable-buttons-epi').DataTable();
+                                        table_delete2.clear().draw();
+                                        //delete text and dictionary variable
+                                        allele_dict = undefined
+                                        var element;
+                                        element = document.getElementById("sequences");
+                                        if (element) {
+                                          element.innerHTML = "";
+                                        }
+                                      }
+                                  }else{
+                                    if(response == 'No File'){
+                                      console.log("Aguardando")
+                                    }else{
+                                      if(response == 'Thread Error') {
+                                        $('.load2').hide();
+                                        clearInterval(intervalo2_nome);
+                                        alert('Error in verify thread, check SNPs or try again')
+                                      }
+                                    }
+                                  }
+                                },
+                                error: function (result){
+                                  console.log("No file found");
+                                  $('.load2').hide();
                                 }
-                              }
-                            };
+                              });
+                            }, 20000);
                           }
-                          //delete all the tables and data from other steps
-                          var table_delete1 = $('#datatable-buttons-ft').DataTable();
-                          table_delete1.clear().draw();
-                          var table_delete2 = $('#datatable-buttons-epi').DataTable();
-                          table_delete2.clear().draw();
-                          //delete text and dictionary variable
-                          allele_dict = undefined
-                          var element;
-                          element = document.getElementById("sequences");
-                          if (element) {
-                            element.innerHTML = "";
-                          }
+                          // //hide load button
+                          // $('.load2').hide();
+                          // //some debbugging
+                          // if (response[0] == undefined){
+                          //     alert("Insert snp first")
+                          // }else{
+                          //   console.log("LOG: " + response[0]['state_model'])
+                          //   //declare datatable
+                          //   var t = $('#datatable-buttons-x').DataTable();
+                          //   //iterate through response to add rows in the table
+                          //   var x_boolean = true
+                          //   for(i=0;i<response.length;i++){
+                          //     if (response[i]['reg_elemnt'].split("|")[0] != "DO NOT EXIST "){
+                          //       t.row.add( [
+                          //         response[i]['snp_name'],
+                          //         response[i]['state_model'],
+                          //         response[i]['tissue'],
+                          //         response[i]['reg_elemnt'],
+                          //       ] );
+                          //       t.draw();
+                          //     }else{
+                          //       if (x_boolean){
+                          //         alert("One of the tissues does not exist")
+                          //         x_boolean = false
+                          //       }
+                          //     }
+                          //   };
+                          // }
+                          // //delete all the tables and data from other steps
+                          // var table_delete1 = $('#datatable-buttons-ft').DataTable();
+                          // table_delete1.clear().draw();
+                          // var table_delete2 = $('#datatable-buttons-epi').DataTable();
+                          // table_delete2.clear().draw();
+                          // //delete text and dictionary variable
+                          // allele_dict = undefined
+                          // var element;
+                          // element = document.getElementById("sequences");
+                          // if (element) {
+                          //   element.innerHTML = "";
+                          // }
                         }
                       });
                     });
@@ -1736,6 +1841,8 @@
                       //get data from all rows
                       for(i=0;i<rows2;i++){
                         row_list.push(table.rows().data()[i])
+                        console.log("DADOS DA TABELA: ")
+                        console.log(table.rows().data()[i])
                       };
                       var id_user = '{{ current_user.id }}'
                       $.ajax({
@@ -1758,8 +1865,6 @@
                           $('#tfs').removeAttr('disabled');
                           //some debbugging
                           alert("DONE")
-                          console.log("SIZE: " + response[0].length)
-                          console.log(response[0])
                           //insert alleles dictionary in variable
                           allele_dict = response[1]
                           //insert text into 'p' element

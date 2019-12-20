@@ -35,14 +35,19 @@ def get_snp_info(snp_id):
   def request_info_by_id(snp_id):
 
     server = "https://api.ncbi.nlm.nih.gov/variation/v0/beta/refsnp/"
-    #needs to be tested without sleep function in continuous network connection
-    # time.sleep(5)
-
-    r = requests.get(server+snp_id, headers={ "Content-Type" : "application/json"})
-
-    print("STATUS CODE: " + str(r.status_code))
-
-    if not r.ok:
+    try:
+        r = requests.get(server+snp_id, headers={ "Content-Type" : "application/json"})
+    except OSError:
+        print("Connection Error")
+        time.sleep(1)
+    try:
+        r
+    except NameError:
+        print('var not defined')
+        r = requests.get(server+snp_id, headers={ "Content-Type" : "application/json"})
+    
+    if r in locals() and not r.ok:
+      print("r: " + str(r.status_code))
       if r.status_code == 404:
           r.raise_for_status()
           sys.exit()
@@ -55,8 +60,6 @@ def get_snp_info(snp_id):
         print("STATUS CODE: " + str(r.status_code))
         r.raise_for_status()
         sys.exit()
-    #   r.raise_for_status()
-    #   sys.exit()
 
     decoded = r.json()
 
@@ -1394,25 +1397,106 @@ def verify_snps():
     #transform it in a json file(dictionary?)
     snp_list_rows = json.loads(snp_list_rows)
     if request.method == 'POST':
-        tissue_list = request.form['tissue_field'].split("|")
-        #iterate through tissues in tissues list
-        for tissue in tissue_list:
-            #iterate through every snp
-            for snp_info in snp_list_rows:
-                #change chromossome type from number to 'X' or 'Y' string
-                if str(snp_info[2]) == '23':
-                    chrom = 'X'
-                elif str(snp_info[2]) == '24':
-                    chrom = 'Y'
-                else:
-                    chrom = snp_info[2]
 
-                dict_snps.append(apply_state_model(tissue, snp_info, snp_info[0], chrom))
+        user_email = request.form['user_email']
+
+        tissue_list = request.form['tissue_field'].split("|")
+
+        user_id = request.form['user_id']
+
+        # Start threaded verify snps
+        @copy_current_request_context
+        def execute_verify_task(dict_snps, user_id, user_email, tissue_list,snp_list_rows):
+            verify_snps_threaded(dict_snps, user_id, user_email, tissue_list, snp_list_rows)
+        
+        thread_name = "step2_user_"+user_id
+        threading.Thread(name = thread_name,target=execute_verify_task,
+                            args=(dict_snps, user_id, user_email, tissue_list, snp_list_rows)).start()
+        # funcao_teste_snp(request)
+        return jsonify(resultado = {}, status=202)
+
+    #     #iterate through tissues in tissues list
+    #     for tissue in tissue_list:
+    #         #iterate through every snp
+    #         for snp_info in snp_list_rows:
+    #             #change chromossome type from number to 'X' or 'Y' string
+    #             if str(snp_info[2]) == '23':
+    #                 chrom = 'X'
+    #             elif str(snp_info[2]) == '24':
+    #                 chrom = 'Y'
+    #             else:
+    #                 chrom = snp_info[2]
+
+    #             dict_snps.append(apply_state_model(tissue, snp_info, snp_info[0], chrom))
+    # #Add to workflow in database
+    # user_id = request.form['user_id']
+    # file_name = str(user_id)+'_step2.txt'
+    # with open('app/users_workflow/'+user_id+'_step2.txt', 'w') as out:  
+    #         json.dump(dict_snps, out)
+    # workflow = Workflow()
+    # user_work = Workflow.query.filter_by(user_id_user=user_id).first()
+    # user_work.step2 = 'app/users_workflow/'+file_name
+
+    # #delete other steps forward
+    # user_work.step3 = None
+    # user_work.step4 = None
+    # user_work.step5 = None
+    # if os.path.exists("app/users_workflow/"+user_id+"_step3.txt"):
+    #     os.remove("app/users_workflow/"+user_id+"_step3.txt")
+    # if os.path.exists("app/users_workflow/"+user_id+"_step3_dictionary.txt"):
+    #     os.remove("app/users_workflow/"+user_id+"_step3_dictionary.txt")
+    # if os.path.exists("app/users_workflow/"+user_id+"_step4.txt"):
+    #     os.remove("app/users_workflow/"+user_id+"_step4.txt")
+    # if os.path.exists("app/users_workflow/"+user_id+"_step5.txt"):
+    #     os.remove("app/users_workflow/"+user_id+"_step5.txt")
+    
+    # db.session.commit()
+
+    # try:
+    #     server = smtplib.SMTP_SSL('smtp.gmail.com',465)
+    #     server.login("regulomix.temp@gmail.com","regulomix123")
+    #     subject = "Regulomix: Step2"
+    #     body = "Step2 work is done, login to regulomix to continue."
+    #     message = "Subject:{}\n\n{}".format(subject, body)
+    #     server.sendmail("regulomix.temp@gmail.com",user_email,message)
+    #     server.quit()
+    #     print("Email sent")
+    # except:
+    #     server.quit()
+    #     print("Email failed to send")
+
+    # return jsonify(dict_snps)
+
+# step 2 threaded
+def verify_snps_threaded(dict_snps, user_id, user_email, tissue_list,snp_list_rows):
+
+    # Remove from directory
+    user_work = Workflow.query.filter_by(user_id_user=user_id).first()
+    if os.path.exists("app/users_workflow/"+user_id+"_step2.txt"):
+        os.remove("app/users_workflow/"+user_id+"_step2.txt")
+
+    # # Removing from database
+    user_work.step2 = None
+    db.session.commit()
+
+    for tissue in tissue_list:
+        #iterate through every snp
+        for snp_info in snp_list_rows:
+            #change chromossome type from number to 'X' or 'Y' string
+            if str(snp_info[2]) == '23':
+                chrom = 'X'
+            elif str(snp_info[2]) == '24':
+                chrom = 'Y'
+            else:
+                chrom = snp_info[2]
+
+            dict_snps.append(apply_state_model(tissue, snp_info, snp_info[0], chrom))
     #Add to workflow in database
-    user_id = request.form['user_id']
+    # user_id = request.form['user_id']
+
     file_name = str(user_id)+'_step2.txt'
     with open('app/users_workflow/'+user_id+'_step2.txt', 'w') as out:  
-            json.dump(dict_snps, out)
+        json.dump(dict_snps, out)
     workflow = Workflow()
     user_work = Workflow.query.filter_by(user_id_user=user_id).first()
     user_work.step2 = 'app/users_workflow/'+file_name
@@ -1432,7 +1516,7 @@ def verify_snps():
     
     db.session.commit()
 
-    user_email = request.form['user_email']
+    # user_email = request.form['user_email']
 
     try:
         server = smtplib.SMTP_SSL('smtp.gmail.com',465)
@@ -1448,6 +1532,7 @@ def verify_snps():
         print("Email failed to send")
 
     return jsonify(dict_snps)
+
 #step 3
 @blueprint.route('/gen_sequence',methods=['GET','POST'])
 @cross_origin(origin='*')
@@ -1998,10 +2083,14 @@ def next_step1():
             workflow.step1 = 'app/users_workflow/'+file_name
             workflow.expire = expire_date
             db.session.add(workflow)
-        # else:
-        #     #update workflow
-        #     user_work.created = datetime.now()
-        #     user_work.expire = expire_date
+        else:
+            #update workflow
+            if (user_work.step1 == None):
+                print("step1 -- empty for user 8")
+                user_work.created = datetime.now()
+                user_work.expire = expire_date
+                user_work.step1 = 'app/users_workflow/'+file_name
+                db.session.commit()
         # commit the record the database
         db.session.commit()
         #sqlalchemy insert
@@ -2047,10 +2136,36 @@ def data_retriever_thread():
     if((check_thread == False) and (file_exists == False)):
         return 'Thread Error'
 
-
     find_user_work = Workflow.query.filter_by(user_id_user=id_user).first()
     if not find_user_work.step1 == None:
         with open('app/users_workflow/'+str(find_user_work.user_id_user)+'_step1.txt') as json_file:  
+            data = json.load(json_file)
+            return jsonify(data)
+    else:
+        return 'No File'
+
+@blueprint.route('/data_retrive2_thread',methods=['GET','POST'])
+@cross_origin(origin='*')
+@login_required
+def data_retriever_thread2():
+    
+    id_user = request.form['data_user']
+    # see if user_thread has ended
+    # get user thread
+    check_thread = False
+    print(threading.enumerate())
+    for thread in threading.enumerate():
+        print(thread.getName())
+        if(thread.getName() == "step2_user_"+id_user):
+            check_thread = True
+    
+    file_exists = os.path.exists("app/users_workflow/"+id_user+"_step2.txt")
+    if((check_thread == False) and (file_exists == False)):
+        return 'Thread Error'
+
+    find_user_work = Workflow.query.filter_by(user_id_user=id_user).first()
+    if not find_user_work.step2 == None:
+        with open('app/users_workflow/'+str(find_user_work.user_id_user)+'_step2.txt') as json_file:  
             data = json.load(json_file)
             return jsonify(data)
     else:
@@ -2067,6 +2182,24 @@ def uploader():
         f = request.files['file']
         file_path = "app/home/drscan.xlsx"
         f.save(file_path)
+
+        user_work = Workflow.query.filter_by(user_id_user=user_id).first()
+        user_work.step2 = None
+        user_work.step3 = None
+        user_work.step4 = None
+        user_work.step5 = None
+        db.session.commit()
+        #Delete from directory
+        if os.path.exists("app/users_workflow/"+user_id+"_step2.txt"):
+            os.remove("app/users_workflow/"+user_id+"_step2.txt")
+        if os.path.exists("app/users_workflow/"+user_id+"_step3.txt"):
+            os.remove("app/users_workflow/"+user_id+"_step3.txt")
+        if os.path.exists("app/users_workflow/"+user_id+"_step3_dictionary.txt"):
+            os.remove("app/users_workflow/"+user_id+"_step3_dictionary.txt")
+        if os.path.exists("app/users_workflow/"+user_id+"_step4.txt"):
+            os.remove("app/users_workflow/"+user_id+"_step4.txt")
+        if os.path.exists("app/users_workflow/"+user_id+"_step5.txt"):
+            os.remove("app/users_workflow/"+user_id+"_step5.txt")
 
         @copy_current_request_context
         def execute_snp_task(user_id, user_email, file_path):
