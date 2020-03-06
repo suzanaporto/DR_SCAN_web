@@ -44,14 +44,14 @@
         </div>
 
         <div class="title_right">
-          <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+          <!-- <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Search for...">
               <span class="input-group-btn">
                         <button class="btn btn-default" type="button">Go!</button>
               </span>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="clearfix"></div>
@@ -137,11 +137,6 @@
                           <div style="padding-bottom: 12px;">
                             <div style="display: inline-flex">
                               <form class='form-inline'>
-                                <!-- <select name="genome_version" style="margin-right: 10px" class="form-control" id="genome">
-                                  <option value="GRCh37.p13">GRCh37.p13</option>
-                                  <option value="GRCh38.p7">GRCh38.p7</option>
-                                </select>  -->
-                                <!--<div style="display: inline-flex"> </div>-->
                                 <input type="text" class="form-control" style="margin-right: 10px" name="snp_input" id="snp_input"></input>
                                 <button class="btn btn-success btn-xs submit" ><i class="fa fa-play"></i> Run </button>
                               </form>
@@ -171,15 +166,11 @@
                                 <th>Row Actions</th>
                               </tr>
                             </thead>
-            
-            
                             <tbody id="t-body">
                             </tbody>
                           </table>
                         </div>
-
                         <div>
-                            <!--<button class="btn btn-success btn-xs add-row"><i class="fa fa-plus"></i> Add snp id </button>-->
                             
                       </div>
                       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -191,15 +182,16 @@
                         $(document).ready(function() {
                           $('.load').hide();
                         });
+
+                        //Save when step changes
                         $(document).ready(function(){
                           $('#wizard').smartWizard({
                             onLeaveStep:leaveAStepCallback,
                           });
                           function leaveAStepCallback(obj, context){
-                            console.log("ENTROU AQUI");
                             var user_id = '{{ current_user.id }}';
+                            //get variables leaving step 1
                             if (context.fromStep == 1){
-                              console.log("PASSO 1")
                               var table_one = $('#datatable-buttons').DataTable();
                               var data = table_one.rows().data();
                               var rows2 = table_one.rows().data().length;
@@ -208,8 +200,8 @@
                                 row_list.push(table_one.rows().data()[i])
                               };
                             }
+                            //get variables leaving step 2
                             if (context.fromStep == 2){
-                              console.log("PASSO 2")
                               var table_one = $('#datatable-buttons').DataTable();
                               var data = table_one.rows().data();
                               var rows2 = table_one.rows().data().length;
@@ -225,13 +217,12 @@
                                 row_list1.push(table_two.rows().data()[i])
                               };
                             }
+                            //save both steps 1 and 2
                             if (context.fromStep < 3 && context.fromStep < context.toStep){
                               if (context.fromStep == 1){
-                                console.log("Step1")
                                 $.ajax({
                                   url: '/home/next_step'+ context.fromStep,
                                   type: 'POST',
-                                  // dataType: 'json',
                                   data: { 
                                     step: context.fromStep,
                                     user: user_id,
@@ -248,51 +239,50 @@
                                 if (context.fromStep == 2){
                                   console.log(row_list);
                                   $.ajax({
-                                  url: '/home/next_step'+ context.fromStep,
-                                  type: 'POST',
-                                  // dataType: 'json',
-                                  data: { 
-                                    step: context.fromStep,
-                                    user: user_id,
-                                    //add table 2 in data to commit 1 and 2
-                                    data: JSON.stringify(row_list),
-                                    data2: JSON.stringify(row_list1),
-                                  },
-                                  async: false,
-                                  success:function(response) {
-                                    console.log(response)
-                                  },error: function(){
-                                    console.log('error---')
-                                  }
-                                });
+                                    url: '/home/next_step'+ context.fromStep,
+                                    type: 'POST',
+                                    data: { 
+                                      step: context.fromStep,
+                                      user: user_id,
+                                      //add table 2 in data to commit 1 and 2
+                                      data: JSON.stringify(row_list),
+                                      data2: JSON.stringify(row_list1),
+                                    },
+                                    async: false,
+                                    success:function(response) {
+                                      console.log(response)
+                                    },error: function(){
+                                      console.log('error---')
+                                    }
+                                  });
                                 }
                               }
-                              
                             }
-                            
-                            // alert("Leaving step " + context.fromStep + " to go to step " + context.toStep);
                             return true; // return false to stay on step and true to continue navigation 
                           }
                         });
                         $(document).ready(function() {
                           //get user id
                           var user_id = '{{ current_user.id }}';
+                          //delete_old_files
                           $.ajax({
                               url: '/home/delete_old',
                               type: 'POST',
-                              // dataType: 'json',
                               success:function(response) {
                                 console.log(response)
                               }
                           });
+                          //retrive first first
                           $.ajax({
                             url: '/home/data_retrive',
                             type: 'POST',
                             data: { data_user: user_id },
-                            // dataType: 'json',
                             success:function(response) {
                               if (response != 'No File'){
                                 var t = $('#datatable-buttons').DataTable();
+                                // if (response['CHROM'] != null){
+                                //   var size = Object.keys(response['CHROM']).length;
+                                // }
                                 if (response[0][0].includes("rs")){
                                   //different method for retrieving
                                   for(i=0;i<response.length;i++){
@@ -331,7 +321,6 @@
                             url: '/home/data_retrive1',
                             type: 'POST',
                             data: { data_user: user_id },
-                            // dataType: 'json',
                             success:function(response) {
                               if (response != 'No File'){
                                 var table_2 = $('#datatable-buttons-x').DataTable();
@@ -387,23 +376,18 @@
                               url: '/home/data_retrive2',
                               type: 'POST',
                               data: { data_user: user_id },
-                              // dataType: 'json',
                               success:function(response) {
                                 if (response != 'No File'){
                                   //implement the data retrieve for step 3
                                   uploaded = 0
                                   //reset disable
                                   $('#tfs').removeAttr('disabled');
-                                  //some debbugging
-                                  // console.log("SIZE: " + response[0].length)
-                                  // console.log(response[0])
                                   //insert alleles dictionary in variable
                                   allele_dict = response[1]
                                   //insert text into 'p' element
                                   for(i=0;i<response[0][0].length;i++){
                                     $('#sequences').append( document.createTextNode( response[0][0][i]) );
                                     $('#sequences').append( document.createElement( "br") );
-                                    // console.log(response[0][0][i])
                                   }
                                 }
                               },
@@ -415,13 +399,10 @@
                               url: '/home/data_retrive3',
                               type: 'POST',
                               data: { data_user: user_id },
-                              // dataType: 'json',
                               success:function(response) {
                                 if (response != 'No File'){
                                   // step 4 retrieve
-      
                                   var t = $('#datatable-buttons-ft').DataTable();
-      
                                   //iterate through response to add rows in the table
                                   for(i=0;i<response.length;i++){
                                     t.row.add( [
@@ -447,14 +428,12 @@
                               url: '/home/data_retrive4',
                               type: 'POST',
                               data: { data_user: user_id },
-                              // dataType: 'json',
                               success:function(response) {
                                 if (response != 'No File'){
                                   // step 5 retrieve
                                   //declare datatable
                                   var t = $('#datatable-buttons-epi').DataTable();
                                   //iterate through response to add rows in the table
-                                
                                   if( response == undefined ) {
                                     console.log("EMPTY")
                                   } else {
@@ -478,14 +457,9 @@
                                 console.log("No file found")
                               }
                             });
-                            
                         });
-                        $(function () {
-                          $('[data-toggle="tooltip"]').tooltip()
-                        })
                      </script>
                       <script type=text/javascript>
-                        
                         $(function() {
                           $('#form_file').on("submit", function() {
                             // event.preventDefault()
@@ -518,13 +492,10 @@
                             $.ajax({
                               url: '/home/uploader',
                               type: 'POST',
-                              // dataType: 'json',
                               data: formData,
-                              // formData,
                               success:function(response) {
                                 if (response.status == 202) {
-                                  var intervalo_nome = setInterval(  function(){ 
-                                    
+                                  var intervalo_nome = setInterval(  function(){
                                     //get user id
                                     var user_id = '{{ current_user.id }}';
                                     $.ajax({
@@ -538,6 +509,10 @@
                                         $('.load').hide();
                                         clearInterval(intervalo_nome);
                                         var t = $('#datatable-buttons').DataTable();
+                                        // if (response['CHROM'] != null){
+                                        //   var size = Object.keys(response['CHROM']).length;
+                                        // }
+                                        // response["ID"]!= undefined
                                         if (response[0][0].includes("rs")){
                                           //different method for retrieving
                                           for(i=0;i<response.length;i++){
@@ -554,15 +529,15 @@
                                           t.draw();
                                         }else{
                                           for(i=0;i<response.length;i++){
-                                          t.row.add( [
-                                            response[i][1],
-                                            response[i][0][0].location,
-                                            response[i][0][0].chrom,
-                                            response[i][0][0].allele_wt,
-                                            response[i][2],
-                                            '<a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-pencil"></i> Edit </a>'+
-                                            '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
-                                          ] );
+                                            t.row.add( [
+                                              response[i][1],
+                                              response[i][0][0].location,
+                                              response[i][0][0].chrom,
+                                              response[i][0][0].allele_wt,
+                                              response[i][2],
+                                              '<a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-pencil"></i> Edit </a>'+
+                                              '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
+                                            ] );
                                           }
                                           t.draw();
                                         }
@@ -1744,17 +1719,40 @@
                                 <input type="file" class="custom-file-input-matrix" id="inputGroupFile02" name="file_matrix" aria-describedby="inputGroupFileAddon02"></input>
                                 <button type="submit" class="btn btn-success btn-xs submit_matrix" id="submit_matrix"><i class="fa fa-upload"></i> Upload </button>
                               </div>
+                              
                             </div>
+                            
                           </form>
+                         
                         </div>
 
                       </div>
-
-                      <a href="#" class="btn btn-success btn-xs generate" onclick="$('.load3').show();"><i class="fa fa-play"></i> Generate</a>
-                      <div class="load3" style="display:inline-block"> <i class="fa fa-cog fa-spin fa-5x fa-fw"style="font-size: 25px;"></i> </div>
-                      <span class="load3">Processing...</span>
+                      <form style="display: inline-flex;margin-bottom: 20px;">
+                        <label for="p-value" style="margin-right:10px;text-align: center;">P-value</label>
+                            <select name="p-value" id="p-value" style="margin-right: 20px;">
+                              <option>1</option>
+                              <option>0.1</option>
+                              <option>0.01</option>
+                              <option>0.001</option>
+                              <option selected="selected">1E-4</option>
+                              <option>1E-5</option>
+                              <option>1E-6</option>
+                              <option>1E-7</option>
+                              <option>1E-8</option>
+                              <option>1E-9</option>
+                            </select>
+                            <div class="checkbox-q" style="display: inline-flex;">
+                              <label for="q-value" style="margin-right:10px;">Use q-value</label>
+                                  <input id="q-value" type="checkbox" value="1" id="q-check" class="flat" style="position: absolute; opacity: 0;">
+                            </div>
+                      </form>
+                      <form>
+                        <a href="#" class="btn btn-success btn-xs generate" onclick="$('.load3').show();"><i class="fa fa-play"></i> Generate</a>
+                        <div class="load3" style="display:inline-block"> <i class="fa fa-cog fa-spin fa-5x fa-fw"style="font-size: 25px;"></i> </div>
+                        <span class="load3">Processing...</span>
+                      </form>
                       <p id="sequences" style="font-family: 'Courier New', Courier, monospace"></p>
-
+                      
                   </div>
 
                 </div>
@@ -1841,16 +1839,25 @@
                       //get data from all rows
                       for(i=0;i<rows2;i++){
                         row_list.push(table.rows().data()[i])
-                        console.log("DADOS DA TABELA: ")
-                        console.log(table.rows().data()[i])
                       };
-                      var id_user = '{{ current_user.id }}'
+                      var checkBox = $(':checkbox:checked');
+                      var id_user = '{{ current_user.id }}';
+                      var q_check = false;
+                      console.log(checkBox)
+                      for (let index = 0; index <$(':checkbox:checked').length; index++) {
+                          var element = $(':checkbox:checked')[index].value;
+                          if ($(':checkbox:checked')[index].id ==  "q-value"){
+                            q_check = true
+                          }
+                      }
                       $.ajax({
                         url: '/home/gen_sequence',
                         type: 'POST',
                         dataType: 'json',
                         data: { snp_list: JSON.stringify(row_list),
                                 tf:$('#tfs').val(),
+                                p_value:$('#p-value').val(),
+                                q_value:q_check,
                                 upload:uploaded,
                                 user_id: id_user,
                                 user_email : '{{current_user.email}}'
@@ -1894,7 +1901,9 @@
                           Here is showing up all the differential transcription factors
                         </p>
                         <div>
-                            <a href="#" class="btn btn-success btn-xs dif-tf"><i class="fa fa-play"></i> Run </a>
+                            <a href="#" class="btn btn-success btn-xs dif-tf" onclick="$('.load4').show();"><i class="fa fa-play"></i> Run </a>
+                            <div class="load4" style="display:inline-block"> <i class="fa fa-cog fa-spin fa-5x fa-fw"style="font-size: 25px;"></i> </div>
+                            <span class="load4">Processing...</span>
                           </div>
                           <table id="datatable-buttons-ft" class="table table-striped table-bordered">
                             <thead>
@@ -1926,6 +1935,11 @@
                 <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
                 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
                 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                <script>
+                  $(document).ready(function() {
+                    $('.load4').hide();
+                  });
+                </script>
                 <script type="text/javascript">
                 $(document).ready(function() {
                     $('#datatable-buttons-ft').DataTable( {
@@ -1953,6 +1967,7 @@
                       //if user clicks on button before clicking on step 3 button
                       if( allele_dict== undefined) {
                         alert('Click generate button on step 3');
+                        $('.load4').hide();
                         return false;
                       }
                       var user_id = '{{ current_user.id }}'
@@ -1967,6 +1982,10 @@
                                 },
                         success:function(response) {
                           alert('DONE')
+                          $('.load4').hide();
+                          if (response.length == 0){
+                            alert("Differential transcription factors not found")
+                          }
                           //insert into table
                           //declare datatable
                           var t = $('#datatable-buttons-ft').DataTable();
