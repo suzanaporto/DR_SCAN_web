@@ -27,6 +27,7 @@ import smtplib
 from flask_cors import CORS, cross_origin
 import threading
 from flask import copy_current_request_context
+import allel
 
 #step_1---------function
 def get_snp_info(snp_id):
@@ -1570,6 +1571,10 @@ def gen_sequence():
         gnenome_version = 'GRCh37.p13'
         #user selected transcription factor matrix
         tf_selected = request.form['tf']
+        #get p-value selected
+        p_value = request.form['p_value']
+        # checkbox q-value
+        q_value = request.form['q_value']
         #get snps ids from filtered list (stage 2)
         snp_ids_list = []
         for x in filtered_snp:
@@ -1614,7 +1619,10 @@ def gen_sequence():
             print("uploaded")
         # meme= "./TFs/" + tf_selected + ".meme"
         os.system("export PATH=$HOME/meme/bin:$PATH ")
-        os.system("~/meme/bin/fimo "+meme+" "+fna_filename )
+        if (q_value == "true"):
+            os.system("~/meme/bin/fimo --thresh "+ p_value +" --qv-thresh "+meme+" "+fna_filename )
+        else:
+            os.system("~/meme/bin/fimo --thresh "+ p_value +" "+meme+" "+fna_filename )
 
         #save in file
         #sequences and dictionary
@@ -1784,9 +1792,9 @@ def dif_tf():
                     condition_sn = current_seq_name.split('|')[0] != seq_name.split('|')[0]
                     condition_sn2 = current_seq_name.split('|')[1] == seq_name.split('|')[1]
                     condition_csta = current_start == seq_start
-                    condition_csta1 = seq_start == range(int(current_start-32),int(current_start))
+                    condition_csta1 = seq_start == range(int(current_start-31),int(current_start))
                     condition_csto = current_stop == seq_stop
-                    condition_csto1 = seq_stop == range(int(current_stop),int(current_stop + 32))
+                    condition_csto1 = seq_stop == range(int(current_stop),int(current_stop + 31))
 
                     if condition_m and condition_sn and condition_sn2 and (condition_csta or condition_csta1).any and (condition_csto or condition_csto1).any:
                         #new data frame droping all occurences of specified TF-snp pair
@@ -1864,11 +1872,60 @@ def dif_tf():
 
         print(alleles_dict)
         df_fimo_output = pd.read_csv(fimo_res, sep='\t') 
+        print("DEBUG EMPTY FIMO DATAFRAME")
+        print(df_fimo_output)
+        print(df_fimo_output.columns)
+        if 'start' not in df_fimo_output.columns:
+            column_names = ['Motif ID', 'Motif Alt ID', 'Sequence Name', 'Strand', 'Start','End','p-value','q-value','Matched Sequence']
+            mock_df = pd.DataFrame(columns = column_names)
+            return jsonify(mock_df.to_dict(orient='records'))
 
         f_dataframe = filter_dataframe(fimo_res,alleles_dict,True)
 
         f_dataframe = f_dataframe.drop_duplicates(keep="last")
 
+        # filter dataframe for not related snps in combinations
+        for i, line in f_dataframe.iterrows():
+            #variables of each line
+            motif = line['motif_alt_id']
+            start = line['start']
+            stop = line['stop']
+            sequence = line['sequence_name']
+            sequence = sequence.split('|')
+            if sequence[0] == "sequence_combinations":
+                snps_in_each_line = len( list(filter(lambda x: (x.startswith('rs')), sequence)) )
+                snps_in_line = list(filter(lambda x: (x.startswith('rs')), sequence))
+                # get all the positions
+                posits_start = 2*snps_in_each_line + 2 
+                positions = sequence[posits_start:]
+                chrom = sequence[1+snps_in_each_line:2+snps_in_each_line][0]
+                start_alleles = posits_start-snps_in_each_line
+                stop_alleles = start_alleles + snps_in_each_line
+                alleles = sequence[posits_start-snps_in_each_line:stop_alleles]
+                snps_pos_in = []
+                pos_elem = []
+                # iterate through the position and identify the inbetweener
+                for idx,elem in enumerate(positions):
+                    if int(elem) >= start and int(elem) <= stop:
+                        pos_elem.append(elem)
+                        snps_pos_in.append(idx)
+                if (len(snps_pos_in) == 1):
+                    # change the combinations to wt or variation
+                    relevant_snp = snps_in_line[snps_pos_in[0]]
+                    relevant_allele = alleles[snps_pos_in[0]]
+                    count=0
+                    for allele in alleles_dict[relevant_snp]:
+                        if allele == relevant_allele:
+                            if count == 0:
+                                seq_name = "sequence_wild_type"
+                            else:
+                                seq_name = "sequence_variation"
+                        count+=1
+                    new_sequence_name = [seq_name, relevant_snp,chrom,relevant_allele,pos_elem[0]]
+                    new_sequence_name = str.join('|',new_sequence_name)
+                    #edit line
+                    f_dataframe.loc[i, 'sequence_name'] = new_sequence_name
+        f_dataframe = f_dataframe.drop_duplicates(keep="first")
         dataframe_out = f_dataframe.to_dict(orient='records')
         print("DATA FRAME DICT")
         # print(dataframe_out)
@@ -1885,7 +1942,7 @@ def dif_tf():
     user_work.step5 = None
 
     if os.path.exists("app/users_workflow/"+user_id+"_step5.txt"):
-            os.remove("app/users_workflow/"+user_id+"_step5.txt")
+        os.remove("app/users_workflow/"+user_id+"_step5.txt")
     db.session.commit()
 
     user_email = request.form['user_email']
@@ -2176,7 +2233,6 @@ def data_retriever_thread2():
 @login_required
 def uploader():
     if request.method == 'POST':
-
         user_id = request.form['user_id']
         user_email = request.form['user_email']
         f = request.files['file']
@@ -2204,6 +2260,7 @@ def uploader():
         @copy_current_request_context
         def execute_snp_task(user_id, user_email, file_path):
             funcao_teste_snp(user_id, user_email, file_path)
+            # snps_from_file(user_id, user_email, file_path)
         
         thread_name = "user_"+user_id
         threading.Thread(name = thread_name,target=execute_snp_task,
@@ -2211,6 +2268,123 @@ def uploader():
         # funcao_teste_snp(request)
         return jsonify(resultado = {}, status=202)
 
+def snps_from_file(user_id, user_email, file_path):
+    print("Threaded DBSnp File")
+    user_work = Workflow.query.filter_by(user_id_user=user_id).first()
+    if os.path.exists("app/users_workflow/"+user_id+"_step1.txt"):
+        os.remove("app/users_workflow/"+user_id+"_step1.txt")
+
+    # # Removing from database
+    user_work.step1 = None
+    db.session.commit()
+    
+    # save xlsx file
+    # xlsx file into pandas dataframe
+    input = pd.read_excel(file_path)
+    # drop duplicates
+    input.drop_duplicates(subset=['SNPS'], keep='first',inplace=True)
+    # create snp list
+    snp_list = input['SNPS']
+
+    #saving json file
+    teste = get_all_snps_file(snp_list)
+    file_name = str(user_id)+'_step1.txt'
+    teste.to_json('app/users_workflow/'+file_name)
+    # print(file_name)
+    # with open('app/users_workflow/'+file_name, 'w') as outfile:  
+    #     json.dump(teste, outfile)
+         
+    #insert into db (timestamp,id_user,step 1)
+    today = datetime.now()
+    expire_date = today + timedelta(days=8)
+    workflow = Workflow()
+ 
+    #select workflow to see if file slready exists
+    user_work = Workflow.query.filter_by(user_id_user=user_id).first()
+    if(user_work == None):
+        # print("ENTROU NA PRIMEIRA ADD")
+        workflow.user_id_user = user_id
+        workflow.created = datetime.now()
+        workflow.step1 = 'app/users_workflow/'+file_name
+        workflow.expire = expire_date
+        db.session.add(workflow)
+    else:
+        #update workflow
+        user_work.created = datetime.now()
+        user_work.step1 = 'app/users_workflow/'+file_name
+        user_work.expire = expire_date
+         
+    db.session.commit()
+         
+    #delete previous workflow
+    #TODO second delete data from the database
+    user_work.step2 = None
+    user_work.step3 = None
+    user_work.step4 = None
+    user_work.step5 = None
+    #Delete from directory
+    if os.path.exists("app/users_workflow/"+user_id+"_step2.txt"):
+        os.remove("app/users_workflow/"+user_id+"_step2.txt")
+    if os.path.exists("app/users_workflow/"+user_id+"_step3.txt"):
+        os.remove("app/users_workflow/"+user_id+"_step3.txt")
+    if os.path.exists("app/users_workflow/"+user_id+"_step3_dictionary.txt"):
+        os.remove("app/users_workflow/"+user_id+"_step3_dictionary.txt")
+    if os.path.exists("app/users_workflow/"+user_id+"_step4.txt"):
+        os.remove("app/users_workflow/"+user_id+"_step4.txt")
+    if os.path.exists("app/users_workflow/"+user_id+"_step5.txt"):
+        os.remove("app/users_workflow/"+user_id+"_step5.txt")
+    # commit the record the database
+    db.session.commit()
+    #try to send email
+    try:
+        server = smtplib.SMTP_SSL('smtp.gmail.com',465)
+        server.login("regulomix.temp@gmail.com","regulomix123")
+        subject = "Regulomix: Step1"
+        body = "Step1 work is done, login to regulomix to continue."
+        message = "Subject:{}\n\n{}".format(subject, body)
+        server.sendmail("regulomix.temp@gmail.com",user_email,message)
+        server.quit()
+        print("Email sent")
+    except:
+        server.quit()
+        print("Email failed to send")
+
+def get_all_snps_file(snps):
+    print("GET ALL SNPS FILE")
+    vcf = './GRCh37_vcf/common_all_20180423.vcf'
+    df = allel.vcf_to_dataframe(vcf)
+    print("DF DONE")
+    map(str.strip, snps)
+    df = df.loc[df['ID'].isin(snps)]
+    df["ALT_AL"] = df["ALT_1"].fillna('') + df["ALT_2"].fillna('') + df["ALT_3"].fillna('')
+    # Strip values
+    df['ALT_AL'] = df['ALT_AL'].apply(lambda x: x.strip())
+    # Split with pipebar |
+    df['ALT_AL'] = df['ALT_AL'].apply(lambda x: '|'.join(x))
+    df = df[df['REF'].map(len) < 2]
+    df = df[df['ALT_1'].map(len) < 2]
+    df.drop(['ALT_1','ALT_2', 'ALT_3', 'QUAL','FILTER_PASS'], axis=1, inplace=True)
+    df = df.reset_index(drop=True)
+    # get the ones from the file
+    print("PRINT DF")
+    print(df)
+    rest = Diff(snps, df['ID'].tolist())
+    snps_no_rs = map(lambda x: x[2:], rest)
+    result = process(snps_no_rs)
+    for i in result:
+        chromo = i[0][0]['chrom']
+        pos = i[0][0]['location']
+        ref = i[0][0]['allele_wt']
+        alt = i[2]
+        identif = i[1]
+        df2 = pd.DataFrame([(chromo, pos, identif,ref,alt)],columns=['CHROM','POS','ID','REF','ALT_AL'])
+        df = df.append(df2,ignore_index = True)
+    return df
+
+def Diff(li1, li2): 
+    return (list(set(li1) - set(li2)))
+
+#Will not be used
 def funcao_teste_snp(user_id, user_email, file_path):
     print("Funcao Teste SNP Thread")
     # delete archive from users_workflow and db if exists

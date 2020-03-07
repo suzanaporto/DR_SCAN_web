@@ -6,6 +6,7 @@ COPY gentelella.py gunicorn.py requirements.txt config.py .env ./
 COPY app app
 COPY migrations migrations
 COPY TFs TFs
+COPY Genome_GRCh37 Genome_GRCh37
 
 RUN wget -c http://meme-suite.org/meme-software/5.0.5/meme-5.0.5.tar.gz
 RUN tar -xvf meme-5.0.5.tar.gz

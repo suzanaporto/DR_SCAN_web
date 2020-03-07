@@ -8,49 +8,84 @@
 #middle_location <int>
 #
 #
-import requests, sys
+# import requests, sys
 from app.home.snp import Snp
 from app.home.graphDAO import GraphDAO
+import gzip
 
 class SnpDAO (object):
 
     #request para sequencia com a snp np meio/retorna a string
     def request_sequence_middle(self, start_location,end_location, snp_chrom,genome_version):
-        #declara o servidor
-        server = "http://rest.ensembl.org"
-
-        #declara as variáveis para montar as urls para fazer o request
+        
         x = start_location - 31
         y = end_location + 31
-        ext = "/sequence/region/human/" + str(snp_chrom) +":"+ str(x) + ".."+ str(y) + ":1?coord_system_version=" + genome_version
+        file_path = './Genome_GRCh37/Homo_sapiens.GRCh37.dna.chromosome.'+ str(snp_chrom) +'.fa.gz'
+        f = gzip.open(file_path,'r')
+        count = 1
+        file_content = ""
+        for line in f:
+            if count > 1:
+                file_content = file_content + line.decode("utf-8").rstrip('\n')
+            count+=1
+        dna_requested = file_content[x-1:y]
+        f.close()
+        return dna_requested
+        # server = "http://rest.ensembl.org"
 
-        r1 = requests.get(server+ext, headers={ "Content-Type" : "text/plain"})
+        # declara as variáveis para montar as urls para fazer o request
+        # x = start_location - 31
+        # y = end_location + 31
+        # ext = "/sequence/region/human/" + str(snp_chrom) +":"+ str(x) + ".."+ str(y) + ":1?coord_system_version=" + genome_version
 
-        if not r1.ok:
-          r1.raise_for_status()
-          sys.exit()
+        # r1 = requests.get(server+ext, headers={ "Content-Type" : "text/plain"})
 
-        return r1.text
+        # if not r1.ok:
+        #   r1.raise_for_status()
+        #   sys.exit()
+
+        # return r1.text
 
     def request_sequence(self,snp,genome_version,is_first,filename="sequenciasdef.fna"):
-        #declara o servidor
-        server = "http://rest.ensembl.org"
+        #New Version
         x = snp.location - 31
         y = snp.location + 31
         chrom_req = snp.chrom
         if snp.chrom == 23:
             chrom_req = "X"
-        elif snp.chrom == 24:
+        if snp.chrom == 24:
             chrom_req = "Y"
-        ext = "/sequence/region/human/" + str(chrom_req) +":"+ str(x) + ".."+ str(y) + ":1?coord_system_version=" + genome_version
-        r1 = requests.get(server+ext, headers={ "Content-Type" : "text/plain"})
-        if not r1.ok:
-            r1.raise_for_status()
-            sys.exit()
+        if snp.chrom == 25:
+            chrom_req = "MT"
+        file_path = './Genome_GRCh37/Homo_sapiens.GRCh37.dna.chromosome.'+ str(chrom_req) +'.fa.gz'
+        g = gzip.open(file_path,'r')
+        count = 1
+        file_content = ""
+        for line in g:
+            if count > 1:
+                file_content = file_content + line.decode("utf-8").rstrip('\n')
+            count+=1
+        dna_requested = file_content[x-1:y]
+        g.close()
+
+        # server = "http://rest.ensembl.org"
+        # x = snp.location - 31
+        # y = snp.location + 31
+        # chrom_req = snp.chrom
+        # if snp.chrom == 23:
+        #     chrom_req = "X"
+        # elif snp.chrom == 24:
+        #     chrom_req = "Y"
+        # ext = "/sequence/region/human/" + str(chrom_req) +":"+ str(x) + ".."+ str(y) + ":1?coord_system_version=" + genome_version
+        # r1 = requests.get(server+ext, headers={ "Content-Type" : "text/plain"})
+        # if not r1.ok:
+        #     r1.raise_for_status()
+        #     sys.exit()
 		# Coloca as sequencias de snp no meio na variavel declarada
         starting_at_one = 1
         tamanho_seq = 31*2 + 1
-        seq_meio = r1.text
+        # seq_meio = r1.text
+        seq_meio = dna_requested
         seq_meio = seq_meio[:31] + snp.ancestral_al.nome + seq_meio[32:]
         print (">sequence_wild_type|"+str(snp.name) +"|"+str(chrom_req)+"|"+str(snp.ancestral_al)+"|"+str((snp.location-x)+starting_at_one))
         print (seq_meio)
