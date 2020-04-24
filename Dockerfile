@@ -8,9 +8,9 @@ COPY migrations migrations
 COPY TFs TFs
 COPY Genome_GRCh37 Genome_GRCh37
 
-RUN wget -c http://meme-suite.org/meme-software/5.0.5/meme-5.0.5.tar.gz
-RUN tar -xvf meme-5.0.5.tar.gz
-RUN ./meme-5.0.5/configure --prefix=$HOME/meme --with-url=http://meme-suite.org/ --enable-build-libxml2 --enable-build-libxslt
+RUN wget -c http://meme-suite.org/meme-software/5.1.0/meme-5.1.0.tar.gz
+RUN tar -xvf meme-5.1.0.tar.gz
+RUN ./meme-5.1.0/configure --prefix=$HOME/meme --with-url=http://meme-suite.org/ --enable-build-libxml2 --enable-build-libxslt
 
 RUN make
 RUN make install
