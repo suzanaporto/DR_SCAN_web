@@ -1,5 +1,5 @@
 from app.home import blueprint
-from flask import render_template
+from flask import render_template, url_for
 from flask_login import login_required
 from flask import request
 # imports
@@ -28,6 +28,8 @@ from flask_cors import CORS, cross_origin
 import threading
 from flask import copy_current_request_context
 import allel
+from celery import Celery
+from app import celery
 
 #step_1---------function
 def get_snp_info(snp_id):
@@ -1387,7 +1389,7 @@ def teste():
             str_minor = sample_dict[0]['allele_v']
         
         return jsonify(sample_dict,snp_input_form,str_minor)
-#step 2        
+#step 2
 @blueprint.route('/verify_snps',methods=['GET','POST'])
 @cross_origin(origin='*')
 @login_required
@@ -1406,70 +1408,22 @@ def verify_snps():
         user_id = request.form['user_id']
 
         # Start threaded verify snps
-        @copy_current_request_context
-        def execute_verify_task(dict_snps, user_id, user_email, tissue_list,snp_list_rows):
-            verify_snps_threaded(dict_snps, user_id, user_email, tissue_list, snp_list_rows)
+        # @copy_current_request_context
+        # def execute_verify_task(dict_snps, user_id, user_email, tissue_list,snp_list_rows):
+        #     verify_snps_threaded(dict_snps, user_id, user_email, tissue_list, snp_list_rows)
+
+        task_res = verify_snps_threaded.apply_async(args=[dict_snps, user_id, user_email, tissue_list, snp_list_rows])
         
-        thread_name = "step2_user_"+user_id
-        threading.Thread(name = thread_name,target=execute_verify_task,
-                            args=(dict_snps, user_id, user_email, tissue_list, snp_list_rows)).start()
+        # thread_name = "step2_user_"+user_id
+        # threading.Thread(name = thread_name,target=execute_verify_task,
+        #                     args=(dict_snps, user_id, user_email, tissue_list, snp_list_rows)).start()
         # funcao_teste_snp(request)
-        return jsonify(resultado = {}, status=202)
-
-    #     #iterate through tissues in tissues list
-    #     for tissue in tissue_list:
-    #         #iterate through every snp
-    #         for snp_info in snp_list_rows:
-    #             #change chromossome type from number to 'X' or 'Y' string
-    #             if str(snp_info[2]) == '23':
-    #                 chrom = 'X'
-    #             elif str(snp_info[2]) == '24':
-    #                 chrom = 'Y'
-    #             else:
-    #                 chrom = snp_info[2]
-
-    #             dict_snps.append(apply_state_model(tissue, snp_info, snp_info[0], chrom))
-    # #Add to workflow in database
-    # user_id = request.form['user_id']
-    # file_name = str(user_id)+'_step2.txt'
-    # with open('app/users_workflow/'+user_id+'_step2.txt', 'w') as out:  
-    #         json.dump(dict_snps, out)
-    # workflow = Workflow()
-    # user_work = Workflow.query.filter_by(user_id_user=user_id).first()
-    # user_work.step2 = 'app/users_workflow/'+file_name
-
-    # #delete other steps forward
-    # user_work.step3 = None
-    # user_work.step4 = None
-    # user_work.step5 = None
-    # if os.path.exists("app/users_workflow/"+user_id+"_step3.txt"):
-    #     os.remove("app/users_workflow/"+user_id+"_step3.txt")
-    # if os.path.exists("app/users_workflow/"+user_id+"_step3_dictionary.txt"):
-    #     os.remove("app/users_workflow/"+user_id+"_step3_dictionary.txt")
-    # if os.path.exists("app/users_workflow/"+user_id+"_step4.txt"):
-    #     os.remove("app/users_workflow/"+user_id+"_step4.txt")
-    # if os.path.exists("app/users_workflow/"+user_id+"_step5.txt"):
-    #     os.remove("app/users_workflow/"+user_id+"_step5.txt")
-    
-    # db.session.commit()
-
-    # try:
-    #     server = smtplib.SMTP_SSL('smtp.gmail.com',465)
-    #     server.login("regulomix.temp@gmail.com","regulomix123")
-    #     subject = "Regulomix: Step2"
-    #     body = "Step2 work is done, login to regulomix to continue."
-    #     message = "Subject:{}\n\n{}".format(subject, body)
-    #     server.sendmail("regulomix.temp@gmail.com",user_email,message)
-    #     server.quit()
-    #     print("Email sent")
-    # except:
-    #     server.quit()
-    #     print("Email failed to send")
-
-    # return jsonify(dict_snps)
+        # return jsonify(resultado = {}, status=202)
+        return jsonify({}), 202, {'Location': url_for('home_blueprint.taskstatus2',task_id=task_res.id)}
 
 # step 2 threaded
-def verify_snps_threaded(dict_snps, user_id, user_email, tissue_list,snp_list_rows):
+@celery.task(bind=True)
+def verify_snps_threaded(self,dict_snps, user_id, user_email, tissue_list,snp_list_rows):
 
     # Remove from directory
     user_work = Workflow.query.filter_by(user_id_user=user_id).first()
@@ -1480,9 +1434,9 @@ def verify_snps_threaded(dict_snps, user_id, user_email, tissue_list,snp_list_ro
     user_work.step2 = None
     db.session.commit()
 
-    for tissue in tissue_list:
+    for idx1, tissue in enumerate(tissue_list):
         #iterate through every snp
-        for snp_info in snp_list_rows:
+        for idx2, snp_info in enumerate(snp_list_rows):
             #change chromossome type from number to 'X' or 'Y' string
             if str(snp_info[2]) == '23':
                 chrom = 'X'
@@ -1492,6 +1446,18 @@ def verify_snps_threaded(dict_snps, user_id, user_email, tissue_list,snp_list_ro
                 chrom = snp_info[2]
 
             dict_snps.append(apply_state_model(tissue, snp_info, snp_info[0], chrom))
+            self.update_state(state='PROGRESS',
+                                meta={'current': idx2+1, 'total': len(snp_list_rows),
+                                'status': "TISSUE {0}: {1}, id: {2}, is done being processed from a total of {3}".format(tissue,snp_info[0],str(idx2+1),str(len(snp_list_rows)))})
+        self.update_state(state='PROGRESS',
+                          meta={'current': idx1+1, 
+                                'total': len(tissue_list),
+                                'status': "TISSUE {0},id: {1}, is done being processed from a total of {2}".format(tissue,str(idx1+1),str(len(tissue_list)))})
+
+    self.update_state(state='DONE',
+                          meta={'current': len(tissue_list)*len(snp_list_rows), 
+                                'total': len(tissue_list)*len(snp_list_rows),
+                                'status': "All SNPs are done. Results should appear shortly"})
     #Add to workflow in database
     # user_id = request.form['user_id']
 
@@ -1532,7 +1498,39 @@ def verify_snps_threaded(dict_snps, user_id, user_email, tissue_list,snp_list_ro
         server.quit()
         print("Email failed to send")
 
-    return jsonify(dict_snps)
+    # return jsonify(dict_snps)
+    return {'current': 100, 'total': 100, 'status': 'All completed','result': dict_snps}
+
+@blueprint.route('/taskstatus2/<task_id>',methods=['GET','POST'])
+@cross_origin(origin='*')
+@login_required
+def taskstatus2(task_id):
+    task = verify_snps_threaded.AsyncResult(task_id)
+    if task.state == 'PENDING':
+        response = {
+            'state': task.state,
+            'current': 0,
+            'total': 1,
+            'status': 'Pending...'
+        }
+    elif task.state != 'FAILURE':
+        response = {
+            'state': task.state,
+            'current': task.info.get('current', 0),
+            'total': task.info.get('total', 1),
+            'status': task.info.get('status', '')
+        }
+        if 'result' in task.info:
+            response['result'] = task.info['result']
+    else:
+        # something went wrong in the background job
+        response = {
+            'state': task.state,
+            'current': 1,
+            'total': 1,
+            'status': str(task.info),  # this is the exception raised
+        }
+    return jsonify(response)
 
 #step 3
 @blueprint.route('/gen_sequence',methods=['GET','POST'])
@@ -2044,13 +2042,18 @@ def delete_old():
             # Workflow.query.filter(Workflow.id_workflow == work.id_workflow).delete()
     return "Done delete function"
 
+@cross_origin(origin='*')
+@login_required
+def check_status(task_id):
+    pass
+
 @blueprint.route('/data_retrive',methods=['GET','POST'])
 @cross_origin(origin='*')
 @login_required
 def data_retriever():
     id_user = request.form['data_user']
     find_user_work = Workflow.query.filter_by(user_id_user=id_user).first()
-    if not find_user_work.step1 == None:
+    if not find_user_work == None and not find_user_work.step1 == None:
         with open('app/users_workflow/'+str(find_user_work.user_id_user)+'_step1.txt') as json_file:  
             data = json.load(json_file)
             return jsonify(data)
@@ -2063,7 +2066,7 @@ def data_retriever():
 def data_retriever1():
     id_user = request.form['data_user']
     find_user_work = Workflow.query.filter_by(user_id_user=id_user).first()
-    if not find_user_work.step2 == None:
+    if not find_user_work == None and not find_user_work.step2 == None:
         with open('app/users_workflow/'+str(find_user_work.user_id_user)+'_step2.txt') as json_file:  
             data = json.load(json_file)
             return jsonify(data)
@@ -2240,11 +2243,12 @@ def uploader():
         f.save(file_path)
 
         user_work = Workflow.query.filter_by(user_id_user=user_id).first()
-        user_work.step2 = None
-        user_work.step3 = None
-        user_work.step4 = None
-        user_work.step5 = None
-        db.session.commit()
+        if (not user_work is None):
+            user_work.step2 = None
+            user_work.step3 = None
+            user_work.step4 = None
+            user_work.step5 = None
+            db.session.commit()
         #Delete from directory
         if os.path.exists("app/users_workflow/"+user_id+"_step2.txt"):
             os.remove("app/users_workflow/"+user_id+"_step2.txt")
@@ -2257,16 +2261,23 @@ def uploader():
         if os.path.exists("app/users_workflow/"+user_id+"_step5.txt"):
             os.remove("app/users_workflow/"+user_id+"_step5.txt")
 
-        @copy_current_request_context
-        def execute_snp_task(user_id, user_email, file_path):
-            funcao_teste_snp(user_id, user_email, file_path)
+        # @copy_current_request_context
+        # def execute_snp_task(user_id, user_email, file_path):
+        #     funcao_teste_snp(user_id, user_email, file_path)
             # snps_from_file(user_id, user_email, file_path)
+
+        #using celery
+        task_res = funcao_teste_snp.apply_async(args=[user_id, user_email, file_path])
         
-        thread_name = "user_"+user_id
-        threading.Thread(name = thread_name,target=execute_snp_task,
-                            args=(user_id, user_email, file_path)).start()
+        # thread_name = "user_"+user_id
+        # try:
+        #     threading.Thread(name = thread_name,target=execute_snp_task,
+        #                 args=(user_id, user_email, file_path)).start()
+        # except:
+        #     print("Excecao Thread")
         # funcao_teste_snp(request)
-        return jsonify(resultado = {}, status=202)
+        return jsonify({}), 202, {'Location': url_for('home_blueprint.taskstatus1',task_id=task_res.id)}
+        # return jsonify(resultado = {}, status=202, {'Location': url_for('taskstatus1',task_id=task_res.id)})
 
 def snps_from_file(user_id, user_email, file_path):
     print("Threaded DBSnp File")
@@ -2385,7 +2396,8 @@ def Diff(li1, li2):
     return (list(set(li1) - set(li2)))
 
 #Will not be used
-def funcao_teste_snp(user_id, user_email, file_path):
+@celery.task(bind=True)
+def funcao_teste_snp(self, user_id, user_email, file_path):
     print("Funcao Teste SNP Thread")
     # delete archive from users_workflow and db if exists
     # # Removing from directory
@@ -2394,8 +2406,9 @@ def funcao_teste_snp(user_id, user_email, file_path):
         os.remove("app/users_workflow/"+user_id+"_step1.txt")
 
     # # Removing from database
-    user_work.step1 = None
-    db.session.commit()
+    if (not user_work is None):
+        user_work.step1 = None
+        db.session.commit()
     
     # save xlsx file
     # xlsx file into pandas dataframe
@@ -2410,11 +2423,47 @@ def funcao_teste_snp(user_id, user_email, file_path):
         snp_ids.append(snp.strip()[2:])
  
     #saving json file
-    teste = process(snp_ids)
+    #maybe take out the process function
+    # teste = process(snp_ids)
+    list_all_snps = []
+    for idx, snp in enumerate(snp_ids):
+
+        minor_allele = []
+        a = get_snp_info(snp)
+        #verify if its an empty dataframe
+        if a.empty:
+            # print("NOT SNV")
+            # print("rs"+snp)
+            continue
+        #dictionary with information based on genome version
+        sample_dict = a[a["gnenome_versions"].str.contains("GRCh37")]['snp_info_dict'].values[0]
+        #if sample dict is bigger than 1(more than one allele in variation)
+        if len(sample_dict) > 1:
+            for dic in sample_dict:
+                minor_allele.append(dic['allele_v'])
+            #Stringfy minor allele
+            join_symbol = "|"
+            str_minor = join_symbol.join(minor_allele)
+        else:
+            str_minor = sample_dict[0]['allele_v']
+        snp_id_form = 'rs'+snp
+        snp_in = [sample_dict,snp_id_form,str_minor]
+        list_all_snps.append(snp_in)
+
+        self.update_state(state='PROGRESS',
+                          meta={'current': idx+1, 
+                                'total': len(snp_ids),
+                                'status': "SNP {0}:{1} is done being processed from a total of {2}".format(str(idx+1),snp,str(len(snp_ids)))})
+    
+    self.update_state(state='DONE',meta={'current': idx+1, 
+                                'total': len(snp_ids),
+                                'status': "All SNPs are done. Results should appear shortly"})
+    # return list_all_snps
+    
     file_name = str(user_id)+'_step1.txt'
     # print(file_name)
     with open('app/users_workflow/'+file_name, 'w') as outfile:  
-        json.dump(teste, outfile)
+        json.dump(list_all_snps, outfile)
          
     #insert into db (timestamp,id_user,step 1)
     today = datetime.now()
@@ -2437,7 +2486,8 @@ def funcao_teste_snp(user_id, user_email, file_path):
         user_work.expire = expire_date
          
     db.session.commit()
-         
+    #Added recently
+    user_work = Workflow.query.filter_by(user_id_user=user_id).first()
     #delete previous workflow
     #TODO second delete data from the database
     user_work.step2 = None
@@ -2470,9 +2520,53 @@ def funcao_teste_snp(user_id, user_email, file_path):
     except:
         server.quit()
         print("Email failed to send")
- 
+    
+    # Pass all parameters in result
+    snp_info_list = []
+    for info in list_all_snps:
+        print(info)
+        dict_snp = {}
+        dict_snp['snp'] = info[1]
+        dict_snp['al_w'] = info[0][0]['allele_wt']
+        dict_snp['al_a'] = info[0][0]['allele_v']
+        dict_snp['local'] = info[0][0]['location']
+        dict_snp['chrom'] = info[0][0]['chrom']
+        snp_info_list.append(dict_snp)
+    return {'current': 100, 'total': 100, 'status': 'All completed','result': snp_info_list}
     #sqlalchemy inserts
     # return jsonify(teste)
+
+
+@blueprint.route('/taskstatus1/<task_id>',methods=['GET','POST'])
+@cross_origin(origin='*')
+@login_required
+def taskstatus1(task_id):
+    task = funcao_teste_snp.AsyncResult(task_id)
+    if task.state == 'PENDING':
+        response = {
+            'state': task.state,
+            'current': 0,
+            'total': 1,
+            'status': 'Pending...'
+        }
+    elif task.state != 'FAILURE':
+        response = {
+            'state': task.state,
+            'current': task.info.get('current', 0),
+            'total': task.info.get('total', 1),
+            'status': task.info.get('status', '')
+        }
+        if 'result' in task.info:
+            response['result'] = task.info['result']
+    else:
+        # something went wrong in the background job
+        response = {
+            'state': task.state,
+            'current': 1,
+            'total': 1,
+            'status': str(task.info),  # this is the exception raised
+        }
+    return jsonify(response)
 
 #Asynchronous function
 async def async_process_snp_upload(snp_ids):
