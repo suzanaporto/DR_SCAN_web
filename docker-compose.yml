@@ -1,5 +1,13 @@
 version: '3.7'
 services:
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - regulomix
+    restart: always
+
   db:
     restart: always
     image: postgres:10
@@ -12,32 +20,43 @@ services:
       - 5435:5432
     networks:
       - regulomix
-    # network_mode: bridge
+
   gentelella:
     restart: always
     env_file: .env
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    command: "gunicorn --config gunicorn.py gentelella:app"
     ports:
       - "5000:5000"
-    # network_mode: bridge
     depends_on:
       - db
+      - redis
     networks:
       - regulomix
-    # volumes:
-    #   - .:.
-  nginx:
-    restart: always
-    image: "nginx:latest"
-    ports:
-      - "80:80"
     volumes:
-      - ./nginx:/etc/nginx/conf.d
-    # network_mode: bridge
+      - .:/code
+      - ./log:/code/log
+
+  celery:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    env_file: .env
+    command: "celery worker -A gentelella.celery -c 3 --autoscale=10,3 --loglevel=info"
+    # user: nobody
+    links:
+      - redis
+    depends_on: 
+      - redis
     networks:
       - regulomix
-    depends_on:
-      - gentelella
+    restart: always
+    volumes:
+      - .:/code
+      - ./log:/code/log
+  # commented nginx
 
 networks:
   regulomix:

@@ -34,6 +34,9 @@
     background: #5EC199;
     border: 1px solid rgb(87, 177, 141);
   }
+  .form_wizard .stepContainer {
+    height: 800px;
+}
 
 </style>
   <div class="right_col" role="main">
@@ -145,15 +148,15 @@
                                   <div class="input-group">
                                     <div class="custom-file" style="display: inline-flex">
                                       <input type="file" class="custom-file-input" id="inputGroupFile01" name="file" aria-describedby="inputGroupFileAddon01"></input>
-                                      <button type="submit" class="btn btn-success btn-xs submit_file" id="submit_file" onclick="$('.load').show();"><i class="fa fa-play"></i> Run </button>
+                                      <button type="submit" class="btn btn-success btn-xs submit_file" id="submit_file" ><i class="fa fa-play"></i> Run </button>
+                                      <!-- onclick="$('.load').show();" -->
                                       <div class="load" style="display:inline-block"> <i class="fa fa-cog fa-spin fa-5x fa-fw"style="font-size: 25px;"></i> </div>
                                       <span class="load">Processing...</span>
                                     </div>
                                   </div>
                                 </form>
-                              
                             </div>
-                            
+                            <div id="progress1"></div>
                           </div>
                           <table id="datatable-buttons" class="table table-striped table-bordered">
                             <thead>
@@ -489,111 +492,96 @@
                               $('.load').hide();
                               return false;
                             }
+                            //Delete class progress 1 and child nodes
+                            var myDiv = document.getElementsByClassName("progress1");;
+                            myDiv.innerHTML = "";
+                            $('.progress1').remove();
+
+                            // Progress bar
+                            div = $('<div class="progress1"><div></div><div>0%</div><div>...</div><div>&nbsp;</div></div>');
+                            $('#progress1').append(div);
+
+                            // Create nanobar
+                            var nanobar = new Nanobar({
+                              bg: '#44f',
+                              target: div[0].childNodes[0]
+                            });
+
                             $.ajax({
                               url: '/home/uploader',
                               type: 'POST',
                               data: formData,
-                              success:function(response) {
-                                if (response.status == 202) {
-                                  var intervalo_nome = setInterval(  function(){
-                                    //get user id
-                                    var user_id = '{{ current_user.id }}';
-                                    $.ajax({
-                                      url: '/home/data_retrive_thread',
-                                      type: 'POST',
-                                      data: { 
-                                            data_user: user_id 
-                                      },
-                                      success:function(response) {    
-                                      if (response != 'No File' && response != 'Thread Error'){
-                                        $('.load').hide();
-                                        clearInterval(intervalo_nome);
-                                        var t = $('#datatable-buttons').DataTable();
-                                        // if (response['CHROM'] != null){
-                                        //   var size = Object.keys(response['CHROM']).length;
-                                        // }
-                                        // response["ID"]!= undefined
-                                        if (response[0][0].includes("rs")){
-                                          //different method for retrieving
-                                          for(i=0;i<response.length;i++){
-                                            t.row.add( [
-                                              response[i][0],
-                                              response[i][1],
-                                              response[i][2],
-                                              response[i][3],
-                                              response[i][4],
-                                              '<a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-pencil"></i> Edit </a>'+
-                                              '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
-                                            ] );
-                                          }
-                                          t.draw();
-                                        }else{
-                                          for(i=0;i<response.length;i++){
-                                            t.row.add( [
-                                              response[i][1],
-                                              response[i][0][0].location,
-                                              response[i][0][0].chrom,
-                                              response[i][0][0].allele_wt,
-                                              response[i][2],
-                                              '<a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-pencil"></i> Edit </a>'+
-                                              '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
-                                            ] );
-                                          }
-                                          t.draw();
-                                        }
-                                      }else{
-                                        if (response == 'No File') {
-                                          console.log("Aguardando")
-                                        }else{
-                                          if (response == 'Thread Error') {
-                                            $('.load').hide();
-                                            clearInterval(intervalo_nome);
-                                            alert('Error processing try again, or verify SNPS data')
-                                          }
-                                        }
-                                      }
-                                    },
-                                    error:function(result){
-                                      console.log("No file found")
-                                      $('.load').hide();
-                                    },
-                                    
-                                  });
-                                 }, 
-                                 20000);
-                                }
-
-                                //hide gif after success
-                                // $('.load').hide();
-                                // console.log("Success form")
-                                // console.log(response)
-                                // var t = $('#datatable-buttons').DataTable();
-                                // for(i=0;i<response.length;i++){
-                                //     t.row.add( [
-                                //       response[i][1],
-                                //       response[i][0][0].location,
-                                //       response[i][0][0].chrom,
-                                //       response[i][0][0].allele_wt,
-                                //       response[i][2],
-                                //       '<a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-pencil"></i> Edit </a>'+
-                                //       '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
-                                //     ] );
-                                // }
-                                // t.draw();
-                                // //delete all the tables and data from other steps
-                                // var table_delete = $('#datatable-buttons-x').DataTable();
-                                // table_delete.clear().draw();
-                                // var table_delete1 = $('#datatable-buttons-ft').DataTable();
-                                // table_delete1.clear().draw();
-                                // var table_delete2 = $('#datatable-buttons-epi').DataTable();
-                                // table_delete2.clear().draw();
-                                // //delete text and dictionary variable
-                                // allele_dict = undefined
-                                // var element;
-                                // element = document.getElementById("sequences");
-                                // if (element) {
-                                //   element.innerHTML = "";
-                                // }
+                              success:function(data, status, request) {
+                                var status_url = request.getResponseHeader('Location')
+                                var user_id = '{{ current_user.id }}'
+                                update_progress(status_url, nanobar, div[0], user_id)
+                                // if (response.status == 202) {
+                                //   var intervalo_nome = setInterval(  function(){
+                                //     //get user id
+                                //     var user_id = '{{ current_user.id }}';
+                                //     $.ajax({
+                                //       url: '/home/data_retrive_thread',
+                                //       type: 'POST',
+                                //       data: { 
+                                //             data_user: user_id 
+                                //       },
+                                //       success:function(response) {
+                                //         if (response != 'No File' && response != 'Thread Error'){
+                                //           $('.load').hide();
+                                //           clearInterval(intervalo_nome);
+                                //           var t = $('#datatable-buttons').DataTable();
+                                //           // if (response['CHROM'] != null){
+                                //           //   var size = Object.keys(response['CHROM']).length;
+                                //           // }
+                                //           // response["ID"]!= undefined
+                                //           if (response[0][0].includes("rs")){
+                                //             //different method for retrieving
+                                //             for(i=0;i<response.length;i++){
+                                //               t.row.add( [
+                                //                 response[i][0],
+                                //                 response[i][1],
+                                //                 response[i][2],
+                                //                 response[i][3],
+                                //                 response[i][4],
+                                //                 '<a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-pencil"></i> Edit </a>'+
+                                //                 '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
+                                //               ] );
+                                //             }
+                                //             t.draw();
+                                //           }else{
+                                //             for(i=0;i<response.length;i++){
+                                //               t.row.add( [
+                                //                 response[i][1],
+                                //                 response[i][0][0].location,
+                                //                 response[i][0][0].chrom,
+                                //                 response[i][0][0].allele_wt,
+                                //                 response[i][2],
+                                //                 '<a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-pencil"></i> Edit </a>'+
+                                //                 '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
+                                //               ] );
+                                //             }
+                                //             t.draw();
+                                //           }
+                                //         }else{
+                                //           if (response == 'No File') {
+                                //             console.log("Aguardando")
+                                //           }else{
+                                //             if (response == 'Thread Error') {
+                                //               $('.load').hide();
+                                //               clearInterval(intervalo_nome);
+                                //               alert('Error processing try again, or verify SNPS data')
+                                //             }
+                                //           }
+                                //         }
+                                //       },
+                                //       error:function(result){
+                                //         console.log("No file found")
+                                //         $('.load').hide();
+                                //       },
+                                //     });
+                                //   }, 
+                                //   20000);
+                                //   }
                               },error:function(){
                                   alert("SNP not found. Try to verify if each snp is corrected in your file")
                                   // $('.load').hide();
@@ -605,6 +593,62 @@
                               return false;
                             });
                           });
+                        </script>
+                        <script>
+                          function update_progress(status_url, nanobar, status_div, user_id) {
+                            // send GET request to status URL
+                            $.getJSON(status_url, function(data) {
+                              // update UI
+                              percent = parseInt(data['current'] * 100 / data['total']);
+                              nanobar.go(percent);
+                              $(status_div.childNodes[1]).text(percent + '%');
+                              $(status_div.childNodes[2]).text(data['status']);
+                              if (data['state'] != 'PENDING' && data['state'] != 'PROGRESS' && data['state'] != 'DONE') {
+                                if ('result' in data) {
+                                  // show result
+                                  
+                                  // Instanciate DataTable
+                                  var t = $('#datatable-buttons').DataTable();
+                                  for(i=0;i<data['result'].length;i++){
+                                    t.row.add( [
+                                      data['result'][i].snp,
+                                      data['result'][i].local,
+                                      data['result'][i].chrom,
+                                      data['result'][i].al_w,
+                                      data['result'][i].al_a,
+                                      '<a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-pencil"></i> Edit </a>'+
+                                      '<a href="#" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> Delete </a>',
+                                    ] );
+                                  }
+                                  t.draw();
+                                  //delete all the tables and data from other steps
+                                  var table_delete = $('#datatable-buttons-x').DataTable();
+                                  table_delete.clear().draw();
+                                  var table_delete1 = $('#datatable-buttons-ft').DataTable();
+                                  table_delete1.clear().draw();
+                                  var table_delete2 = $('#datatable-buttons-epi').DataTable();
+                                  table_delete2.clear().draw();
+                                  //delete text and dictionary variable
+                                  allele_dict = undefined
+                                  var element;
+                                  element = document.getElementById("sequences");
+                                  if (element) {
+                                    element.innerHTML = "";
+                                  }
+                                  // $(status_div.childNodes[3]).text('Result: ' + data['result']);
+                                }
+                                else {
+                                  // something unexpected happened
+                                  $(status_div.childNodes[3]).text('Result: ' + data['state']);
+                                }
+                              }else {
+                                // rerun in 2 seconds
+                                setTimeout(function() {
+                                  update_progress(status_url, nanobar, status_div);
+                                }, 2000);
+                              }
+                            });
+                          }
                         </script>
                         <script>
                           //javascript function
@@ -792,11 +836,11 @@
                           <div>
                             <form class="form-inline">
                                 <input type="text" name="tissue_field" id="tissue_field" class="form-control"></input>
-                                <a href="#" class="btn btn-success btn-xs verify" onclick="$('.load2').show();"><i class="fa fa-play"></i> Run </a>
+                                <a href="#" class="btn btn-success btn-xs verify" ><i class="fa fa-play"></i> Run </a>
                                 <div class="load2" style="display:inline-block"> <i class="fa fa-cog fa-spin fa-5x fa-fw"style="font-size: 25px;"></i> </div>
                                 <span class="load2">Processing...</span>
                             </form>
-                            
+                            <div id="progress2"></div>
                           </div>
                           
                           <table id="datatable-buttons-x" class="table table-striped table-bordered">
@@ -1381,6 +1425,22 @@
                       table_re.rows().remove().draw();
 
                       var user_id = '{{ current_user.id}}';
+
+                      //Delete class progress 1 and child nodes
+                      var myDiv = document.getElementsByClassName("progress2");;
+                      myDiv.innerHTML = "";
+                      $('.progress2').remove();
+
+                      // Progress bar
+                      div = $('<div class="progress2"><div></div><div>0%</div><div>...</div><div>&nbsp;</div></div>');
+                      $('#progress2').append(div);
+
+                      // Create nanobar
+                      var nanobar = new Nanobar({
+                          bg: '#44f',
+                          target: div[0].childNodes[0]
+                      });
+
                       $.ajax({
 
                         url: '/home/verify_snps',
@@ -1391,144 +1451,165 @@
                               user_id : user_id,
                               user_email : '{{current_user.email}}'
                         },
-                        // async: false,
-                        success:function(response) {
+                        success:function(data, status, request) {
 
-                          if(response.status == 202){
-                            var intervalo2_nome = setInterval(function(){
-                              // Ajax to keep findind the file
-                              // get user id
-                              var user_id = '{{ current_user.id }}'
-                              $.ajax({
-                                url: '/home/data_retrive2_thread',
-                                type: 'POST',
-                                data: { 
-                                  data_user: user_id 
-                                },
-                                success:function(response){
-                                  if(response != 'No File' && response != 'Thread Error'){
-                                    $('.load2').hide();
-                                    clearInterval(intervalo2_nome);
-                                    if (response != 'No File'){
-                                        var table_2 = $('#datatable-buttons-x').DataTable();
-                                        var x_boolean = true;
-                                        //different method for retrieving
-                                        if (response[0]['reg_elemnt']){
-                                          console.log('TRUE -- reg_elemnt tag')
-                                          for (let i = 0; i < response.length; i++) {
-                                            if (response[i]['reg_elemnt'].split("|")[0] != "DO NOT EXIST "){
-                                              table_2.row.add( [
-                                                response[i]['snp_name'],
-                                                response[i]['state_model'],
-                                                response[i]['tissue'],
-                                                response[i]['reg_elemnt'],
-                                              ] );
-                                              table_2.draw();
-                                            }else{
-                                              if (x_boolean){
-                                                alert("One of the tissues does not exist")
-                                                x_boolean = false
-                                              }
-                                            }
-                                          }
-                                        }else{
-                                          // When commit is done
-                                          console.log('HERE --- debugging new list')
-                                          console.log(response[0])
-                                          console.log(response[1])
-                                          for (let i = 0; i < response.length; i++) {
-                                            if (response[i][3].split("|")[0] != "DO NOT EXIST "){
-                                              table_2.row.add( [
-                                                response[i][0],
-                                                response[i][1],
-                                                response[i][2],
-                                                response[i][3],
-                                              ] );
-                                              table_2.draw();
-                                            }else{
-                                              if (x_boolean){
-                                                alert("One of the tissues does not exist")
-                                                x_boolean = false
-                                              }
-                                            }
-                                          }
-                                        }
-                                        //Delete from other steps
-                                        var table_delete1 = $('#datatable-buttons-ft').DataTable();
-                                        table_delete1.clear().draw();
-                                        var table_delete2 = $('#datatable-buttons-epi').DataTable();
-                                        table_delete2.clear().draw();
-                                        //delete text and dictionary variable
-                                        allele_dict = undefined
-                                        var element;
-                                        element = document.getElementById("sequences");
-                                        if (element) {
-                                          element.innerHTML = "";
-                                        }
-                                      }
-                                  }else{
-                                    if(response == 'No File'){
-                                      console.log("Aguardando")
-                                    }else{
-                                      if(response == 'Thread Error') {
-                                        $('.load2').hide();
-                                        clearInterval(intervalo2_nome);
-                                        alert('Error in verify thread, check SNPs or try again')
-                                      }
-                                    }
-                                  }
-                                },
-                                error: function (result){
-                                  console.log("No file found");
-                                  $('.load2').hide();
-                                }
-                              });
-                            }, 20000);
-                          }
-                          // //hide load button
-                          // $('.load2').hide();
-                          // //some debbugging
-                          // if (response[0] == undefined){
-                          //     alert("Insert snp first")
-                          // }else{
-                          //   console.log("LOG: " + response[0]['state_model'])
-                          //   //declare datatable
-                          //   var t = $('#datatable-buttons-x').DataTable();
-                          //   //iterate through response to add rows in the table
-                          //   var x_boolean = true
-                          //   for(i=0;i<response.length;i++){
-                          //     if (response[i]['reg_elemnt'].split("|")[0] != "DO NOT EXIST "){
-                          //       t.row.add( [
-                          //         response[i]['snp_name'],
-                          //         response[i]['state_model'],
-                          //         response[i]['tissue'],
-                          //         response[i]['reg_elemnt'],
-                          //       ] );
-                          //       t.draw();
-                          //     }else{
-                          //       if (x_boolean){
-                          //         alert("One of the tissues does not exist")
-                          //         x_boolean = false
+                          var status_url = request.getResponseHeader('Location')
+                          var user_id = '{{ current_user.id }}'
+                          update_progress2(status_url, nanobar, div[0], user_id)
+
+                          //Old method
+                          // if(status == 202){
+                          //   var intervalo2_nome = setInterval(function(){
+                          //     // Ajax to keep findind the file
+                          //     // get user id
+                          //     var user_id = '{{ current_user.id }}'
+                          //     $.ajax({
+                          //       url: '/home/data_retrive2_thread',
+                          //       type: 'POST',
+                          //       data: { 
+                          //         data_user: user_id 
+                          //       },
+                          //       success:function(response){
+                          //         if(response != 'No File' && response != 'Thread Error'){
+                          //           $('.load2').hide();
+                          //           clearInterval(intervalo2_nome);
+                          //           if (response != 'No File'){
+                          //               var table_2 = $('#datatable-buttons-x').DataTable();
+                          //               var x_boolean = true;
+                          //               //different method for retrieving
+                          //               if (response[0]['reg_elemnt']){
+                          //                 console.log('TRUE -- reg_elemnt tag')
+                          //                 for (let i = 0; i < response.length; i++) {
+                          //                   if (response[i]['reg_elemnt'].split("|")[0] != "DO NOT EXIST "){
+                          //                     table_2.row.add( [
+                          //                       response[i]['snp_name'],
+                          //                       response[i]['state_model'],
+                          //                       response[i]['tissue'],
+                          //                       response[i]['reg_elemnt'],
+                          //                     ] );
+                          //                     table_2.draw();
+                          //                   }else{
+                          //                     if (x_boolean){
+                          //                       alert("One of the tissues does not exist")
+                          //                       x_boolean = false
+                          //                     }
+                          //                   }
+                          //                 }
+                          //               }else{
+                          //                 // When commit is done
+                          //                 console.log('HERE --- debugging new list')
+                          //                 console.log(response[0])
+                          //                 console.log(response[1])
+                          //                 for (let i = 0; i < response.length; i++) {
+                          //                   if (response[i][3].split("|")[0] != "DO NOT EXIST "){
+                          //                     table_2.row.add( [
+                          //                       response[i][0],
+                          //                       response[i][1],
+                          //                       response[i][2],
+                          //                       response[i][3],
+                          //                     ] );
+                          //                     table_2.draw();
+                          //                   }else{
+                          //                     if (x_boolean){
+                          //                       alert("One of the tissues does not exist")
+                          //                       x_boolean = false
+                          //                     }
+                          //                   }
+                          //                 }
+                          //               }
+                          //               //Delete from other steps
+                          //               var table_delete1 = $('#datatable-buttons-ft').DataTable();
+                          //               table_delete1.clear().draw();
+                          //               var table_delete2 = $('#datatable-buttons-epi').DataTable();
+                          //               table_delete2.clear().draw();
+                          //               //delete text and dictionary variable
+                          //               allele_dict = undefined
+                          //               var element;
+                          //               element = document.getElementById("sequences");
+                          //               if (element) {
+                          //                 element.innerHTML = "";
+                          //               }
+                          //             }
+                          //         }else{
+                          //           if(response == 'No File'){
+                          //             console.log("Aguardando")
+                          //           }else{
+                          //             if(response == 'Thread Error') {
+                          //               $('.load2').hide();
+                          //               clearInterval(intervalo2_nome);
+                          //               alert('Error in verify thread, check SNPs or try again')
+                          //             }
+                          //           }
+                          //         }
+                          //       },
+                          //       error: function (result){
+                          //         console.log("No file found");
+                          //         $('.load2').hide();
                           //       }
-                          //     }
-                          //   };
+                          //     });
+                          //   }, 20000);
                           // }
-                          // //delete all the tables and data from other steps
-                          // var table_delete1 = $('#datatable-buttons-ft').DataTable();
-                          // table_delete1.clear().draw();
-                          // var table_delete2 = $('#datatable-buttons-epi').DataTable();
-                          // table_delete2.clear().draw();
-                          // //delete text and dictionary variable
-                          // allele_dict = undefined
-                          // var element;
-                          // element = document.getElementById("sequences");
-                          // if (element) {
-                          //   element.innerHTML = "";
-                          // }
+                          
                         }
                       });
                     });
                   });
+                </script>
+                <script>
+                  function update_progress2(status_url, nanobar, status_div, user_id) {
+                    // send GET request to status URL
+                    $.getJSON(status_url, function(data) {
+                      console.log(data)
+                      console.log("Hello World !! --- update_progress 2")
+                      // update UI
+                      percent = parseInt(data['current'] * 100 / data['total']);
+                      nanobar.go(percent);
+                      $(status_div.childNodes[1]).text(percent + '%');
+                      $(status_div.childNodes[2]).text(data['status']);
+                      if (data['state'] != 'PENDING' && data['state'] != 'PROGRESS' && data['state'] != 'DONE') {
+                        console.log("Chegou ate aqui update progress 2")
+                        console.log(data)
+                        console.log(data['result'])
+                        if ('result' in data) {
+                          // show result
+                          
+                          // Instanciate DataTable
+                          var t = $('#datatable-buttons-x').DataTable();
+                          for(i=0;i<data['result'].length;i++){
+                            t.row.add( [
+                              data['result'][i].snp_name,
+                              data['result'][i].state_model,
+                              data['result'][i].tissue,
+                              data['result'][i].reg_elemnt,
+                            ] );
+                          }
+                          t.draw();
+                          //delete all the tables and data from other steps
+                          var table_delete1 = $('#datatable-buttons-ft').DataTable();
+                          table_delete1.clear().draw();
+                          var table_delete2 = $('#datatable-buttons-epi').DataTable();
+                          table_delete2.clear().draw();
+                          //delete text and dictionary variable
+                          allele_dict = undefined
+                          var element;
+                          element = document.getElementById("sequences");
+                          if (element) {
+                            element.innerHTML = "";
+                          }
+                          // $(status_div.childNodes[3]).text('Result: ' + data['result']);
+                        }
+                        else {
+                          // something unexpected happened
+                          $(status_div.childNodes[3]).text('Result: ' + data['state']);
+                        }
+                      }else {
+                        // rerun in 2 seconds
+                        setTimeout(function() {
+                          update_progress2(status_url, nanobar, status_div);
+                        }, 2000);
+                      }
+                    });
+                  }
                 </script>
                   <!-- STEP 2.5 Delete snps button function -->
                   <script type="text/javascript">
@@ -2207,4 +2288,10 @@
    <script src="{{ url_for('static', filename='vendors/jszip/dist/jszip.min.js') }}"></script>
    <script src="{{ url_for('static', filename='vendors/pdfmake/build/pdfmake.min.js') }}"></script>
    <script src="{{ url_for('static', filename='vendors/pdfmake/build/vfs_fonts.js') }}"></script>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/nanobar/0.2.1/nanobar.min.js"></script>
+   <script type="text/javascript"> 
+    $(document).ready(function() { 
+      $('.stepContainer').height(850); //1 $('.content').height(1000); // 2 
+    }); 
+  </script>
 {% endblock javascripts %}

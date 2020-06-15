@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from importlib import import_module
 from logging import basicConfig, DEBUG, getLogger, StreamHandler
 from os import path
+from celery import Celery
 
 import requests, sys
 import numpy as np
@@ -11,6 +12,7 @@ import pandas as pd
 import re
 from flask import jsonify
 from flask import request
+from .celery_utils import init_celery
 
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -74,9 +76,22 @@ def apply_themes(app):
                     values['filename'] = theme_file
         return url_for(endpoint, **values)
 
-def create_app(config, selenium=False):
+## Make celery
+def make_celery(app_name=__name__):
+    redis_uri = 'redis://redis:6379/0'
+    return Celery(app_name,backend=redis_uri, broker=redis_uri)
+
+celery = make_celery()
+##end celery
+
+def create_app(config, selenium=False, **kwargs):
     app = Flask(__name__, static_folder='base/static')
     app.config.from_object(config)
+
+    #Celery init
+    if kwargs.get("celery"):
+        init_celery(kwargs.get("celery"), app)
+    ## End celery init
     if selenium:
         app.config['LOGIN_DISABLED'] = True
     register_extensions(app)
