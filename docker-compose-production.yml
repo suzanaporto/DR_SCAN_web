@@ -39,8 +39,8 @@ services:
   gentelella:
     restart: always
     env_file: .env_production
-    command: "gunicorn --config gunicorn.py gentelella:app"
     build: .
+    command: "gunicorn --config gunicorn.py gentelella:app"
     ports:
       - "5000:5000"
     network_mode: bridge
