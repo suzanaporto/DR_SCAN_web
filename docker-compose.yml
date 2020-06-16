@@ -24,9 +24,9 @@ services:
   gentelella:
     restart: always
     env_file: .env
-    build: 
-      context: .
-      dockerfile: Dockerfile
+    build: .
+      # context: .
+      # dockerfile: Dockerfile
     command: "gunicorn --config gunicorn.py gentelella:app"
     ports:
       - "5000:5000"
