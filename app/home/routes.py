@@ -2054,9 +2054,12 @@ def data_retriever():
     id_user = request.form['data_user']
     find_user_work = Workflow.query.filter_by(user_id_user=id_user).first()
     if not find_user_work == None and not find_user_work.step1 == None:
-        with open('app/users_workflow/'+str(find_user_work.user_id_user)+'_step1.txt') as json_file:  
-            data = json.load(json_file)
-            return jsonify(data)
+        try:
+            with open('app/users_workflow/'+str(find_user_work.user_id_user)+'_step1.txt') as json_file:  
+                data = json.load(json_file)
+                return jsonify(data)
+        except FileNotFoundError:
+            return 'No File'
     else:
         return 'No File'
 
@@ -2067,9 +2070,12 @@ def data_retriever1():
     id_user = request.form['data_user']
     find_user_work = Workflow.query.filter_by(user_id_user=id_user).first()
     if not find_user_work == None and not find_user_work.step2 == None:
-        with open('app/users_workflow/'+str(find_user_work.user_id_user)+'_step2.txt') as json_file:  
-            data = json.load(json_file)
-            return jsonify(data)
+        try:
+            with open('app/users_workflow/'+str(find_user_work.user_id_user)+'_step2.txt') as json_file:  
+                data = json.load(json_file)
+                return jsonify(data)
+        except FileNotFoundError:
+            return 'No File'
     else:
         return 'No File'
 
@@ -2079,13 +2085,16 @@ def data_retriever1():
 def data_retriever2():
     id_user = request.form['data_user']
     find_user_work = Workflow.query.filter_by(user_id_user=id_user).first()
-    if not find_user_work.step3 == None:
+    if not find_user_work == None and not find_user_work.step3 == None:
         file1 = 'app/users_workflow/'+str(find_user_work.user_id_user)+'_step3.txt'
         file2 = 'app/users_workflow/'+str(find_user_work.user_id_user)+'_step3_dictionary.txt'
-        with open(file1) as json_file, open(file2) as b:  
-            data = json.load(json_file)
-            dictio = json.load(b)
-            return jsonify(data,dictio)
+        try:
+            with open(file1) as json_file, open(file2) as b:  
+                data = json.load(json_file)
+                dictio = json.load(b)
+                return jsonify(data,dictio)
+        except FileNotFoundError:
+            return 'No File'
     else:
         return 'No File'
 
@@ -2095,11 +2104,14 @@ def data_retriever2():
 def data_retriever3():
     id_user = request.form['data_user']
     find_user_work = Workflow.query.filter_by(user_id_user=id_user).first()
-    if not find_user_work.step4 == None:
+    if not find_user_work == None and not find_user_work.step4 == None:
         file1 = 'app/users_workflow/'+str(find_user_work.user_id_user)+'_step4.txt'
-        with open(file1) as json_file:  
-            data = json.load(json_file)
-            return jsonify(data)
+        try:
+            with open(file1) as json_file:  
+                data = json.load(json_file)
+                return jsonify(data)
+        except FileNotFoundError:
+            return 'No File'
     else:
         return 'No File'
 
@@ -2109,11 +2121,14 @@ def data_retriever3():
 def data_retriever4():
     id_user = request.form['data_user']
     find_user_work = Workflow.query.filter_by(user_id_user=id_user).first()
-    if not find_user_work.step5 == None:
+    if not find_user_work == None and not find_user_work.step5 == None:
         file1 = 'app/users_workflow/'+str(find_user_work.user_id_user)+'_step5.txt'
-        with open(file1) as json_file:  
-            data = json.load(json_file)
-            return jsonify(data)
+        try:
+            with open(file1) as json_file:  
+                data = json.load(json_file)
+                return jsonify(data)
+        except FileNotFoundError:
+            return 'No File'
     else:
         return 'No File'
 
