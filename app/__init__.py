@@ -78,7 +78,7 @@ def apply_themes(app):
 
 ## Make celery
 def make_celery(app_name=__name__):
-    redis_uri = 'redis://redis:6379/0'
+    redis_uri = 'redis://regulomix_redis:6379/0'
     return Celery(app_name,backend=redis_uri, broker=redis_uri)
 
 celery = make_celery()
