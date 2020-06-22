@@ -11,7 +11,9 @@ services:
       - ./redis-data:/var/lib/redis
       - ./redis.conf:/usr/local/etc/redis/redis.conf
     command: redis-server /usr/local/etc/redis/redis.conf
-    network_mode: bridge
+    # network_mode: bridge
+    networks:
+      - regulomix
     restart: always
     sysctls:
       net.core.somaxconn: '511'
@@ -27,7 +29,9 @@ services:
       - redis
     depends_on: 
       - redis
-    network_mode: bridge
+    # network_mode: bridge
+    networks:
+      - regulomix
     restart: always
     volumes:
       - .:/code
@@ -43,19 +47,29 @@ services:
       - 5432
     ports:
       - 5432:5432
-    network_mode: bridge
+    # network_mode: bridge
+    networks:
+      - regulomix
 
   gentelella:
     restart: always
     env_file: .env_production
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile
     command: "gunicorn --config gunicorn.py gentelella:app"
     ports:
       - "5000:5000"
-    network_mode: bridge
+    # network_mode: bridge
+    networks:
+      - regulomix
     depends_on:
       - db
       - redis
     volumes:
       - .:/code
       - ./log:/code/log
+
+networks:
+  regulomix:
+    driver: bridge
