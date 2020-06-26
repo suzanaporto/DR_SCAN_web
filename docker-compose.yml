@@ -65,6 +65,8 @@ services:
     volumes:
       - .:/code
       - ./log:/code/log
+    environment: 
+      - REDIS_CONTAINER_PORT=regulomix_redis:6379
   # commented nginx
 
 networks:
