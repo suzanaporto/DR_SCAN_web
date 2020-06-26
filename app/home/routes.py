@@ -2536,6 +2536,8 @@ def funcao_teste_snp(self, user_id, user_email, file_path):
         server.quit()
         print("Email failed to send")
     
+    print("LISTA DAS SNPS")
+    print(list_all_snps)
     # Pass all parameters in result
     snp_info_list = []
     for info in list_all_snps:
@@ -2543,7 +2545,8 @@ def funcao_teste_snp(self, user_id, user_email, file_path):
         dict_snp = {}
         dict_snp['snp'] = info[1]
         dict_snp['al_w'] = info[0][0]['allele_wt']
-        dict_snp['al_a'] = info[0][0]['allele_v']
+        dict_snp['al_a'] = info[-1]
+        # dict_snp['al_a'] = info[0][0]['allele_v']
         dict_snp['local'] = info[0][0]['location']
         dict_snp['chrom'] = info[0][0]['chrom']
         snp_info_list.append(dict_snp)

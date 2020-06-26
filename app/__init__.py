@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from importlib import import_module
 from logging import basicConfig, DEBUG, getLogger, StreamHandler
 from os import path
+import os
 from celery import Celery
 
 import requests, sys
@@ -79,6 +80,7 @@ def apply_themes(app):
 ## Make celery
 def make_celery(app_name=__name__):
     redis_uri = 'redis://regulomix_redis:6379/0'
+    # redis_uri = 'redis://127.0.0.1:6379/0'
     return Celery(app_name,backend=redis_uri, broker=redis_uri)
 
 celery = make_celery()
