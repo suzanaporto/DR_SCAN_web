@@ -15,8 +15,8 @@ from app.base.models import User
 
 @blueprint.route('/')
 def route_default():
-    # return render_template('home_1.html')
-    return redirect(url_for('base_blueprint.login'))
+    return render_template('home_index.html')
+    # return redirect(url_for('base_blueprint.login'))
 
 # @blueprint.route('/login')
 # def login_default():
