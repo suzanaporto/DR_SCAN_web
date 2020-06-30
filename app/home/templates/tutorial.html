@@ -1,0 +1,388 @@
+{% extends "base_site.html" %}
+
+{% block title %} Dashboard 1 {% endblock title %}
+
+{% block stylesheets %}
+  {{ super() }}
+{% endblock stylesheets %}
+
+{% block content %}
+<style>
+  .wizard_verticle ul.wizard_steps li a.selected:before, .step_no {
+    background: #006938;
+    color: #fff;
+  }
+  .wizard_horizontal ul.wizard_steps li a.selected:before, .step_no {
+    background: #006938;
+    color: #fff;
+  }
+  .wizard_horizontal ul.wizard_steps li a.done:before, .wizard_horizontal ul.wizard_steps li a.done .step_no {
+    background: #5EC199;
+    color: #fff;
+  }
+  .btn-primary {
+    color: #fff;
+    background-color: #006938;
+    border-color: #005e32;
+  }
+  .btn-primary:hover {
+    color: #fff;
+    background-color: #00743e;
+    border-color: #005e32;
+  }
+  .btn-success {
+    background: #5EC199;
+    border: 1px solid rgb(87, 177, 141);
+  }
+
+</style>
+  <div class="right_col" role="main">
+    <div class="">
+      <div class="page-title">
+        <div class="title_left">
+          <!-- <h3>SNP SCANNER</h3> -->
+        </div>
+
+        <div class="title_right">
+          <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+
+      <div class="row">
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>TUTORIAL </h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+              <section class="section">
+                <aside class="menu">
+                    <!-- <section class="section> -->
+                    <!-- <aside class="menu> -->
+                  <!-- <p class="menu-label">
+                    TUTORIAL
+                  </p> -->
+                  <iframe width="560" height="315" src="https://www.youtube.com/embed/PZVISe-1-Tg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  <ul class="#">
+                    <li>
+                      <!-- <a>Q: What it is and how to follow the REGULOMIX Steps:</a> -->
+                      <p class="#">After you’ve logged in, you will see steps that were designed to ease 
+                          the process of using REGULOMIX. 
+                          To use REGULOMIX, you’ll have to follow each step below.
+                      </p>
+                      <img src="/static/RegulomixFAQ/Imagem45.png" style="max-width: 100%; height: auto;width:1040px;"/>
+                      <ul>
+                        <li>
+                            <a style="font-size: 18px;">Step 1 – Insert SNPs:</a>
+                            <!-- <p>Q: How to insert a SNP or a set of SNPs:</p> -->
+                            <img src="/static/RegulomixFAQ/Imagem46.png" style="max-width: 100%; height: auto;width:900px;"/>
+                            <p>Insert your SNPs manually at the blank text field inside the red box. 
+                                After that, press the green “Run” button.</p>
+                            <img src="/static/RegulomixFAQ/Imagem47.png" style="max-width: 100%; height: auto;width:900px;"/>
+                            <p><b>OR</b></p>
+                            <p>You can create a table in .xlsx to use you list of SNPs faster. 
+                                To do that, you’ll have to follow the example below.
+                            </p>
+                            <img src="/static/RegulomixFAQ/Imagem8.png"/>
+                            <p>Example of an excel sheet containing SNP IDs. 
+                                For the algorithm to work, create a file in .xlsx with only 
+                                one column with header named SNPS and write in each row one SNP ID.
+                            </p>
+                            <img src="/static/RegulomixFAQ/Imagem48.png" style="max-width: 100%; height: auto;width:900px;"/>
+                            <p>Choose your SNP chart file to be uploaded by clicking the 
+                                "Choose File" button and select you own .xlsx file. After that, 
+                                press the green “Run” button.
+                            </p>
+                            <img src="/static/RegulomixFAQ/Imagem38.png" style="max-width: 100%; height: auto;width:900px;"/>
+                            <p>A progress bar will appear showing the percentage of SNPs that already had been processed,
+                                the SNP id of the SNP that had just been processed and its index.
+                                The progress bar will not be shown if the user close the browser tab, but the progress 
+                                will continue and the user will be notified by email when its done.
+                            </p>
+                            <img src="/static/RegulomixFAQ/Imagem10.png"/>
+                            <p>Use the Scroll Down Bar (red arrow) to see the information about the 
+                                SNP inserted at the chart below.</p>
+                        </li>
+                        <li>
+                            <a style="font-size: 18px;">Step 2 – Cis-regulatory Elements:</a>
+                            <p>REGULOMIX uses, in STEP 2, ROADMAP Epigenomics Project data and servers. 
+                                To verify Cis-regulatory elements, you’ll have to enter the ID 
+                                of the tissue from ROADMAP Epigenomics Project, present in the ID Catalogue.
+                            </p>
+                            <img src="/static/RegulomixFAQ/Imagem11.png"/>
+                            <p>Tissues ID are in the ID Catalogue (1). 
+                                To access the ID Catalogue (1), click on “ID Catalogue” 
+                                at the left green panel. The tissues ID (2) 
+                                will be at the first column.
+                            </p>
+                            <img src="/static/RegulomixFAQ/Imagem12.png"/>
+                            <p>At Step 2, the first thing you’ll need to do is enter the tissue ID at the textbox. 
+                                You can enter multiple tissues by using the symbol “|” between them!
+                            </p>
+                            <img src="/static/RegulomixFAQ/Imagem13.png"/>
+                            <p>After entering the tissue ID, press the green “Run” button 
+                                to the right of the tissue ID textbox. It will appear that it is processing your request
+                                with the same progress bar as the step 1. It is going to show the tissue ID, the SNP that just 
+                                finished being processed and its index.
+                            </p>
+                            <img src="/static/RegulomixFAQ/Imagem39.png" style="max-width: 100%; height: auto;width:900px;"/>
+                            <p>After REGULOMIX process your SNPs inside tissue data from ROADMAP Epigenomics, 
+                                the information will be displayed at the table below.
+                            </p>
+                            <img src="/static/RegulomixFAQ/Imagem15.png"style="max-width: 100%; height: auto;width:950px;"/>
+                            <p>You can use the “Search” textbox to look for any value in the table such as: 
+                                SNPs, Tissues and Regulatory Elements.
+                            </p>
+                            <img src="/static/RegulomixFAQ/Imagem16.png"/>
+                            <p>It is possible to “Copy”, “Print” or download a “.csv” file of your data from 
+                                STEP 2 using the buttons below “Tissue textbox”.</p>
+                            <img src="/static/RegulomixFAQ/Imagem17.png" style="max-width: 100%; height: auto;width:970px;"/>
+                            <p>Pressing “Copy” will copy the Cis-regulatory Elements analysis data to your Clipboard. 
+                                You can paste it in whatever program you want to save the information.</p>
+                            <p>
+                                Pressing “CSV” will download a .csv file with the information of the Cis-regulatory Elements analysis.
+                            </p>
+                            <p>Pressing “Print” will open a new tab with only the Cis-regulatory Elements 
+                                analysis table information and it will open a printer information window.</p>
+                            <img src="/static/RegulomixFAQ/Imagem18.png"/>
+                            <p>If you want to exclude SNPs from next steps, you can write the name of that SNP 
+                                inside the Delete SNPs textbox and press “Delete”.</p>
+                            <img src="/static/RegulomixFAQ/Imagem19.png"/>
+                            <p>After pressing delete, you’ll notice that the SNP will be deleted from the table above.</p>
+                            <img src="/static/RegulomixFAQ/Imagem20.png"/>
+                            <p>If you want to continue to STEP 3, you should select one of the tissues 
+                                analyzed and any of the respectively regulatory element you want, then press “Submit”.
+                            </p>
+                            <img src="/static/RegulomixFAQ/Imagem21.png"/>
+                        <li><a style="font-size: 18px;">Step 3 – Generate Sequences and TFB Scan:</a></li>
+                            <p>In Step 3, REGULOMIX is going to create sequences of 63 nucleotides 
+                                long with each SNP filtered from Step 2 in different positions within the sequence. 
+                                These sequences will be used with JASPAR matrixes to identify which Transcription 
+                                Factors to bind in each SNP filtered.
+                            </p>
+                            <p>To select one of the matrixes from JASPAR already in our server, 
+                                click on the drop-down list box to choose. Matrix information 
+                                can be found at Jaspar website, inside “About” section: <a href="http://jaspar.genereg.net/about/">http://jaspar.genereg.net/about/</a>
+                            </p>
+                            <p>You can also upload matrixes in meme format to be used in REGULOMIX, that uses FIMO in
+                                the background, by clicking “Choose File”. After you choose your file, you should click 
+                                “Upload”.
+                            </p>
+                            <p> You can select a different value for p-value paramenter in FIMO or you can select q-value to
+                                use "q-value" as FIMO threshold paramenter
+                            </p>
+                            <p>Click “Generate and Scan” to request to Generate Sequences and process sequences in FIMO.</p>
+                            <img src="/static/RegulomixFAQ/Imagem40.png" style="max-width: 100%; height: auto;width:970px;"/>
+                            <p>When the generation of sequences is over, it will appear a popup message saying it’s done.
+                            </p>
+                            <img src="/static/RegulomixFAQ/Imagem50.png" style="max-width: 100%; height: auto;width:970px;"/>
+                            <p>You will able to see the sequences generate below the “Generate and Scan” Button.
+                            </p>
+                            <img src="/static/RegulomixFAQ/Imagem42.png" style="max-width: 100%; height: auto;width:970px;"/>
+                            <p>You can press “Next” to continue to Step 4.
+                            </p>
+                            <li><a style="font-size: 18px;">Step 4 – Differential Transcription Factors:</a></li>
+                            <p>In Step 4, you’ll be able to request analyses of which 
+                                Transcription Factors bind to each sequence generated in Step 3. 
+                                Therefore, it’s possible to manually search for Differential Transcription Factors.
+                            </p>
+                            <p>To request the Differential Transcription Factors analyses, press the green “Run” button.
+                            </p>
+                            <img src="/static/RegulomixFAQ/Imagem43.png" style="max-width: 100%; height: auto;width:970px;"/>
+                            <p>When the Differential Transcription Factor Analyses is over, 
+                                it will appear a popup message saying it’s done. After the analysis is over, 
+                                it will appear a table below the “Run” button to visualize each TF binding for each sequence.
+                            </p>
+                            <img src="/static/RegulomixFAQ/Imagem44.png" style="max-width: 100%; height: auto;width:970px;"/>
+                            <p>The meaning of each column in step 4:
+                            </p>
+                            <p>Motif ID:</p>
+                            <p>Transcription Factor/Motif ID.</p>
+                            <p>Motif Alt ID: </p>
+                            <p>Name of the Transcription Factor.</p>
+                            <p>Sequence Name:
+                            </p>
+                            <p># This column is divided in 5 parts:<br>
+                                - Part 1: Sequence type: It can be “sequence_wild_type” for the sequence that contains a Wild-type SNP allele, or “sequence_variation” for the sequence that contains a non wild-type/variation SNP.
+                                - Part 2: SNP ID: The RefSNP number.<br>
+                                - Part 3: SNP chromosome.<br>
+                                - Part 4: SNP Allele: The Allele of the SNP contained in the sequence that the TF binds to.<br>
+                                - Part 5: Position of the SNP inside the sequence in nucleotide.<br>
+                            </p>
+                            <p>Strand:
+                            </p>
+                            <p>Show the Positive-sense (5’-to-3’) or the Negative sense (3’-to-5’) of the sequence.
+                            </p>
+                            <p>Start: 
+                            </p>
+                            <p>The beginning of where the transcription factor binds in the sequence, in nucleotide.
+                            </p>
+                            <p>End: 
+                            </p>
+                            <p>The end of where the transcription factor binds in the sequence, in nucleotide.
+                            </p>
+                            <p>p-value: 
+                            </p>
+                            <p>Shows the p-value for the binding.
+                            </p>
+                            <p>q-value: 
+                            </p>
+                            <p>Shows the q-value for the binding.
+                            </p>
+                            <p>Matched Sequence:
+                            </p>
+                            <p>Shows what part of the sequence is binding to the Transcription Factor.</p>
+                            
+                            <p>You can use the “Search” textbox to look for any value in the table such as: 
+                                Motif ID, Motif Alt ID, Sequence Name, Strand, Start, End, p-value, q-value and Matched Sequence.
+                            </p>
+                            <img src="/static/RegulomixFAQ/Imagem27.png"/>
+                            <p>It is possible to “Copy”, “Print” or download a “.csv” file of your data from STEP 4 using the buttons below “Run” button.
+                            </p>
+                            <img src="/static/RegulomixFAQ/Imagem28.png"/>
+                            <p>Pressing “Copy” will copy the Step 4 analysis data to your Clipboard. You can paste it in whatever program you want to save the information.
+                            </p>
+                            <p>
+                                Pressing “CSV” will download a .csv file with the information of the Step 4 analysis.
+                            </p>
+                            <p>
+                                Pressing “Print” will open a new tab with only the Step 4 analysis table information and it will open a printer information window.
+                            </p>
+                            <img src="/static/RegulomixFAQ/Imagem29.png"/>
+                            <li><a style="font-size: 18px;">Step 5 – Enhancer Promoter Interaction:</a></li>
+                            <p>In Step 5, you’ll be able to request enhancer-promoter interaction (EPI). 
+                                REGULOMIX uses JEME, joint effect of multiple enhancers (Cao, Qin et al., 2016), 
+                                in Step 5 to identify EPI. The prediction uses a learned random forest model with 
+                                cross-validation for predicting enhancer targets.
+                                For more information about how JEME works, go to doi:10.1038/ng.3950.
+                            </p>
+                            <p>Use the “ROADMAP Epigenomics tissue ID” of the tissue you want to use for the analysis in the textbox. 
+                                You can enter multiple tissues by using the symbol “|” between them.
+                            </p>
+                            <img src="/static/RegulomixFAQ/Imagem31.png"/>
+                            <p>After the REGULOMIX is done, a table will appear below the tissue textbox.</p>
+                            <img src="/static/RegulomixFAQ/Imagem32.png"/>
+                            <p>The meaning of each column in step 5:</p>
+                            <p>SNP:
+                            </p>
+                            <p>SNP ID/RefSNP number of the SNP contained in the sequence being analyzed.
+                            </p>
+                            <p>Location:
+                            </p>
+                            <p>Location of the SNP contained in the sequence being analyzed.
+                            </p>
+                            <p>Gene ID:
+                            </p>
+                            <p>Ensembl Gene ID of the Gene predicted to interact with the sequence being analyzed.</p>
+                            <p>Gene:
+                            </p>
+                            <p>The gene that potentially interacts with the sequence being analyzed.
+                            </p>
+                            <p>Gene Location:
+                            </p>
+                            <p>Localization of the Gene predicted to interact with the sequence being analyzed.
+                            </p>
+                            <p>Score:
+                            </p>
+                            <p>Enhancer-target Interaction Scores. REGULOMIX uses JEME, 
+                                joint effect of multiple enhancers (Cao, Qin et al., 2016), 
+                                in Step 5 to identify EPI. The prediction uses a learned random 
+                                forest model with cross-validation for predicting enhancer targets.
+                            </p>
+                            <p>For more information about how JEME works, go to doi:10.1038/ng.3950.
+                            </p>
+                            <p>Tissue:
+                            </p>
+                            <p>Chosen by user.Tissue where EPI predictions were made.
+                            </p>
+                            <p>File Type:
+                            </p>
+                            <p>Statistic regression method used in the prediction of EPI. 
+                                REGULOMIX uses JEME, joint effect of multiple enhancers (Cao, Qin et al., 2016), 
+                                in Step 5 to identify EPI. JEME uses Elasticnet regression or Lasso regression for it’s results.
+                            </p>
+                            <p>For more information about how JEME works, go to doi:10.1038/ng.3950.
+                            </p>
+                            <img src="/static/RegulomixFAQ/Imagem36.png"/>
+                            <p> It is possible to “Copy”, “Print” or download a “.csv” file of your data from 
+                                STEP 5 using the buttons below “Run” button.
+                            </p>
+                            <img src="/static/RegulomixFAQ/Imagem37.png"/>
+                            <p>Pressing “Copy” will copy the Step 5 analysis data to your Clipboard. You can paste it in whatever program you want to save the information.</p>
+                            <p>Pressing “CSV” will download a .csv file with the information of the Step 5 analysis.</p>
+                            <p>Pressing “Print” will open a new tab with only the Step 5 analysis table information and it will open a printer information window.</p>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </aside>
+              </section>
+              
+              <!-- End SmartWizard Content -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+{% block javascripts %}
+  {{ super()}}
+  <!-- Table methods -->
+  <!-- Rows Group -->
+  <!-- <script src="//cdn.rawgit.com/ashl1/datatables-rowsgroup/v1.0.0/dataTables.rowsGroup.js"></script> -->
+  <!-- tables.js -->
+  <script src=""></script>
+  <!-- Chart.js -->
+  <script src="{{ url_for('static', filename='vendors/Chart.js/dist/Chart.min.js') }}"></script>
+  <!-- gauge.js -->
+  <script src="{{ url_for('static', filename='vendors/gauge.js/dist/gauge.min.js') }}"></script>
+  <!-- Skycons -->
+  <script src="{{ url_for('static', filename='vendors/skycons/skycons.js') }}"></script>
+  <!-- Flot -->
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.pie.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.time.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.stack.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.resize.js') }}"></script>
+  <!-- Flot plugins -->
+  <script src="{{ url_for('static', filename='vendors/flot.orderbars/js/jquery.flot.orderBars.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/flot-spline/js/jquery.flot.spline.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/flot.curvedlines/curvedLines.js') }}"></script>
+  <!-- DateJS -->
+  <script src="{{ url_for('static', filename='vendors/DateJS/build/date.js') }}"></script>
+  <!-- JQVMap -->
+  <script src="{{ url_for('static', filename='vendors/jqvmap/dist/jquery.vmap.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/jqvmap/examples/js/jquery.vmap.sampledata.js') }}"></script>
+  <!-- jQuery Smart Wizard -->
+  <script src="{{ url_for('static', filename='vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js') }}"></script>
+   <!-- Datatables -->
+   <script src="{{ url_for('static', filename='vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/datatables.net-scroller/js/dataTables.scroller.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/jszip/dist/jszip.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/pdfmake/build/pdfmake.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='vendors/pdfmake/build/vfs_fonts.js') }}"></script>
+{% endblock javascripts %}

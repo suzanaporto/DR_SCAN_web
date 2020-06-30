@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <title>Regulomix | Initial Page</title>
+    </head>
+    <style>
+     .vertical-center {
+         min-height: 100%;
+         min-height: 100vh;
+         display: flex;
+         align-items: center;
+     }
+
+    </style>
+    <body>
+        <div class="vertical-center" style="background-color: #0e6b39;padding-bottom: 0px;margin-bottom: 0px;display: block;">
+            <div class="" style="display: flex;justify-content: center;align-items: center; margin-bottom: 20px;padding-top: 5px;">
+                <img src="/static/images/regulomix-branco.png" style="width: 360px; height: 145px;"></img>
+            </div>
+            <div style="display: flex;">
+                <div class="container" style="background-color: #5dc099; display: inline-block; padding: 20px;border-radius: .30rem;margin-right:10px;margin-left: 50px;">
+                    <div>
+                        <h1>Welcome to Regulomix</h1>
+                        <p>Is it your first time here? Watch the video below to know about this tool</p>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/etuaDrbE3IY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="container" style="background-color: #5dc099; display: inline-block; padding: 20px;border-radius: .30rem;margin-left:10px;margin-right: 50px;">
+                    <div>
+                        <h1>Login and Register</h1>
+                        <p>If already know about Regulomix click on the button below to login or signup</p>
+                    </div>
+                    <div>
+                        <a href="{{ url_for('base_blueprint.login') }}" class="btn btn-success"> Login and Registration Page </a>
+                    </div>
+                </div>
+            </div>
+        <!-- </div> -->
+            <!-- Footer -->
+            <footer class="#" style="margin-bottom: 0px;position:absolute;display: flex;justify-content:center;bottom: 0px; background-color: #fff; width: 100%;">
+
+                <!-- Logos -->
+                <div class="#" style="padding: 5px;margin: auto;width: 50%;display: flex;justify-content:center;">
+                    <img src="/static/images/unifor.png" style="width: 90px; height: 75px;"></img>
+                    <img src="/static/images/lbmd.png" style="width: 130px; height: 80px;"></img>
+                    <img src="/static/images/IFCE.png" style="width: 82px; height: 75px;"></img>
+                    <img src="/static/images/LAPISCO.png" style="width: 250px; height: 80px;"></img>
+                </div>
+                <!-- Logos -->
+          
+            </footer>
+            <!-- Footer -->
+        </div>
+    </body>
+</html>
