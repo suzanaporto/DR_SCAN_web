@@ -3,20 +3,22 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="icon" href="{{ url_for('static', filename='images/regulomix-icone-cor.png') }}" type="image/png" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <title>Regulomix | Initial Page</title>
     </head>
     <style>
      .vertical-center {
-         min-height: 100%;
-         min-height: 100vh;
+         /* min-height: 90%;
+         min-height: 90vh; */
          display: flex;
          align-items: center;
+         position: relative;
      }
 
     </style>
-    <body>
-        <div class="vertical-center" style="background-color: #0e6b39;padding-bottom: 0px;margin-bottom: 0px;display: block;">
+    <body style="height: 100vh;">
+        <div class=".vertical-center" style="background-color: #0e6b39;margin-bottom: 0px;padding-bottom: 50px;">
             <div class="" style="display: flex;justify-content: center;align-items: center; margin-bottom: 20px;padding-top: 5px;">
                 <img src="/static/images/regulomix-branco.png" style="width: 360px; height: 145px;"></img>
             </div>
@@ -38,21 +40,22 @@
                     </div>
                 </div>
             </div>
-        <!-- </div> -->
+        </div>
             <!-- Footer -->
-            <footer class="#" style="margin-bottom: 0px;position:absolute;display: flex;justify-content:center;bottom: 0px; background-color: #fff; width: 100%;">
+            <footer class="#" style="position:fixed; margin-bottom: 0px;justify-content:center;bottom: 0px; background-color: #fff; width: 100%;">
 
                 <!-- Logos -->
                 <div class="#" style="padding: 5px;margin: auto;width: 50%;display: flex;justify-content:center;">
-                    <img src="/static/images/unifor.png" style="width: 90px; height: 75px;"></img>
+                    <!-- <img src="/static/images/unifor.png" style="width: 90px; height: 75px;"></img>
                     <img src="/static/images/lbmd.png" style="width: 130px; height: 80px;"></img>
                     <img src="/static/images/IFCE.png" style="width: 82px; height: 75px;"></img>
-                    <img src="/static/images/LAPISCO.png" style="width: 250px; height: 80px;"></img>
+                    <img src="/static/images/LAPISCO.png" style="width: 250px; height: 80px;"></img> -->
+                    <img src="/static/images/logos_juntas_4.png" style="width: 700px; height: 115px;"></img>
                 </div>
                 <!-- Logos -->
           
             </footer>
             <!-- Footer -->
-        </div>
+        <!-- </div> -->
     </body>
 </html>
