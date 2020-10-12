@@ -3,7 +3,7 @@
 | **master** | [![Build Status](https://travis-ci.org/afourmy/flask-gentelella.svg?branch=master)](https://travis-ci.org/afourmy/flask-gentelella) [![Coverage Status](https://coveralls.io/repos/github/afourmy/flask-gentelella/badge.svg?branch=master)](https://coveralls.io/github/afourmy/flask-gentelella?branch=master)
 | **develop** | [![Build Status](https://travis-ci.org/afourmy/flask-gentelella.svg?branch=develop)](https://travis-ci.org/afourmy/flask-gentelella) [![Coverage Status](https://coveralls.io/repos/github/afourmy/flask-gentelella/badge.svg?branch=develop)](https://coveralls.io/github/afourmy/flask-gentelella?branch=develop)
 
-# Flask Gentelella
+# Regulomix (Using Flask Gentelella Flask Tamplate)
 
 [Gentelella](https://github.com/puikinsh/gentelella) is a free to use Bootstrap admin template.
 
@@ -33,6 +33,19 @@ This project shows:
 - how to implement a [workflow automation](http://afourmy.pythonanywhere.com/workflows/manage_BGP-configuration-workflow) system using Vis.js.
 - how to use [Leaflet.js](http://afourmy.pythonanywhere.com/views/geographical_view) for GIS programming.
 - how to use [Flask APScheduler](https://github.com/viniciuschiele/flask-apscheduler) to implement crontab-like features.
+
+## Run Regulomix using docker
+
+### 1. Get the code
+    git clone https://github.com/suzanaporto/DR_SCAN_web.git
+    cd DR_SCAN_WEB
+
+### 2. Download docker and docker-compose
+
+### 3. Run docker-compose
+    sudo docker-compose build && sudo docker-compose up -d
+
+### 4. Access website through localhost:5000
 
 ## Run Flask Gentelella with a SQLite database
 
